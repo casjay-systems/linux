@@ -1,0 +1,5 @@
+###Liveconfig
+#deb http://repo.liveconfig.com/debian/ main main
+
+###Liveconfig PHP Repo
+#deb http://repo.liveconfig.com/debian/ mydebiancodename php

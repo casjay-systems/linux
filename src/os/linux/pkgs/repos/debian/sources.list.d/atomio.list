@@ -1,0 +1,3 @@
+###Atom Editor
+#apt install atom-beta
+deb https://packagecloud.io/AtomEditor/atom/any/ any main

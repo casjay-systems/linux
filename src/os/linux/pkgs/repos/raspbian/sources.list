@@ -1,0 +1,12 @@
+#------------------------------------------------------------------------------#
+#                   OFFICIAL DEBIAN REPOS                    
+#------------------------------------------------------------------------------#
+
+deb [arch=armhf] http://ftp.us.debian.org/debian/ mydebiancodename main contrib non-free
+#deb-src [arch=armhf] http://ftp.us.debian.org/debian/ mydebiancodename main contrib non-free
+
+deb [arch=armhf] http://ftp.us.debian.org/debian/ mydebiancodename-updates main contrib non-free
+#deb-src [arch=armhf] http://ftp.us.debian.org/debian/ mydebiancodename-updates main contrib non-free
+
+deb [arch=armhf] http://security.debian.org/ mydebiancodename/updates main contrib non-free
+#deb-src [arch=armhf] http://security.debian.org/ mydebiancodename/updates main contrib non-free

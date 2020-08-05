@@ -1,0 +1,3 @@
+# Parrot apt sources
+#deb https://deb.parrotsec.org/parrot parrot main contrib non-free
+#deb-src https://deb.parrotsec.org/parrot parrot main contrib non-free

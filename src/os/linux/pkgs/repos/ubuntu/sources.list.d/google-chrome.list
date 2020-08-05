@@ -1,0 +1,3 @@
+#### Google Chrome Browser - http://www.google.com/linuxrepositories/
+## Run this command: wget -q https://dl.google.com/linux/linux_signing_key.pub -O- | sudo apt-key add -
+deb http://dl.google.com/linux/chrome/deb/ stable main

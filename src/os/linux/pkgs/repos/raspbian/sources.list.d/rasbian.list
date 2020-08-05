@@ -1,0 +1,3 @@
+# Rasbian source
+deb http://raspbian.raspberrypi.org/raspbian/ stable main contrib non-free rpi
+#deb-src http://raspbian.raspberrypi.org/raspbian/ mydebiancodename main contrib non-free rpi

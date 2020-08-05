@@ -1,0 +1,3 @@
+###LLVM + Clang + compiler-rt + polly + LLDB + LLD + libFuzzer + libc++ + libc++abi + openmp
+#deb http://apt.llvm.org/mydebiancodename/ llvm-toolchain-mydebiancodename main
+#deb-src http://apt.llvm.org/mydebiancodename/ llvm-toolchain-mydebiancodename main

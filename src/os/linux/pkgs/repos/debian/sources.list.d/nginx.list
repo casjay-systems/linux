@@ -1,0 +1,3 @@
+###nginx
+deb http://nginx.org/packages/debian/ mydebiancodename nginx
+#deb-src http://nginx.org/packages/debian/ mydebiancodename nginx

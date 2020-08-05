@@ -1,0 +1,2 @@
+###Docker CE
+deb [arch=amd64] https://download.docker.com/linux/debian mydebiancodename mydebiancodename

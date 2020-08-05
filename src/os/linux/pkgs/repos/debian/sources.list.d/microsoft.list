@@ -1,0 +1,2 @@
+# Register the Microsoft Product feed
+#deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod mydebiancodename main

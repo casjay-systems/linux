@@ -1,0 +1,114 @@
+! Default Settings
+! Disable screen saver
+xset s off
+xset -dpms
+xset s off -dpms
+
+*.theme:                        Obsidian-Purple
+Xcursor*theme:                  Vanilla-DMZ-AA
+*.alpha:                        240
+*.cursorColor:                  #8600d3
+*.cursorBlink:                  true
+*.pointerColorBackground:       #ACEA5C
+*.pointerColorForeground:       #59cd36
+*.faceName:                     Hack Nerd Font
+*.faceSize:                     10
+*.termName:                     xterm-256color
+*.eightBitInput:                false
+*.geometry:                     100x48+200+200
+*.visualBell:                   true
+*.bellIsUrgent:                 true
+*.dynamiccolors:                true
+*.utf8:                         2
+*.highlightSelection:           true
+*.transparent:                  true
+*.loginshell:                   true
+
+! X Font Configuration
+*.dpi:                          96
+*.antialias:                    true
+*.hinting:                      false
+*.rgba:                         rgb
+*.autohint:                     false
+*.hintstyle:                    hintslight
+*.lcdfilter:                    lcddefault
+
+! Default Color
+! special
+*.foreground:                   #ffffff
+*.background:                   #000000
+
+! black
+!*.color0:                       #222827
+!*.color8:                       #5d6f74
+
+! red
+!*.color1:                       #d5a8e3
+!*.color9:                       #cd749c
+
+! green
+!*.color2:                       #9c75dd
+!*.color10:                      #63b0b0
+
+! yellow
+!*.color3:                       #9898ae
+!*.color11:                      #c0c0dd
+
+! blue
+!*.color4:                       #654a96
+!*.color12:                      #5786bc
+
+! magenta
+!*.color5:                       #625566
+!*.color13:                      #3f3442
+
+! cyan
+!*.color6:                       #a9d1df
+!*.color14:                      #849da2
+
+! white
+!*.color7:                       #e6ebe5
+!*.color15:                      #d9d6cf
+
+! Rofi Configuration
+rofi.color-window:              argb:c82d303b, #7c8389, #1d1f21
+rofi.color-normal:              argb:31d1f21, #c4cbd4, argb:96404552, #4084d6, #f9f9f9
+rofi.color-urgent:              argb:2c1d1f21, #cc6666, argb:e54b5160, #a54242, #f9f9f9
+rofi.color-active:              argb:2c1d1f21, #65acff, argb:e44b5160, #4491ed, #f9f9f9
+rofi.width:                     100
+rofi.height:                    24
+rofi.lines:                     5
+rofi.columns:                   2
+rofi.font:                      Hack Nerd Font 10
+rofi.bw:                        0
+rofi.padding:                   400
+rofi.eh:                        1
+rofi.separator-style:           solid
+rofi.hide-scrollbar:            true
+
+! URxvt Configuration
+URxvt.termName:                 rxvt-256color
+URxvt.scrollBar:                false
+URxvt.transparent:              true
+URxvt.shading:                  15
+URxvt.depth:                    32
+URxvt*letterSpace:              -1
+URxvt.font:                     xft:Hack Nerd Font:pixelsize=10,xft:PowerlineSymbols
+URxvt.boldFont:                 xft:Hack Nerd Fontpixelsize=10:weight=bold,xft:Symbola
+URxvt.italicFont:               xft:Hack Nerd Font:pixelsize=10:slant=italic,xft:Symbola
+URxvt.perl-ext-common:          eval
+URxvt.keysym.Shift-Control-C:   eval:selection_to_clipboard
+URxvt.keysym.Shift-Control-V:   eval:paste_clipboard
+URxvt.iso14755:                 false
+urxvt*background:               rgba:0000/0000/0200/c800
+
+! Xterm
+XTerm*savelines:                16384
+XTerm*charClass:                33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+XTerm*rightScrollBar:           true
+XTerm*ScrollBar:                true
+XTerm*allowSendEvents:          true
+XTerm*faceName:                 Hack Nerd Font
+XTerm*font:                     *-fixed-*-*-*-18-*
+XTerm*faceSize:                 10
+

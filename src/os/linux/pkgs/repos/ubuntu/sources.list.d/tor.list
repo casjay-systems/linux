@@ -1,0 +1,4 @@
+#### Tor: anonymity online - https://www.torproject.org
+## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 886DDD89
+#deb http://deb.torproject.org/torproject.org mydebiancodename main
+#deb-src http://deb.torproject.org/torproject.org mydebiancodename main

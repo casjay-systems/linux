@@ -1,0 +1,16 @@
+#------------------------------------------------------------------------------#
+#                   OFFICIAL DEBIAN REPOS                    
+#------------------------------------------------------------------------------#
+
+###### Debian Main Repos
+deb http://deb.debian.org/debian/ mydebiancodename main contrib non-free
+#deb-src http://deb.debian.org/debian/ mydebiancodename main contrib non-free
+
+deb http://deb.debian.org/debian/ mydebiancodename-updates main contrib non-free
+#deb-src http://deb.debian.org/debian/ mydebiancodename-updates main contrib non-free
+
+deb http://deb.debian.org/debian-security mydebiancodename/updates main
+#deb-src http://deb.debian.org/debian-security mydebiancodename/updates main
+
+deb http://ftp.debian.org/debian mydebiancodename-backports main
+#deb-src http://ftp.debian.org/debian mydebiancodename-backports main

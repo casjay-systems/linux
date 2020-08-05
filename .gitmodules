@@ -1,0 +1,72 @@
+[submodule "src/config/awesome"]
+	path = src/config/awesome
+	url = https://github.com/casjay-dotfiles/awesome
+[submodule "src/config/bash"]
+	path = src/config/bash
+	url = https://github.com/casjay-dotfiles/bash
+[submodule "src/config/geany"]
+	path = src/config/geany
+	url = https://github.com/casjay-dotfiles/geany
+[submodule "src/config/git"]
+	path = src/config/git
+	url = https://github.com/casjay-dotfiles/git
+[submodule "src/config/gtk-2.0"]
+	path = src/config/gtk-2.0
+	url = https://github.com/casjay-dotfiles/gtk-2.0
+[submodule "src/config/gtk-3.0"]
+	path = src/config/gtk-3.0
+	url = https://github.com/casjay-dotfiles/gtk-3.0
+[submodule "src/config/htop"]
+	path = src/config/htop
+	url = https://github.com/casjay-dotfiles/htop
+[submodule "src/config/i3"]
+	path = src/config/i3
+	url = https://github.com/casjay-dotfiles/i3
+[submodule "src/config/neofetch"]
+	path = src/config/neofetch
+	url = https://github.com/casjay-dotfiles/neofetch
+[submodule "src/config/nitrogen"]
+	path = src/config/nitrogen
+	url = https://github.com/casjay-dotfiles/nitrogen
+[submodule "src/config/openbox"]
+	path = src/config/openbox
+	url = https://github.com/casjay-dotfiles/openbox
+[submodule "src/config/qtile"]
+	path = src/config/qtile
+	url = https://github.com/casjay-dotfiles/qtile
+[submodule "src/config/remmina"]
+	path = src/config/remmina
+	url = https://github.com/casjay-dotfiles/remmina
+[submodule "src/config/smplayer"]
+	path = src/config/smplayer
+	url = https://github.com/casjay-dotfiles/smplayer
+[submodule "src/config/smtube"]
+	path = src/config/smtube
+	url = https://github.com/casjay-dotfiles/smtube
+[submodule "src/config/termite"]
+	path = src/config/termite
+	url = https://github.com/casjay-dotfiles/termite
+[submodule "src/config/terminology"]
+	path = src/config/terminology
+	url = https://github.com/casjay-dotfiles/terminology
+[submodule "src/config/Thunar"]
+	path = src/config/Thunar
+	url = https://github.com/casjay-dotfiles/Thunar
+[submodule "src/config/transmission"]
+	path = src/config/transmission
+	url = https://github.com/casjay-dotfiles/transmission
+[submodule "src/config/variety"]
+	path = src/config/variety
+	url = https://github.com/casjay-dotfiles/variety
+[submodule "src/config/vifm"]
+	path = src/config/vifm
+	url = https://github.com/casjay-dotfiles/vifm
+[submodule "src/config/xfce4"]
+	path = src/config/xfce4
+	url = https://github.com/casjay-dotfiles/xfce4
+[submodule "src/config/zsh"]
+	path = src/config/zsh
+	url = https://github.com/casjay-dotfiles/zsh
+[submodule "src/config/xmonad"]
+	path = src/config/xmonad
+	url = https://github.com/casjay-dotfiles/xmonad
