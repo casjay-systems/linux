@@ -13,7 +13,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   create_motd() {
-
     if [ -f /usr/games/fortune ]; then
       FORTUNE="/usr/games/fortune"
     else
@@ -27,12 +26,8 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
     declare -r FILE_PATH="/etc/motd.net"
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     sudo touch /etc/motd &&
-      $FORTUNE | $COWSAY >/tmp/motd &&
-      sudo mv -f /tmp/motd $FILE_PATH
-
+      $FORTUNE | $COWSAY >/tmp/motd && sudo mv -f /tmp/motd $FILE_PATH
     print_result $? "$FILE_PATH"
 
   }
@@ -43,11 +38,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
     declare -r FILE_PATH="/etc/issue.net"
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    sudo touch /etc/issue &&
-      sudo cp -Rf "$(cd .. && pwd)/shell/motd" /etc/issue.net
-
+    sudo touch /etc/issue && sudo cp -Rf "$(cd .. && pwd)/shell/motd" /etc/issue.net
     print_result $? "$FILE_PATH"
 
   }
@@ -57,10 +48,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   create_sudo() {
     declare -r FILE_PATH="/etc/sudoers.d/insults"
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     echo "Defaults    insults" >$FILE_PATH
-
     print_result $? "$FILE_PATH"
 
   }
@@ -71,8 +59,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
     MYUSER=${SUDO_USER:-$(whoami)}
     ISINDSUDO=$(sudo grep -Re "$MYUSER" /etc/sudoers* | grep "ALL" >/dev/null)
     declare -r FILE_PATH="/etc/sudoers.d/$MYUSER"
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     echo "$MYUSER ALL=(ALL)   NOPASSWD: ALL" >$FILE_PATH
     chmod -f 440 $FILE_PATH
@@ -85,7 +71,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   create_pac() {
     if [ -f /usr/bin/pacman ]; then
 
-      echo ""
       execute \
         "sudo cp -f $(cd .. && pwd)/bin/pac /usr/bin/pac" \
         "Installing pac → /usr/bin/pac"
@@ -107,7 +92,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
         sudo mkdir -p /boot/grub/themes
       fi
 
-      echo ""
       execute \
         "sudo cp -Rf $customizedir/boot/grub /etc/default/grub && \
         sudo cp -Rf $customizedir/boot/themes/* /boot/grub/themes && \
@@ -117,13 +101,12 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
         "Installing grub customizations"
 
     fi
-    ########
+
     if [ -f /boot/grub2/grub.cfg ]; then
       if [ ! -d /boot/grub2/themes ]; then
         sudo mkdir -p /boot/grub2/themes
       fi
 
-      echo ""
       execute \
         "sudo cp -Rf $customizedir/boot/grub /etc/default/grub && \
         sudo cp -Rf $customizedir/boot/themes/* /boot/grub2/themes && \
@@ -149,7 +132,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
     fi
 
     if [ -d /etc/lightdm ]; then
-      echo ""
       execute \
         "sudo cp -Rf $customizedir/login/lightdm/etc/* /etc/lightdm/ && \
         sudo cp -Rf $customizedir/login/lightdm/share/lightdm/* /usr/share/lightdm/ && \
@@ -159,7 +141,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
     ########
     if [ -d /etc/lxdm ]; then
-      echo ""
       execute \
         "sudo cp -Rf $customizedir/login/lxdm/share/* /usr/share/lxdm/" \
         "Installing lxdm customizations"
@@ -191,19 +172,17 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
   create_icons() {
 
-    echo ""
     execute \
       "sudo cp -Rf $customizedir/icons/* /usr/share/icons && \
       sudo fc-cache -f /usr/share/icons/N.I.B./ && \
       sudo fc-cache -f /usr/share/icons/Obsidian-Purple/" \
       "Installing icons"
 
-    echo ""
     sudo find /usr/share/icons -mindepth 1 -maxdepth 1 -type d | while read -r THEME; do
       if [ -f "$THEME/index.theme" ]; then
         execute \
           "gtk-update-icon-cache -f -q "$THEME"" \
-          "Updating ICON cache"
+          "Updating ICON $THEME"
       fi
     done
 
@@ -212,8 +191,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   create_themes() {
-
-    echo ""
     execute \
       "sudo cp -Rf $customizedir/themes/* /usr/share/themes" \
       "Installing themes"
@@ -222,8 +199,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   create_fonts() {
-
-    echo ""
     execute \
       "sudo cp -Rf $customizedir/fonts/* /usr/share/fonts" \
       "Installing fonts"
@@ -237,25 +212,15 @@ fi
 main() {
 
   sudo chmod -f 755 /etc/sudoers.d
-
   create_motd
-
   create_issue
-
   create_sudo
-
   create_user
-
   create_pac
-
   create_boot_theme
-
   create_login_theme
-
   create_icons
-
   create_themes
-
   create_fonts
 
 }

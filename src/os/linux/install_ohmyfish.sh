@@ -18,7 +18,6 @@ setup_fish() {
           ln -sf $srcdir/fish ~/.config/fish" \
         "$srcdir/fish → ~/.config/fish"
     else
-      echo ""
       execute \
         "unlink ~/.config/fish && \
           rm -Rf ~/.config/fish && \
@@ -32,12 +31,10 @@ setup_fish() {
 
 setup_ohmyfish() {
   if [ -d "$HOME/.local/share/fish/oh-my-fish/.git" ]; then
-    echo ""
     execute \
       "cd -$HOME/.local/share/fish/oh-my-fish && git pull -q >/dev/null 2>&1" \
       "Updating oh-my-fish"
   else
-    echo ""
     execute \
       "curl -LSsq https://get.oh-my.fish -o $HOME/.config/fish/omf-install \
       fish $HOME/.config/fish/omf-install --path=-$HOME/.local/share/fish/oh-my-fish --config=~/.config/fish/omf --noninteractive --yes" \
@@ -48,7 +45,6 @@ setup_ohmyfish() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_fishplugins() {
-  echo ""
   execute \
     "fish $HOME/.config/fish/plugins.fish 2>/dev/null" \
     "Installing fish plugins"
@@ -59,9 +55,7 @@ setup_fishplugins() {
 main() {
 
   setup_fish
-
   setup_ohmyfish
-
   setup_fishplugins
 
 }

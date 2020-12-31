@@ -14,7 +14,6 @@ create_icons() {
     mv -f ~/.local/share/icons ~/.local/share/icons.old
   fi
 
-  echo ""
   if [ -d ~/.local/share/icons.old ]; then
     execute \
       "ln -sf $customizedir/icons ~/.local/share/icons && \
@@ -31,12 +30,11 @@ create_icons() {
       "$customizedir/icons → ~/.local/share/icons"
   fi
 
-  echo ""
   find ~/.local/share/icons/ -mindepth 1 -maxdepth 1 -type d | while read -r THEME; do
     if [ -f "$THEME/index.theme" ]; then
       execute \
-        "gtk-update-icon-cache -f -q "$THEME"" \
-        "Updating ICON cache"
+        "gtk-update-icon-cache -f -q $THEME" \
+        "Updating ICON $THEME"
     fi
   done
 

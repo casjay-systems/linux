@@ -15,12 +15,10 @@ install_vim() {
     if [ -L ~/.vim ]; then unlink ~/.vim 2>/dev/null; fi
     if [ -d ~/.vim ]; then rm -Rf -f ~/.vim 2>/dev/null; fi
 
-    echo ""
     execute \
       "ln -sf ~/.config/vim ~/.vim" \
       "~/.config/vim/  → ~/.vim"
 
-    echo ""
     execute \
       "ln -sf $srcdir/config/vim/vimrc ~/.vimrc" \
       "$srcdir/config/vim/vimrc  → ~/.vimrc"
@@ -28,7 +26,6 @@ install_vim() {
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     if [ ! -d "$HOME/.local/share/vim/Vundle.vim/.git" ]; then
-      echo ""
       execute \
         "rm -Rf $HOME/.local/share/vim/Vundle.vim && \
         git clone -q https://github.com/VundleVim/Vundle.vim.git $HOME/.local/share/vim/Vundle.vim && \
@@ -36,7 +33,6 @@ install_vim() {
         "vim +PluginInstall +qall → $HOME/.local/share/vim/"
 
     else
-      echo ""
       execute \
         "cd $HOME/.local/share/vim/Vundle.vim && \
         git pull -q && \

@@ -8,7 +8,6 @@ srcdir="$(cd .. && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_directories() {
-  echo ""
   declare -a DIRECTORIES=(
     "$HOME/Projects"
     "$HOME/.config"

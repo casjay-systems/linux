@@ -11,7 +11,6 @@ install_git() {
   if [ -f "$srcdir/config/git/install.sh" ]; then
     execute "$srcdir/config/git/install.sh" "Installing GIT"
   else
-    echo ""
     execute \
       "ln -sf $srcdir/config/git/gitconfig ~/.gitconfig" \
       "$srcdir/config/git/gitconfig  → ~/.gitconfig"
@@ -21,13 +20,11 @@ install_git() {
 
 install_ohmygit() {
   if [ ! -d "$HOME/.local/share/git/oh-my-git/.git" ]; then
-    echo ""
     execute \
       "rm -Rf $HOME/.local/share/git/oh-my-git && \
       git clone https://github.com/arialdomartini/oh-my-git $HOME/.local/share/git/oh-my-git" \
       "cloning oh-my-git → $HOME/.local/share/git/oh-my-git"
   else
-    echo ""
     execute \
       "git -C $HOME/.local/share/git/oh-my-git pull -q" \
       "Updating oh-my-git"
@@ -46,7 +43,6 @@ install_ohmygit() {
     && source \"\$HOME/.local/share/git/oh-my-git/prompt.sh\"
 "
 
-      echo ""
       execute \
         "printf '%s' '$CONFIGS' >> ~/.config/local/bash.local" \
         "Enabling oh-my-git in ~/.config/local/bash.local"
@@ -59,7 +55,6 @@ install_ohmygit() {
 main() {
 
   install_git
-
   install_ohmygit
 
 }
