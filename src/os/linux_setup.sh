@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/sbin:/usr/sbin:/sbin
+
 #Modify and set if using the auth token
 AUTHTOKEN=""
 # either http https or git
@@ -40,7 +42,7 @@ NC='\033[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if [ -f ~/.config/dotfiles/env ]; then
-   source ~/.config/dotfiles/env
+  source ~/.config/dotfiles/env
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -60,7 +62,7 @@ if [ -d $HOME/.config/bash/profile ]; then rm -Rf $HOME/.config/bash/profile/*.w
 if [ -z $UPDATE ]; then
   if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' > /dev/null; then
 #Define the package manager and install option
-   if [ -f /usr/bin/apt ]; then
+  if [ -f /usr/bin/apt ]; then
     LSBPAC=lsb-release
     pkgmgr="DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --ignore-missing --allow-unauthenticated --assume-yes"
     instoption="-yy -qq install"
@@ -87,13 +89,13 @@ if [ -z $UPDATE ]; then
     instoption="-Syy --needed --noconfirm"
     instupdateoption="--Syyu --noconfirm"
     instchkupdatecmd="$(checkupdates 2> /dev/null | wc -l)"
-   fi
+  fi
 
 if [[ "$instchkupdatecmd" != 0 ]]; then
     printf "\n${RED}  *** Please update your system before runng this installer ***${NC}\n"
     printf "\n${RED}  *** You have $instchkupdatecmd update available ***${NC}\n\n\n\n"
     exit 1
-   fi
+    fi
   fi
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -687,4 +689,3 @@ NEWVERSION="$(echo $(cat $srcdir/os/version.txt | tail -n 1))"
 ##################################################################################################
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-

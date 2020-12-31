@@ -6,10 +6,10 @@
 sudo: enabled
 
 install:
-  - bash -c "$(curl -LSs https://github.com/casjay-dotfiles/scripts/raw/master/install.sh)"
   - sudo bash -c "$(curl -LSs https://github.com/casjay-dotfiles/scripts/raw/master/install.sh)"
-  - pkmgr makecache
-  - pkmgr update
+  - sudo bash -c "$(curl -LSs https://github.com/casjay-dotfiles/scripts/raw/master/install.sh)"
+  - sudo pkmgr makecache
+  - sudo pkmgr update
   - ./install.sh
 
 matrix:
