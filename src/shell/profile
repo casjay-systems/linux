@@ -32,8 +32,8 @@ if [ ! -f ~/.Xresources ]; then
     xrdb -merge ~/.Xresources 2>/dev/null
 fi
 
-if [ -f ~/.local/.configs/gitconfig.local ] && [ ! -f ~/.gitconfig ]; then
-cp -f ~/.local/.configs/gitconfig.local ~/.gitconfig
+if [ -f ~/.config/locals/gitconfig.local ] && [ ! -f ~/.gitconfig ]; then
+cp -f ~/.config/locals/gitconfig.local ~/.gitconfig
 fi
 
 if [[ "$(python3 -V)" =~ "Python 3" ]]; then
@@ -46,4 +46,3 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-

@@ -8,8 +8,8 @@ srcdir="$(cd .. && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_tmux() {
-  if [ -f "$HOME/.config/tmux/install.sh" ]; then
-    execute "$HOME/.config/tmux/install.sh" "Installing tmux"
+  if [ -f "$srcdir/config/tmux/install.sh" ]; then
+    execute "$srcdir/config/tmux/install.sh" "Installing tmux"
   else
     rm -Rf ~/.tmux.conf
     if [ -L ~/.tmux ]; then unlink ~/.tmux 2>/dev/null; fi

@@ -8,8 +8,8 @@ srcdir="$(cd .. && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_vim() {
-  if [ -f "$HOME/.config/vim/install.sh" ]; then
-    execute "$HOME/.config/vim/install.sh" "Installing vim"
+  if [ -f "$srcdir/config/vim/install.sh" ]; then
+    execute "$srcdir/config/vim/install.sh" "Installing vim"
   else
     rm -Rf ~/.vimrc
     if [ -L ~/.vim ]; then unlink ~/.vim 2>/dev/null; fi

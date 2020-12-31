@@ -8,11 +8,10 @@ srcdir="$(cd .. && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_fish() {
-  if [ -f "$HOME/.config/fish/install.sh" ]; then
-    execute "$HOME/.config/fish/install.sh" "Installing fish"
+  if [ -f "$srcdir/config/fish/install.sh" ]; then
+    execute "$srcdir/config/fish/install.sh" "Installing fish"
   else
     if [ -d -$HOME/.local/share/fish/oh-my-fish/.git ]; then
-      echo ""
       execute \
         "unlink ~/.config/fish && \
           rm -Rf ~/.config/fish && \
@@ -32,8 +31,7 @@ setup_fish() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_ohmyfish() {
-
-  if [ -d -$HOME/.local/share/fish/oh-my-fish/.git ]; then
+  if [ -d "$HOME/.local/share/fish/oh-my-fish/.git" ]; then
     echo ""
     execute \
       "cd -$HOME/.local/share/fish/oh-my-fish && git pull -q >/dev/null 2>&1" \
@@ -41,7 +39,8 @@ setup_ohmyfish() {
   else
     echo ""
     execute \
-      "fish $HOME/.config/fish/omf-install --path=-$HOME/.local/share/fish/oh-my-fish --config=~/.config/fish/omf --noninteractive --yes" \
+      "curl -LSsq https://get.oh-my.fish -o $HOME/.config/fish/omf-install \
+      fish $HOME/.config/fish/omf-install --path=-$HOME/.local/share/fish/oh-my-fish --config=~/.config/fish/omf --noninteractive --yes" \
       "Installing oh-my-fish"
   fi
 }

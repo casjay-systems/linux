@@ -8,8 +8,8 @@ srcdir="$(cd .. && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_zsh() {
-  if [ -f "$HOME/.config/zsh/install.sh" ]; then
-    execute "$HOME/.config/zsh/install.sh" "Installing zsh"
+  if [ -f "$srcdir/config/zsh/install.sh" ]; then
+    execute "$srcdir/config/zsh/install.sh" "Installing zsh"
   else
     rm -Rf ~/.zshrc
     echo ""

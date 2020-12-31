@@ -12,8 +12,8 @@ create_directories() {
   declare -a DIRECTORIES=(
     "$HOME/Projects"
     "$HOME/.config"
+    "$HOME/.config/local"
     "$HOME/.local/share/torrents"
-    "$HOME/.local/.configs"
   )
 
   for i in "${DIRECTORIES[@]}"; do
