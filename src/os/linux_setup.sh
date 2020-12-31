@@ -229,7 +229,7 @@ cd "$srcdir/os" && source "utils.sh"
   git pull --recursive -q && \
   cd ~" \
   "Updating dotfiles"
- NEWVERSION="$(echo $(cat $srcdir/version.txt | tail -n 1))"
+ NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
  REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
  printf "${GREEN}   [✔] Updated to $NEWVERSION - revision: $REVER${NC}\n\n"
 
@@ -239,7 +239,7 @@ else
  rm -Rf $dotfilesDirectory
  git clone --recursive -q $GITURL $dotfilesDirectory > /dev/null 2>&1
  printf "\n${GREEN}   [✔] clone $GITURL  → $dotfilesDirectory \n"
- NEWVERSION="$(echo $(cat $srcdir/version.txt | tail -n 1))"
+ NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
  REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
  printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n\n"
  cd "$srcdir/os" && source "utils.sh"
@@ -661,8 +661,8 @@ print_in_purple "\n • Running cleanup complete\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Print installed version
-NEWVERSION="$(echo $(cat $srcdir/version.txt | tail -n 1))"
-cp -Rf $srcdir/version.txt $srcdir/os/version.txt
+NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
+cp -Rf "$DOTFILES/version.txt" "$srcdir/os/version.txt"
 # End Install
 #RESULT=$?
  printf "\n${GREEN}       *** 😃 installation of dotfiles completed 😃 *** ${NC}\n"
