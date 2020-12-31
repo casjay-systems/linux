@@ -31,15 +31,16 @@ setup_tmuxplugins() {
     execute \
       "git -C $HOME/.local/share/tmux/tpm/tpm pull -q" \
       "Updating tmux plugin manager"
+
     execute \
       "bash $HOME/.local/share/tmux/tpm/scripts/install_plugins.sh 2> /dev/null" \
       "Updating tmux plugins"
   else
-
     execute \
       "rm -Rf $HOME/.local/share/tmux/tpm && \
       git clone -q https://github.com/tmux-plugins/tpm $HOME/.local/share/tmux/tpm" \
       "https://github.com/tmux-plugins/tpm → $HOME/.local/share/tmux/tpm"
+
     execute \
       "bash $HOME/.local/share/tmux/tpm/scripts/install_plugins.sh" \
       "Installing tmux plugins → ~/.config/tmux/plugins"

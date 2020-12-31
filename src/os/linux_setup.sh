@@ -248,7 +248,7 @@ fi
 
 # grab the modules
 
-for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile \
+for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux\
 remmina smplayer smtube terminology termite Thunar transmission variety vifm xfce4 xmonad zsh; do
   execute "git clone -q https://github.com/casjay-dotfiles/$config $dotfilesDirectory/src/config/$config" "Installing $config module"
 done
