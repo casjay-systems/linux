@@ -41,8 +41,8 @@ GREEN='\033[32m'
 NC='\033[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if [ -f ~/.config/dotfiles/env ]; then
-  source ~/.config/dotfiles/env
+if [ -f "$HOME/.config/dotfiles/env" ]; then
+  source "$HOME/.config/dotfiles/env"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -208,7 +208,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set version from git
 
-CURDOTFVERSION="$(echo $(curl -Lsq https://$GITREPO/raw/master/src/os/version.txt |grep -v "#" | tail -n 1))"
+CURDOTFVERSION="$(echo $(curl -Lsq https://$GITREPO/raw/master/version.txt |grep -v "#" | tail -n 1))"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Print distro info
@@ -224,13 +224,12 @@ if [ -d  $dotfilesDirectory/.git ]; then
     printf "\n${PURPLE} • Updating the git repo - $dotfilesDirectory${NC}\n\n"
 cd "$srcdir/os" && source "utils.sh"
 
-  echo ""
- execute \
+   execute \
  "cd $dotfilesDirectory && \
   git pull --recursive -q && \
   cd ~" \
   "Updating dotfiles"
- NEWVERSION="$(echo $(cat $srcdir/os/version.txt | tail -n 1))"
+ NEWVERSION="$(echo $(cat $srcdir/version.txt | tail -n 1))"
  REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
  printf "${GREEN}   [✔] Updated to $NEWVERSION - revision: $REVER${NC}\n\n"
 
@@ -240,7 +239,7 @@ else
  rm -Rf $dotfilesDirectory
  git clone --recursive -q $GITURL $dotfilesDirectory > /dev/null 2>&1
  printf "\n${GREEN}   [✔] clone $GITURL  → $dotfilesDirectory \n"
- NEWVERSION="$(echo $(cat $srcdir/os/version.txt | tail -n 1))"
+ NEWVERSION="$(echo $(cat $srcdir/version.txt | tail -n 1))"
  REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
  printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n\n"
  cd "$srcdir/os" && source "utils.sh"
@@ -248,9 +247,18 @@ fi
 
 # grab the modules
 
-for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux\
-remmina smplayer smtube terminology termite Thunar transmission variety vifm xfce4 xmonad zsh; do
-  execute "git clone -q https://github.com/casjay-dotfiles/$config $dotfilesDirectory/src/config/$config" "Installing $config module"
+for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux remmina \
+smplayer smtube terminology termite Thunar transmission variety vifm xfce4 xmonad zsh; do
+  if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
+    execute \
+    "git -C $dotfilesDirectory/src/config/$config pull -q" \
+    "Updating $config module"
+  else
+  rm -Rf "$dotfilesDirectory/src/config/$config"
+  execute \
+  "git clone -q https://github.com/casjay-dotfiles/$config $dotfilesDirectory/src/config/$config" \
+  "Installing $config module"
+  fi
 done
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -278,8 +286,7 @@ if [ -z $UPDATE ]; then
   if [[ "$DISTRO" = Arch ]]; then
   printf "\n${PURPLE} • Setting up for $DISTRO${NC}\n\n"
 if [[ ! -f  /etc/pacman.d/.srcinstall ]]; then
-  echo ""
-      execute \
+        execute \
       "sudo pacman-key --init 2> /dev/null && \
        sudo pacman-key --populate 2> /dev/null && \
        sudo pacman-key --refresh-keys 2> /dev/null &&
@@ -287,18 +294,15 @@ if [[ ! -f  /etc/pacman.d/.srcinstall ]]; then
       "Initializing pacman keys..... This may take some time"
 fi
 
-  echo ""
-      execute \
+        execute \
       "sudo pacman -Syy --noconfirm 2> /dev/null" \
       "Updating the package manager"
 
 # Lets install main packages
-  echo ""
-      execute \
+        execute \
       "sudo bash -c $linuxosdir/pkgs/lists/arch-sys.sh 2> /dev/null" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
 
-  echo ""
 
 # Now for aur packages
       execute \
@@ -325,13 +329,11 @@ fi
    if [[ "$CODENAME" == "na" ]]; then CODENAME=buster ; fi
   printf "\n${PURPLE} • Setting up for $CODENAME${NC}\n\n"
 if [[ ! -f  /etc/apt/.srcinstall ]]; then
-  echo ""
-      execute \
+        execute \
       "sudo $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null" \
       "Adding secondary keys"
 
-  echo ""
-      execute \
+        execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/google-chrome.list /etc/apt/sources.list.d/ && \
        sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/opera-stable.list /etc/apt/sources.list.d/ && \
        sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/typora.list /etc/apt/sources.list.d/ && \
@@ -344,8 +346,7 @@ fi
 # - - - - - - - - - - - - - - - - - -
 # Debian functions
    if [[ "$CODENAME" != "kali" ]] && [[ "$CODENAME" != "parrot" ]]; then
-  echo ""
-      execute \
+        execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list /etc/apt/sources.list && \
        sudo sed -i "s#mydebiancodename#${CODENAME}#g" /etc/apt/sources.list && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
@@ -353,8 +354,7 @@ fi
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
       "Updating the package manager"
 
-  echo ""
-      execute \
+        execute \
       "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
 
@@ -363,22 +363,19 @@ fi
 # - - - - - - - - - - - - - - - - - -
 # Kali functions
    if [[ "$CODENAME" == "kali" ]]; then
-  echo ""
-       execute \
+         execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list /etc/apt/sources.list && \
        sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/kali.list /etc/apt/sources.list.d/ && \
        sudo sed -i "s#mydebiancodename#buster#g" /etc/apt/sources.list" \
       "Adding kali repo"
 
-  echo ""
-       execute \
+         execute \
       "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
       "Updating the package manager"
 
-  echo ""
-       execute \
+         execute \
       "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
    fi
@@ -386,21 +383,18 @@ fi
 # - - - - - - - - - - - - - - - - - -
 # Parrot functions
    if [[ "$CODENAME" == "parrot" ]]; then
-  echo ""
-      execute \
+        execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/parrot.list /etc/apt/sources.list && \
        sudo sed -i "s#mydebiancodename#parrot#g" /etc/apt/sources.list" \
       "Adding parrot repo"
 
-  echo ""
-       execute \
+         execute \
       "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
       "Updating the package manager"
 
-  echo ""
-       execute \
+         execute \
       "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
    fi
@@ -412,29 +406,25 @@ fi
   elif [[ "$DISTRO" = Ubuntu ]]; then
   printf "${PURPLE}\n • Setting up for $CODENAME${NC}\n\n"
 if [[ ! -f  /etc/apt/.srcinstall ]]; then
-  echo ""
-      execute \
+        execute \
       "sudo bash -c $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null && \
        sudo bash -c $linuxosdir/pkgs/repos/ubuntu_keys.sh 2> /dev/null" \
       "Adding secondary keys"
 
-  echo ""
-      execute \
+        execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/ubuntu/* /etc/apt/ && \
        sudo sudo sed -i "s#mydebiancodename#${CODENAME}#g" /etc/apt/sources.list &&
        sudo touch /etc/apt/.srcinstall" \
        "Adding secondary repos"
 fi
 
-  echo ""
-      execute \
+        execute \
       "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
       "Updating the package manager"
 
-  echo ""
-      execute \
+        execute \
       "sudo bash -c $linuxosdir/pkgs/lists/ubuntu-sys.sh 2> /dev/null" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
 
@@ -444,22 +434,19 @@ fi
   elif [[ "$DISTRO" = Raspbian ]]; then
   printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
 if [[ ! -f  /etc/apt/.srcinstall ]]; then
-  echo ""
-      execute \
+        execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/raspbian/* /etc/apt/ && \
        sudo touch /etc/apt/.srcinstall" \
       "Setting up repos"
 fi
 
-  echo ""
-      execute \
+        execute \
       "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
       "Updating the package manager"
 
-  echo ""
-      execute \
+        execute \
       "sudo bash -c $linuxosdir/pkgs/lists/raspbian-sys.sh" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
 
@@ -469,14 +456,12 @@ fi
  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
  ELRELEASE="$(rpm -q --whatprovides redhat-release --queryformat "%{VERSION}\n" | sed 's/\/.*//' | sed 's/\..*//' | sed 's/Server*//')"
 
-  echo ""
-      execute \
+        execute \
       "sudo curl -Ls https://github.com/CasjaysDev/rpm-devel/blob/master/docs/ZREPO/RHEL/rhel/casjay.repo -o /etc/yum.repos.d/casjay.repo && \
        sudo yum makecache" \
       "Adding repos"
 
-  echo ""
-      execute \
+        execute \
       "sudo yum install -y -q --skip-broken thefuck powerline fontawesome-fonts fish vim zsh git tmux neofetch 2> /dev/null" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
 
@@ -484,14 +469,12 @@ fi
 # Fedora and derivatives
  elif [[ "$DISTRO" = Fedora ]]; then
  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
-  echo ""
-      execute \
+        execute \
       "sudo sudo cp -Rf $linuxosdir/pkgs/repos/fedora/* /etc/yum.repos.d/ && \
        sudo yum makecache 2> /dev/null" \
       "Adding yum repos"
 
-  echo ""
-      execute \
+        execute \
       "sudo bash -c $linuxosdir/pkgs/lists/fedora-sys.sh 2> /dev/null" \
       "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
 
@@ -665,7 +648,6 @@ fi
 print_in_purple "\n • Running cleanup\n\n"
 
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' > /dev/null; then
-echo ""
     execute \
     "sudo rm -Rf /usr/share/xsessions/*-shmlog.desktop" \
     "Clean up"
@@ -679,7 +661,8 @@ print_in_purple "\n • Running cleanup complete\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Print installed version
-NEWVERSION="$(echo $(cat $srcdir/os/version.txt | tail -n 1))"
+NEWVERSION="$(echo $(cat $srcdir/version.txt | tail -n 1))"
+cp -Rf $srcdir/version.txt $srcdir/os/version.txt
 # End Install
 #RESULT=$?
  printf "\n${GREEN}       *** 😃 installation of dotfiles completed 😃 *** ${NC}\n"

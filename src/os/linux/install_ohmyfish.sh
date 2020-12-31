@@ -8,20 +8,17 @@ srcdir="$(cd .. && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_fish() {
+  unlink "$HOME/.config/fish" 2>/dev/null || rm -Rf $HOME/.config/fish 2>/dev/null
   if [ -f "$srcdir/config/fish/install.sh" ]; then
     execute "$srcdir/config/fish/install.sh" "Installing fish"
   else
-    if [ -d -$HOME/.local/share/fish/oh-my-fish/.git ]; then
+    if [ -d "$HOME/.local/share/fish/oh-my-fish/.git" ]; then
       execute \
-        "unlink ~/.config/fish && \
-          rm -Rf ~/.config/fish && \
-          ln -sf $srcdir/fish ~/.config/fish" \
+        "ln -sf $srcdir/fish ~/.config/fish" \
         "$srcdir/fish → ~/.config/fish"
     else
       execute \
-        "unlink ~/.config/fish && \
-          rm -Rf ~/.config/fish && \
-          ln -sf $srcdir/fish ~/.config/" \
+        "ln -sf $srcdir/fish ~/.config/" \
         "$srcdir/fish → ~/.config/fish"
     fi
   fi

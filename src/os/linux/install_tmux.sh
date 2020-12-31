@@ -42,8 +42,8 @@ setup_tmuxplugins() {
       "https://github.com/tmux-plugins/tpm → $HOME/.local/share/tmux/tpm"
 
     execute \
-      "bash $HOME/.local/share/tmux/tpm/scripts/install_plugins.sh" \
-      "Installing tmux plugins → ~/.config/tmux/plugins"
+      "bash -c $HOME/.local/share/tmux/tpm/scripts/install_plugins.sh" \
+      "Installing tmux plugins → $HOME/.local/share/tmux/tpm"
   fi
 }
 
