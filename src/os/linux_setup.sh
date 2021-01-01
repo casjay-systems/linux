@@ -166,22 +166,22 @@ if [ -z $linuxosdir ]; then printf "\n${RED}  *** dotfiles linuxos directory not
 #####
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-GIT=$(which git 2>/dev/null)
-CURL=$(which curl 2>/dev/null)
-WGET=$(which wget 2>/dev/null)
-VIM=$(which vim 2>/dev/null)
-TMUX=$(which tmux 2>/dev/null)
-ZSH=$(which zsh 2>/dev/null)
-FISH=$(which fish 2>/dev/null)
-SUDO=$(which sudo 2>/dev/null)
-LSBR=$(which lsb_release 2>/dev/null)
-POLYBAR=$(which polybar 2>/dev/null)
-JGMENU=$(which jgmenu 2>/dev/null)
+GIT=$(command -v git 2>/dev/null)
+CURL=$(command -v curl 2>/dev/null)
+WGET=$(command -v wget 2>/dev/null)
+VIM=$(command -v vim 2>/dev/null)
+TMUX=$(command -v tmux 2>/dev/null)
+ZSH=$(command -v zsh 2>/dev/null)
+FISH=$(command -v fish 2>/dev/null)
+SUDO=$(command -v sudo 2>/dev/null)
+LSBR=$(command -v lsb_release 2>/dev/null)
+POLYBAR=$(command -v polybar 2>/dev/null)
+JGMENU=$(command -v jgmenu 2>/dev/null)
+SYSTEMMGR=$(command -v systemmgr 2>/dev/null)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # no sudo can't continue
-SUDU=$(which sudo 2>/dev/null)
 if ! (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   if [[ -z "$SUDU" ]] && [[ -z "$UPDATE" ]]; then
     printf "\n${GREEN} *** ${RED}•${GREEN} UPDATE=yes bash -c "$(curl -LsS https://$GITREPO/raw/master/src/os/setup.sh)" ${RED}•${GREEN} ***${NC}\n"
@@ -287,7 +287,7 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
   fi
 done
 
-if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
+if [ -z "$SYSTEMMGR" ]; then
   execute \
     "sudo bash -c $SCRIPTSINSTALLER && \
     systemmgr install installer" \
