@@ -39,12 +39,21 @@ NC='\033[0m'
 
 # Grab the OS detection script if it doesn't exist script
 
-if [ -f $srcdir/os/osdetect.sh ]; then
-  source $srcdir/os/osdetect.sh
+if [ -f "$srcdir/os/osdetect.sh" ] && [ -f "$srcdir/os/utils.sh" ]; then
+  source "$srcdir/os/utils.sh"
+  source "$srcdir/os/osdetect.sh"
 else
-  curl -Lsq https://$GITREPO/raw/master/src/os/osdetect.sh -o /tmp/osdetect.sh
-  source /tmp/osdetect.sh
-  rm -Rf /tmp/osdetect.sh
+  curl -Lsq "https://$GITREPO/raw/master/src/os/utils.sh" -o /tmp/utils.sh
+  curl -Lsq "https://$GITREPO/raw/master/src/os/osdetect.sh" -o /tmp/osdetect.sh
+  if [ -f "/tmp/osdetect.sh" ] && [ -f "/tmp/utils.sh" ]; then
+    source /tmp/utils.sh
+    source /tmp/osdetect.sh
+    rm -Rf /tmp/utils.sh /tmp/osdetect.sh
+  else
+    clear
+    printf "\n\n\n\n${BLUE}Could not source the files needed${NC}\n\n\n\n"
+    exit 1
+  fi
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
