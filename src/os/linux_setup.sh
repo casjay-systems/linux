@@ -20,8 +20,8 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Set primary dir - not used
 DOTFILES="$HOME/.local/dotfiles/desktop"
 SCRIPTSINSTALLER="$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)"
+SUDO_PROMPT="$(printf "\t\t\033[1;36m")[sudo]$(printf "\033[0m") password for %p: "
 
-# Dependency check
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
 linuxosdir="$srcdir/os/linux"
