@@ -20,7 +20,39 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Set primary dir - not used
 DOTFILES="$HOME/.local/dotfiles/desktop"
 
+# Dependency check
+
+export dotfilesDirectory="$DOTFILES"
+export srcdir="$dotfilesDirectory/src"
+export linuxosdir="$srcdir/os/linux"
+
 ##################################################################################################
+
+# Define colors
+PURPLE='\033[0;35m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+GREEN='\033[32m'
+NC='\033[0m'
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Grab the OS detection script if it doesn't exist script
+if [ -f "$srcdir/os" ]; then
+  cd "$srcdir/os" && source "utils.sh"
+else
+  clear
+  printf "\n\n${BLUE}Failed to source the $srcdir/os/utils.sh file${NC}\n\n"
+  exit 1
+fi
+if [ -f $srcdir/os/osdetect.sh ]; then
+  source $srcdir/os/osdetect.sh
+else
+  curl -Lsq https://$GITREPO/raw/master/src/os/osdetect.sh -o /tmp/osdetect.sh
+  source /tmp/osdetect.sh
+  rm -Rf /tmp/osdetect.sh
+fi
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if [[ "$(python3 -V 2>/dev/null)" =~ "Python 3" ]]; then
   PYTHONVER="python3"
@@ -33,13 +65,6 @@ elif [[ "$(python2 -V 2>/dev/null)" =~ "Python 2" ]]; then
 fi
 
 ##################################################################################################
-# Define colors
-PURPLE='\033[0;35m'
-BLUE='\033[0;34m'
-RED='\033[0;31m'
-GREEN='\033[32m'
-NC='\033[0m'
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if [ -f "$HOME/.config/dotfiles/env" ]; then
   source "$HOME/.config/dotfiles/env"
@@ -48,10 +73,11 @@ fi
 
 # Automatic linux install
 
-##############################################################################################
-clear                                                                                        #
-printf "\n\n\n\n\n   ${BLUE}      *** Initializing the installer please wait *** ${NC} \n\n" #
-##############################################################################################
+#################################################################################################
+clear                                                                                                 #
+printf "\n\n\n\n\n   ${BLUE}      *** Initializing the installer please wait *** ${NC} \n\n"          #
+printf "\n\n${PURPLE}        *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n" #
+#################################################################################################
 # Remove previous installs
 if [ -d $DOTFILES.git ]; then cd $DOTFILES && git pull; else rm -Rf $DOTFILES; fi
 if [ -d $HOME/.config/bash/profile ]; then rm -Rf $HOME/.config/bash/profile/zz-*; fi
@@ -114,12 +140,6 @@ while [[ ${temp_cnt} -gt 0 ]]; do
 done
 printf "${NC}\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# Dependency check
-
-dotfilesDirectory="$DOTFILES"
-srcdir="$dotfilesDirectory/src"
-linuxosdir="$srcdir/os/linux"
 
 ##### for when I'm forgetful
 if [ -z $dotfilesDirectory ]; then printf "\n${RED}  *** dotfiles directory not specified ***${NC}\n"; fi
@@ -194,25 +214,13 @@ if [ -z "$LSBR" ] || [ -z "$GIT" ] || [ -z "$CURL" ] || [ -z "$WGET" ] || [ -z "
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Grab the OS detection script if it doesn't exist script
-
-if [ -f $srcdir/os/osdetect.sh ]; then
-  source $srcdir/os/osdetect.sh
-else
-  curl -Lsq https://$GITREPO/raw/master/src/os/osdetect.sh -o /tmp/osdetect.sh
-  source /tmp/osdetect.sh
-  rm -Rf /tmp/osdetect.sh
-fi
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set version from git
 
 CURDOTFVERSION="$(echo $(curl -Lsq https://$GITREPO/raw/master/version.txt | grep -v "#" | tail -n 1))"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Print distro info
+# Print info
 
-printf "\n\n${PURPLE}  *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n"
 printf "${GREEN}  *** • git, curl, wget, vim, tmux, zsh, fish, sudo are present • ***${NC}\n\n"
 printf "${GREEN}  *** • Installing version $CURDOTFVERSION • ***${NC}\n\n"
 
@@ -224,14 +232,13 @@ if [ -d $dotfilesDirectory/.git ]; then
   cd "$srcdir/os" && source "utils.sh"
 
   execute \
-    "cd $dotfilesDirectory && \
-    git pull --recursive -q && \
-    cd ~" \
+    "git -C $dotfilesDirectory reset --hard && \
+    git -C $dotfilesDirectory pull --recursive -q" \
     "Updating dotfiles"
+
   NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
   printf "${GREEN}   [✔] Updated to $NEWVERSION - revision: $REVER${NC}\n\n"
-
 else
 
   printf "\n${PURPLE} • Cloning the git repo - $dotfilesDirectory${NC}\n"
