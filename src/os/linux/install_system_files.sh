@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE[0]}")" &&
-  . "../utils.sh"
+cd "$(dirname "${BASH_SOURCE[0]}")" && . "../utils.sh"
 
 srcdir="$(cd .. && pwd)"
-customizedir="$(cd ../../customize && pwd)"
+customizedir="$(cd "$srcdir/customize" && pwd)"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -118,52 +117,49 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   create_login_theme() {
+    LXDM="$(command -v lxdm 2>/dev/null)"
+    LIGHTDM="$(command -v lightdm 2>/dev/null)"
 
-    LXDM=$(which lxdm 2>/dev/null)
-    if [ -d /usr/share/lightdm-gtk-greeter-settings ]; then
-      LIGHTDMG=/usr/share/lightdm-gtk-greeter-settings
-    elif [ -d /usr/share/lightdm-gtk-greeter ]; then
-      LIGHTDMG=/usr/share/lightdm-gtk-greeter
-    elif [ -d /usr/share/lightdm/lightdm.conf.d ]; then
-      LIGHTDMG=/usr/share/lightdm/lightdm.conf.d
-    else
-      LIGHTDMG=/usr/share/lightdm/lightdm-gtk-greeter.conf.d
-    fi
-
-    if [ -d /etc/lightdm ]; then
-      execute \
-        "sudo cp -Rf $customizedir/login/lightdm/etc/* /etc/lightdm/ && \
-        sudo cp -Rf $customizedir/login/lightdm/share/lightdm/* /usr/share/lightdm/ && \
-        sudo cp -Rf $customizedir/login/lightdm/share/lightdm-gtk-greeter-settings/* $LIGHTDMG/" \
-        "Installing lightdm customizations"
-    fi
-
-    ########
-    if [ -d /etc/lxdm ]; then
-      execute \
-        "sudo cp -Rf $customizedir/login/lxdm/share/* /usr/share/lxdm/" \
-        "Installing lxdm customizations"
-    fi
-
-    if [ ! -z "$LXDM" ]; then
-
-      sudo sed -i "s|.*numlock=.*|numlock=1|g" /etc/lxdm/lxdm.conf
-      sudo sed -i "s|.*bg=.*|bg=/usr/share/lxdm/themes/BlackArch/blackarch.jpg|g" /etc/lxdm/lxdm.conf
-      sudo sed -i "s|.*tcp_listen=.*|tcp_listen=1|g" /etc/lxdm/lxdm.conf
-      sudo sed -i "s|gtk_theme=.*|gtk_theme=Arc-Pink-Dark|g" /etc/lxdm/lxdm.conf
-      sudo sed -i "s|theme=.*|theme=BlackArch|g" /etc/lxdm/lxdm.conf
-
-      if [ -f /etc/X11/default-display-manager ]; then
-        sudo sed -i "s|lightdm|lxdm|g" /etc/X11/default-display-manager
+    if [ -n "$LIGHTDM" ]; then
+      if [ -d /usr/share/lightdm-gtk-greeter-settings ]; then
+        LIGHTDMG=/usr/share/lightdm-gtk-greeter-settings
+      elif [ -d /usr/share/lightdm-gtk-greeter ]; then
+        LIGHTDMG=/usr/share/lightdm-gtk-greeter
+      elif [ -d /usr/share/lightdm/lightdm.conf.d ]; then
+        LIGHTDMG=/usr/share/lightdm/lightdm.conf.d
+      else
+        LIGHTDMG=/usr/share/lightdm/lightdm-gtk-greeter.conf.d
       fi
 
-      #     execute \
-      #        "sudo systemctl disable -f lightdm 2>/dev/null && \
-      #         sudo systemctl enable -f lxdm 2>/dev/null" \
-      #        "Enabling the LXDM login manager"
+      if [ -d /etc/lightdm ]; then
+        execute \
+          "sudo cp -Rf $customizedir/login/lightdm/etc/* /etc/lightdm/ && \
+          sudo cp -Rf $customizedir/login/lightdm/share/lightdm/* /usr/share/lightdm/ && \
+          sudo cp -Rf $customizedir/login/lightdm/share/lightdm-gtk-greeter-settings/* $LIGHTDMG/" \
+          "Installing lightdm customizations"
+      fi
 
+    elif [ -n "$LXDM" ]; then
+      if [ -d /etc/lxdm ]; then
+        execute \
+          "sudo cp -Rf $customizedir/login/lxdm/share/* /usr/share/lxdm/" \
+          "Installing lxdm customizations"
+
+        sudo sed -i "s|.*numlock=.*|numlock=1|g" /etc/lxdm/lxdm.conf
+        sudo sed -i "s|.*bg=.*|bg=/usr/share/lxdm/themes/BlackArch/blackarch.jpg|g" /etc/lxdm/lxdm.conf
+        sudo sed -i "s|.*tcp_listen=.*|tcp_listen=1|g" /etc/lxdm/lxdm.conf
+        sudo sed -i "s|gtk_theme=.*|gtk_theme=Arc-Pink-Dark|g" /etc/lxdm/lxdm.conf
+        sudo sed -i "s|theme=.*|theme=BlackArch|g" /etc/lxdm/lxdm.conf
+        if [ -f /etc/X11/default-display-manager ]; then
+          sudo sed -i "s|lightdm|lxdm|g" /etc/X11/default-display-manager
+        fi
+
+        execute \
+          "sudo systemctl disable -f lightdm 2>/dev/null && \
+          sudo systemctl enable -f lxdm 2>/dev/null" \
+          "Enabling the LXDM login manager"
+      fi
     fi
-
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
