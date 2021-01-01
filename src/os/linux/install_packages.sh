@@ -170,7 +170,7 @@ elif [[ "$DISTRO" = RHEL ]]; then
 
   execute \
     "sudo curl -Ls https://github.com/CasjaysDev/rpm-devel/blob/master/docs/ZREPO/RHEL/rhel/casjay.repo -o /etc/yum.repos.d/casjay.repo && \
-        sudo yum makecache" \
+    sudo yum makecache" \
     "Adding repos"
 
   execute \

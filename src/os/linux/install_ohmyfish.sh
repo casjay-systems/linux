@@ -27,15 +27,15 @@ setup_ohmyfish() {
     execute \
       "git -C $HOME/.local/share/fish/oh-my-fish pull -q >/dev/null 2>&1" \
       "Updating oh-my-fish"
-  fi
-
-  if [ ! -d "$srcdir/config/fish/omf" ]; then
-    execute \
-      "curl -LSsq https://get.oh-my.fish -o $srcdir/config/fish/omf-install" \
-      "Grabbing the oh-my-fish install script"
-    execute \
-      "fish $srcdir/config/fish/omf-install --path=-$HOME/.local/share/fish/oh-my-fish --config=$srcdir/config/fish/omf --noninteractive --yes" \
-      "Installing oh-my-fish"
+  else
+    if [ ! -d "$srcdir/config/fish/omf" ]; then
+      execute \
+        "curl -LSsq https://get.oh-my.fish -o $srcdir/config/fish/omf-install" \
+        "Grabbing the oh-my-fish install script"
+      execute \
+        "fish $srcdir/config/fish/omf-install --path=-$HOME/.local/share/fish/oh-my-fish --config=$srcdir/config/fish/omf --noninteractive --yes" \
+        "Installing oh-my-fish"
+    fi
   fi
 }
 
