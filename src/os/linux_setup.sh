@@ -33,6 +33,7 @@ PURPLE='\033[0;35m'
 BLUE='\033[0;34m'
 RED='\033[0;31m'
 GREEN='\033[32m'
+YELLOW='\033[0;33m'
 NC='\033[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -127,7 +128,7 @@ fi
 wait_time=10 # seconds
 temp_cnt=${wait_time}
 printf "\n\n\n${GREEN}         *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
-printf "${PURPLE}  *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n\n"
+printf "${YELLOW}  *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n\n"
 
 while [[ ${temp_cnt} -gt 0 ]]; do
   printf "\r  ${GREEN}*** ${RED}•${GREEN} You have %2d second(s) remaining to hit Ctrl+C to cancel ${RED}•${GREEN} ***" ${temp_cnt}
