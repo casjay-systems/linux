@@ -73,7 +73,12 @@ printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *
 printf "${PURPLE}    *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n" #
 ###############################################################################################
 # Remove previous installs
-if [ -d $DOTFILES.git ]; then cd $DOTFILES && git pull; else rm -Rf $DOTFILES; fi
+if [ -d "$DOTFILES/.git" ]; then
+  git -C "$DOTFILES" reset --hard
+  git -C "$DOTFILES" pull -q
+else
+  rm -Rf "$DOTFILES"
+fi
 if [ -d $HOME/.config/bash/profile ]; then rm -Rf $HOME/.config/bash/profile/zz-*; fi
 if [ ! -d "$HOME/.config/dotfiles/backups/configs" ]; then mkdir -p "$HOME/.config/dotfiles/backups/configs"; fi
 
@@ -121,8 +126,6 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Welcome message
-
-clear
 
 wait_time=10 # seconds
 temp_cnt=${wait_time}
