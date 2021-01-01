@@ -72,6 +72,15 @@ fi
 clear                                                                                       #
 printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n" #
 ###############################################################################################
+if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
+  printf "\n${RED} • Getting root privileges${NC}\n"
+  ask_for_sudo
+  printf "${GREEN} • Received root privileges${NC}\n\n"
+else
+  printf "${GREEN} • Can not get access to sudo${NC}\n\n"
+  exit 1
+fi
+
 # Remove previous installs
 if [ ! -d "$DOTFILES/.git" ]; then
   rm -Rf "$DOTFILES"
@@ -280,22 +289,11 @@ find $dotfilesDirectory/ -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Check for then get root permissions
-if [ -z $UPDATE ]; then
+if [ -z "$UPDATE" ]; then
   if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-    printf "\n${RED} • Getting root privileges${NC}\n"
-    ask_for_sudo
-    printf "${GREEN} • Received root privileges${NC}\n\n"
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Install Packages
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-      print_in_purple "\n • Installing system packages\n"
-      source "$linuxosdir/install_packages.sh"
-      print_in_purple " • Installing system packages completed\n\n"
-    fi
-
+    print_in_purple "\n • Installing system packages\n"
+    source "$linuxosdir/install_packages.sh"
+    print_in_purple " • Installing system packages completed\n\n"
   fi
 fi
 
