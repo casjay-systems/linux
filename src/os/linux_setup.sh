@@ -19,13 +19,14 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Default dotfiles dir
 # Set primary dir - not used
 DOTFILES="$HOME/.local/dotfiles/desktop"
-SCRIPTSINSTALLER="$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)"
+
 SUDO_PROMPT="$(printf "\t\t\033[1;36m")[sudo]$(printf "\033[0m") password for %p: "
+SCRIPTSINSTALLER="$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)"
 
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
 linuxosdir="$srcdir/os/linux"
-export DOTFILES DOTTEMP dotfilesDirectory srcdir linuxosdir
+export DOTFILES DOTTEMP dotfilesDirectory srcdir linuxosdir SUDO_PROMPT SCRIPTSINSTALLER
 
 ##################################################################################################
 
@@ -287,9 +288,9 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
 done
 
 if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
-  printf "${GREEN}   [✔] Installing scripts module${NC}\n" && sudo bash -c "$SCRIPTSINSTALLER" >/dev/null 2>&1
   execute \
-    "systemmgr install installer" \
+    "sudo bash -c $SCRIPTSINSTALLER && \
+    systemmgr install installer" \
     "installing system scripts"
 fi
 
