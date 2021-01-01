@@ -465,17 +465,21 @@ print_in_purple "\n • Running cleanup\n"
 
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   for sudocleanfile in /usr/share/xsessions/*-shmlog.desktop; do
-    execute \
-      "sudo rm -Rf $sudocleanfile" \
-      "Clean up cleaning up $sudocleanfile"
+    if [ -e "$sudocleanfile" ]; then
+      execute \
+        "sudo rm -Rf $sudocleanfile" \
+        "Clean up cleaning up $sudocleanfile"
+    fi
   done
 fi
 
 # remove arch aur cache
 for homecleanfile in ~/.cache/yay; do
-  execute \
-    "rm -Rf ~/.cache/yay 2>/dev/null" \
-    "cleaning up $cleanfilehome"
+  if [ -e "$homecleanfile" ]; then
+    execute \
+      "rm -Rf $homecleanfile 2>/dev/null" \
+      "cleaning up $homecleanfile"
+  fi
 done
 
 print_in_purple " • Running cleanup complete\n\n"
