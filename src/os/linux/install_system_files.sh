@@ -14,19 +14,19 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   create_motd() {
     if [ -f /usr/games/fortune ]; then
       FORTUNE="/usr/games/fortune"
-    elif [ -f "$(which fortune 2>/dev/null)" ]; then
+    elif [ -f "$(command -v fortune 2>/dev/null)" ]; then
       FORTUNE=$(which fortune 2>/dev/null)
     fi
 
     if [ -f /usr/games/cowsay ]; then
       COWSAY="/usr/games/cowsay"
-    elif [ -f "$(which cowsay 2>/dev/null)" ]; then
-      COWSAY=$(which cowsay 2>/dev/null)
+    elif [ -f "$(command -v cowsay 2>/dev/null)" ]; then
+      COWSAY=$(command -v cowsay 2>/dev/null)
     fi
 
     declare -r FILE_PATH="/etc/motd"
     if [ -n "$FORTUNE" ] && [ -n "$COWSAY" ]; then
-      $FORTUNE | $COWSAY | sudo tee >"$FILE_PATH"
+      "$FORTUNE" | "$COWSAY" | sudo tee >"$FILE_PATH"
     fi
 
     print_result $? "$FILE_PATH"
