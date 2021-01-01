@@ -414,11 +414,11 @@ if [ -n "$(which rainbowstream 2>/dev/null)" ] || [ -n "$(which toot 2>/dev/null
     if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then
       execute \
         "sudo sh -c $PIP install $PIPTOOLS >/dev/null 2>&1" \
-        "Installing $PIPTOOL"
+        "Installing pip package: $PIPTOOLS"
     else
       execute \
         "sh -c $PIP install --user $PIPTOOLS >/dev/null 2>&1" \
-        "Installing $PIPTOOL"
+        "Installing pip package: $PIPTOOLS"
     fi
   done
   print_in_purple " • Installing terminal tools completed\n\n"
