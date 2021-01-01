@@ -22,10 +22,11 @@ DOTFILES="$HOME/.local/dotfiles/desktop"
 
 # Dependency check
 
-export dotfilesDirectory="$DOTFILES"
-export srcdir="$dotfilesDirectory/src"
-export linuxosdir="$srcdir/os/linux"
+dotfilesDirectory="$DOTFILES"
+srcdir="$dotfilesDirectory/src"
+linuxosdir="$srcdir/os/linux"
 
+export dotfilesDirectory srcdir linuxosdir
 ##################################################################################################
 
 # Define colors
@@ -318,7 +319,7 @@ fi
 # Install additional system files if root
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   print_in_purple "\n • Installing system files\n"
-  sudo bash -c $linuxosdir/install_system_files.sh
+  sudo bash -c "$linuxosdir/install_system_files.sh"
   print_in_purple " • Installing system files completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
