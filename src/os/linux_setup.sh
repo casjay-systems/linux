@@ -126,7 +126,7 @@ fi
 
 wait_time=10 # seconds
 temp_cnt=${wait_time}
-printf "\n\n\n\n\n${GREEN}         *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
+printf "\n\n\n${GREEN}         *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
 printf "${PURPLE}  *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n\n"
 
 while [[ ${temp_cnt} -gt 0 ]]; do
