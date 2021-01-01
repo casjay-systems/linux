@@ -39,7 +39,7 @@ setup_tmuxplugins() {
     execute \
       "bash $HOME/.local/share/tmux/tpm/scripts/install_plugins.sh 2> /dev/null" \
       "Updating tmux plugins"
-  else
+  elif [ ! -f "$srcdir/config/tmux/install.sh" ]; then
     execute \
       "rm -Rf $HOME/.local/share/tmux/tpm && \
       git clone -q https://github.com/tmux-plugins/tpm $HOME/.local/share/tmux/tpm" \
