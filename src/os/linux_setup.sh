@@ -410,10 +410,10 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ -n "$(which rainbowstream 2>/dev/null)" ] || [ -n "$(which toot 2>/dev/null)" ] || [ -n "$(which castero 2>/dev/null)" ]; then
   if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then
-    print_in_purple "\n • terminal tools install"
-    sudo sh -c ""$PIP" install shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
+    print_in_purple "\n • terminal tools install\n"
+    sudo sh -c "$PIP install shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
   else
-    sh -c ""$PIP" install --user shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
+    sh -c "$PIP install --user shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
     print_in_purple " • terminal tools install complete\n\n"
   fi
 fi
