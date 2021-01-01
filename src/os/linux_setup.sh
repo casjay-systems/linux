@@ -20,7 +20,7 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Set primary dir - not used
 DOTFILES="$HOME/.local/dotfiles/desktop"
 
-SUDO_PROMPT="$(printf "\t\t\033[1;36m")[sudo]$(printf "\033[0m") password for %p: "
+SUDO_PROMPT="$(printf "\033[1;36m")           • [sudo]$(printf "\033[0m") password for %p:            •"
 
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
@@ -83,11 +83,11 @@ clear                                                                           
 printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n" #
 ###############################################################################################
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  printf "\n\t${RED} • Getting root privileges${NC}\n"
+  printf "\n\t${RED}           • Getting root privileges •${NC}\n"
   ask_for_sudo
-  printf "\t${GREEN} • Received root privileges${NC}\n\n"
+  printf "\t${GREEN}           • Received root privileges •${NC}\n\n"
 else
-  printf "\t${GREEN} • Can not get access to sudo${NC}\n\n"
+  printf "\t${GREEN}           • Can not get access to sudo •${NC}\n\n"
   exit 1
 fi
 
@@ -438,7 +438,9 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Install additional
+print_in_purple "\n • Installing additional tools\n"
 [ -f "$(command -v dfmgr 2>/dev/null)" ] && dfmgr install misc >/dev/null 2>&1
+print_in_purple " • Installing additional tools completed\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
