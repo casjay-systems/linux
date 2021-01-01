@@ -31,7 +31,7 @@ setup_tmux() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_tmuxplugins() {
-  if [ -d "$HOME/.local/share/tmux/tpm/tpm" ]; then
+  if [ -d "$HOME/.local/share/tmux/tpm/tpm" ] && [ ! -f "$srcdir/config/tmux/install.sh" ]; then
     execute \
       "git -C $HOME/.local/share/tmux/tpm/tpm pull -q" \
       "Updating tmux plugin manager"

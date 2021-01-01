@@ -129,6 +129,8 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
       LIGHTDMG=/usr/share/lightdm-gtk-greeter-settings
     elif [ -d /usr/share/lightdm-gtk-greeter ]; then
       LIGHTDMG=/usr/share/lightdm-gtk-greeter
+    elif [ -d /usr/share/lightdm/lightdm.conf.d ]; then
+      LIGHTDMG=/usr/share/lightdm/lightdm.conf.d
     else
       LIGHTDMG=/usr/share/lightdm/lightdm-gtk-greeter.conf.d
     fi
@@ -159,7 +161,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
       if [ -f /etc/X11/default-display-manager ]; then
         sudo sed -i "s|lightdm|lxdm|g" /etc/X11/default-display-manager
       fi
-      echo ""
 
       #     execute \
       #        "sudo systemctl disable -f lightdm 2>/dev/null && \

@@ -28,7 +28,7 @@ install_vim() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_vimplugins() {
-  if [ -d "$HOME/.local/share/vim/Vundle.vim/.git" ]; then
+  if [ -d "$HOME/.local/share/vim/Vundle.vim/.git" ] && [ ! -f "$srcdir/config/vim/install.sh" ]; then
     execute \
       "git -C $HOME/.local/share/vim/Vundle.vim pull -q && \
       vim +PluginInstall +qall < /dev/null > /dev/null 2>&1" \

@@ -68,9 +68,8 @@ fi
 # Automatic linux install
 
 ###############################################################################################
-clear                                                                                         #
-printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n"   #
-printf "${PURPLE}    *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n" #
+clear                                                                                       #
+printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n" #
 ###############################################################################################
 # Remove previous installs
 if [ -d "$DOTFILES/.git" ]; then
@@ -136,6 +135,8 @@ while [[ ${temp_cnt} -gt 0 ]]; do
   ((temp_cnt--))
 done
 printf "${NC}\n\n"
+printf "${PURPLE}*** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n" #
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ##### for when I'm forgetful
@@ -457,7 +458,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # run clean up
-print_in_purple "\n • Running cleanup"
+print_in_purple "\n • Running cleanup\n"
 
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   execute \

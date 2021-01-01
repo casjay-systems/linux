@@ -21,7 +21,7 @@ install_git() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_ohmygit() {
-  if [ ! -d "$HOME/.local/share/git/oh-my-git/.git" ]; then
+  if [ ! -d "$HOME/.local/share/git/oh-my-git/.git" ] && [ ! -f "$srcdir/config/git/install.sh" ]; then
     execute \
       "rm -Rf $HOME/.local/share/git/oh-my-git && \
       git clone https://github.com/arialdomartini/oh-my-git $HOME/.local/share/git/oh-my-git" \
