@@ -54,7 +54,6 @@ kill_all_subprocesses() {
 }
 
 execute() {
-  echo ""
 
   local -r CMDS="$1"
   local -r MSG="${2:-$1}"

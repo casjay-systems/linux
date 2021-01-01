@@ -25,7 +25,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
       COWSAY=$(which cowsay 2>/dev/null)
     fi
 
-    declare -r FILE_PATH="/etc/motd.net"
+    declare -r FILE_PATH="/etc/motd"
     if [ -n "$FORTUNE" ] && [ -n "$COWSAY" ]; then
       sudo touch /etc/motd && $FORTUNE | $COWSAY >/tmp/motd && sudo mv -f /tmp/motd $FILE_PATH
     fi
