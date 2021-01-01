@@ -23,7 +23,7 @@ setup_zsh() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_omyzsh() {
-  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/.git" ]; then
+  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/.git" ] && [ ! -f "$srcdir/config/zsh/install.sh" ]; then
     execute \
       "cd $HOME/.local/share/zsh/oh-my-zsh && git pull -q" \
       "Updating oh-my-zsh"
