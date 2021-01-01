@@ -27,7 +27,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
     declare -r FILE_PATH="/etc/motd"
     if [ -n "$FORTUNE" ] && [ -n "$COWSAY" ]; then
-      sudo touch /etc/motd && $FORTUNE | $COWSAY >/tmp/motd && sudo mv -f /tmp/motd $FILE_PATH
+      $FORTUNE | $COWSAY | sudo tee >"$FILE_PATH"
     fi
 
     print_result $? "$FILE_PATH"
@@ -37,22 +37,18 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   create_issue() {
-
-    declare -r FILE_PATH="/etc/issue.net"
-
-    sudo touch /etc/issue && sudo cp -Rf "$(cd .. && pwd)/shell/motd" /etc/issue.net
+    declare -r FILE_PATH="/etc/issue"
+    sudo touch /etc/issue && sudo cp -Rf "$(cd .. && pwd)/shell/motd" /etc/issue
+    sudo touch /etc/issue.net && sudo cp -Rf "$(cd .. && pwd)/shell/motd" /etc/issue.net
     print_result $? "$FILE_PATH"
-
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   create_sudo() {
     declare -r FILE_PATH="/etc/sudoers.d/insults"
-
-    echo "Defaults    insults" >$FILE_PATH
+    echo "Defaults    insults" | sudo tee >$FILE_PATH
     print_result $? "$FILE_PATH"
-
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -61,10 +57,8 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
     MYUSER=${SUDO_USER:-$(whoami)}
     ISINDSUDO=$(sudo grep -Re "$MYUSER" /etc/sudoers* | grep "ALL" >/dev/null)
     declare -r FILE_PATH="/etc/sudoers.d/$MYUSER"
-
-    echo "$MYUSER ALL=(ALL)   NOPASSWD: ALL" >$FILE_PATH
+    echo "$MYUSER ALL=(ALL)   NOPASSWD: ALL" | sudo tee >$FILE_PATH
     chmod -f 440 $FILE_PATH
-
     print_result $? "$FILE_PATH"
   }
 
@@ -72,7 +66,6 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
   create_pac() {
     if [ -f /usr/bin/pacman ]; then
-
       execute \
         "sudo cp -f $(cd .. && pwd)/bin/pac /usr/bin/pac" \
         "Installing pac → /usr/bin/pac"
@@ -83,10 +76,12 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
   create_boot_theme() {
 
-    if [ -f /usr/sbin/grub-mkconfig ]; then
+    if [ -f /usr/sbin/grub2-mkconfig ]; then
+      GRUB="/usr/sbin/grub2-mkconfig"
+    elif [ -f /usr/sbin/grub-mkconfig ]; then
       GRUB="/usr/sbin/grub-mkconfig"
     else
-      GRUB="/usr/sbin/grub2-mkconfig"
+      exit
     fi
 
     if [ -f /boot/grub/grub.cfg ]; then

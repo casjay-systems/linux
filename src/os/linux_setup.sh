@@ -129,13 +129,14 @@ fi
 wait_time=10 # seconds
 temp_cnt=${wait_time}
 printf "\n\n\n\n\n${GREEN}         *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
+printf "${PURPLE}  *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n\n"
+
 while [[ ${temp_cnt} -gt 0 ]]; do
   printf "\r  ${GREEN}*** ${RED}•${GREEN} You have %2d second(s) remaining to hit Ctrl+C to cancel ${RED}•${GREEN} ***" ${temp_cnt}
   sleep 1
   ((temp_cnt--))
 done
-printf "${NC}\n\n"
-printf "${PURPLE}*** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n" #
+printf "${NC}\n\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
