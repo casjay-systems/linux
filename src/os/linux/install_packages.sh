@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+cd "$(dirname "${BASH_SOURCE[0]}")" &&
+  . "../utils.sh"
+
+srcdir="$(cd .. && pwd)"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # Arch linux and derivatives setup
 if [[ "$DISTRO" = Arch ]]; then
   printf "\n${PURPLE} • Setting up for $DISTRO${NC}\n\n"

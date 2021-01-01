@@ -285,7 +285,7 @@ if [ -z $UPDATE ]; then
     if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
       print_in_purple "\n • Installing system packages\n"
       source "$linuxosdir/install_packages.sh"
-      print_in_purple " • Installing system packages\n\n"
+      print_in_purple " • Installing system packages completed\n\n"
     fi
 
   fi
@@ -296,32 +296,32 @@ fi
 
 # Install additional system files if root
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  print_in_purple "\n • Installing system files"
+  print_in_purple "\n • Installing system files\n"
   sudo bash -c $linuxosdir/install_system_files.sh
   print_in_purple " • Installing system files completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user directories
-print_in_purple "\n • Creating directories"
+print_in_purple "\n • Creating directories\n"
 bash -c $linuxosdir/create_directories.sh
 print_in_purple " • Creating directories completed\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user .local files
-print_in_purple "\n • Create local config files"
+print_in_purple "\n • Create local config files\n"
 bash -c $linuxosdir/create_local_config_files.sh
 print_in_purple " • Create local config files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user dotfile symlinks
-print_in_purple "\n • Create user files"
+print_in_purple "\n • Create user files\n"
 bash -c $linuxosdir/create_symbolic_links.sh
 print_in_purple " • Create user files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user themes/fonts/icons or install to system if root
-print_in_purple "\n • Installing Customizations"
+print_in_purple "\n • Installing Customizations\n"
 bash -c $linuxosdir/install_customizations.sh
 print_in_purple " • Installing Customizations completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -329,7 +329,7 @@ print_in_purple " • Installing Customizations completed\n\n"
 # Create and Setup git
 GIT=$(which git 2>/dev/null)
 if [ -z "$GIT" ]; then print_in_red "\n • The git package is not installed\n\n"; else
-  print_in_purple "\n • Installing GIT"
+  print_in_purple "\n • Installing GIT\n"
   bash -c $linuxosdir/install_git.sh
   print_in_purple " • Installing GIT completed\n\n"
 fi
@@ -338,7 +338,7 @@ fi
 # Create and Setup vim
 VIM=$(which vim 2>/dev/null)
 if [ -z "$VIM" ]; then print_in_red "\n • The vim package is not installed\n\n"; else
-  print_in_purple "\n • Installing vim with plugins"
+  print_in_purple "\n • Installing vim with plugins\n"
   bash -c $linuxosdir/install_vim.sh
   print_in_purple " • Installing vim with plugins completed\n\n"
 fi
@@ -347,7 +347,7 @@ fi
 # Create and Setup tmux
 TMUX=$(which tmux 2>/dev/null)
 if [ -z "$TMUX" ]; then print_in_red "\n • The tmux package is not installed\n\n"; else
-  print_in_purple "\n • Installing tmux plugins"
+  print_in_purple "\n • Installing tmux plugins\n"
   bash -c $linuxosdir/install_tmux.sh
   print_in_purple " • Installing tmux plugins completed\n\n"
 fi
@@ -356,7 +356,7 @@ fi
 # Create and Setup zsh
 ZSH=$(which zsh 2>/dev/null)
 if [ -z "$ZSH" ]; then print_in_red "\n • The zsh package is not installed\n\n"; else
-  print_in_purple "\n • Installing zsh with plugins"
+  print_in_purple "\n • Installing zsh with plugins\n"
   bash -c $linuxosdir/install_ohmyzsh.sh
   print_in_purple " • Installing zsh with plugins completed\n\n"
 fi
@@ -365,7 +365,7 @@ fi
 # Create and Setup fish
 FISH=$(which fish 2>/dev/null)
 if [ -z "$FISH" ]; then print_in_red "\n • The fish package is not installed\n\n"; else
-  print_in_purple "\n • Installing fish shell and plugins"
+  print_in_purple "\n • Installing fish shell and plugins\n"
   bash -c $linuxosdir/install_ohmyfish.sh
   print_in_purple " • Installing fish shell and plugins completed\n\n"
 fi
