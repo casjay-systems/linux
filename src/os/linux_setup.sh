@@ -96,6 +96,7 @@ if [ -z $UPDATE ]; then
     fi
   fi
 fi
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Welcome message
@@ -235,7 +236,7 @@ else
   printf "\n${PURPLE} • Cloning the git repo - $dotfilesDirectory${NC}\n"
   rm -Rf $dotfilesDirectory
   git clone --recursive -q $GITURL $dotfilesDirectory >/dev/null 2>&1
-  printf "\n${GREEN}   [✔] clone $GITURL  → $dotfilesDirectory \n"
+  printf "\n${GREEN}   [✔] cloned $GITURL  → $dotfilesDirectory \n"
   NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
   printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n\n"
@@ -243,9 +244,10 @@ else
 fi
 
 # grab the modules
-
+printf "\n${GREEN}  *** • Downloading additional configuration files • ***${NC}\n"
 for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux remmina \
-  smplayer smtube terminology termite Thunar transmission variety vifm xfce4 xmonad zsh; do
+  smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh; do
+
   if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
     execute \
       "git -C $dotfilesDirectory/src/config/$config pull -q" \
@@ -279,201 +281,12 @@ if [ -z $UPDATE ]; then
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Install Packages
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Arch linux and derivatives setup
-    if [[ "$DISTRO" = Arch ]]; then
-      printf "\n${PURPLE} • Setting up for $DISTRO${NC}\n\n"
-      if [[ ! -f /etc/pacman.d/.srcinstall ]]; then
-        execute \
-          "sudo pacman-key --init 2> /dev/null && \
-       sudo pacman-key --populate 2> /dev/null && \
-       sudo pacman-key --refresh-keys 2> /dev/null &&
-       sudo touch /etc/pacman.d/.srckeys" \
-          "Initializing pacman keys..... This may take some time"
-      fi
-
-      execute \
-        "sudo pacman -Syy --noconfirm 2> /dev/null" \
-        "Updating the package manager"
-
-      # Lets install main packages
-      execute \
-        "sudo bash -c $linuxosdir/pkgs/lists/arch-sys.sh 2> /dev/null" \
-        "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-
-      # Now for aur packages
-      execute \
-        "sudo bash -c $linuxosdir/pkgs/lists/arch-yay.sh 2> /dev/null" \
-        "Installing aur Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-
-      # BlackArch Setup
-      #      execute \
-      #      "curl  https://blackarch.org/strap.sh -O /tmp/blackarch.sh && \
-      #       chmod +x /tmp/blackarch.sh && \
-      #       sudo /tmp/blackarch.sh && \
-      #       sudo pacman-key --init && \
-      #       sudo pacman-key --populate && \
-      #       sudo pacman-key --refresh-keys" \
-      #       "Setting up backarch"
-
-      ### TODO: Add if statements no point in running if already done
-
-      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # Debian and derivatives setup - debgen.simplylinux.ch
-    elif [[ "$DISTRO" = Debian ]]; then
-      if [[ "$CODENAME" == "na" ]]; then CODENAME=buster; fi
-      printf "\n${PURPLE} • Setting up for $CODENAME${NC}\n\n"
-      if [[ ! -f /etc/apt/.srcinstall ]]; then
-        execute \
-          "sudo $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null" \
-          "Adding secondary keys"
-
-        execute \
-          "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/google-chrome.list /etc/apt/sources.list.d/ && \
-          sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/opera-stable.list /etc/apt/sources.list.d/ && \
-          sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/typora.list /etc/apt/sources.list.d/ && \
-          sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/vscode.list /etc/apt/sources.list.d/ && \
-          sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/vivaldi.list /etc/apt/sources.list.d/ && \
-          sudo touch /etc/apt/.srcinstall" \
-          "Adding secondary repos"
-      fi
-
-      # - - - - - - - - - - - - - - - - - -
-      # Debian functions
-      if [[ "$CODENAME" != "kali" ]] && [[ "$CODENAME" != "parrot" ]]; then
-        execute \
-          "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list /etc/apt/sources.list && \
-          sudo sed -i 's#mydebiancodename#${CODENAME}#g' /etc/apt/sources.list && \
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
-          "Updating the package manager"
-
-        execute \
-          "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
-          "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-
-      fi
-
-      # - - - - - - - - - - - - - - - - - -
-      # Kali functions
-      if [[ "$CODENAME" == "kali" ]]; then
-        execute \
-          "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list /etc/apt/sources.list && \
-          sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/kali.list /etc/apt/sources.list.d/ && \
-          sudo sed -i 's#mydebiancodename#buster#g' /etc/apt/sources.list" \
-          "Adding kali repo"
-
-        execute \
-          "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
-          "Updating the package manager"
-
-        execute \
-          "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
-          "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-      fi
-
-      # - - - - - - - - - - - - - - - - - -
-      # Parrot functions
-      if [[ "$CODENAME" == "parrot" ]]; then
-        execute \
-          "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/parrot.list /etc/apt/sources.list && \
-          sudo sed -i 's#mydebiancodename#parrot#g' /etc/apt/sources.list" \
-          "Adding parrot repo"
-
-        execute \
-          "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
-          "Updating the package manager"
-
-        execute \
-          "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
-          "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-      fi
-
-      ################## End of Debian and derivatives setup
-
-      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # Ubuntu and derivatives setup - repogen.simplylinux.ch
-    elif [[ "$DISTRO" = Ubuntu ]]; then
-      printf "${PURPLE}\n • Setting up for $CODENAME${NC}\n\n"
-      if [[ ! -f /etc/apt/.srcinstall ]]; then
-        execute \
-          "sudo bash -c $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null && \
-          sudo bash -c $linuxosdir/pkgs/repos/ubuntu_keys.sh 2> /dev/null" \
-          "Adding secondary keys"
-
-        execute \
-          "sudo cp -Rf $linuxosdir/pkgs/repos/ubuntu/* /etc/apt/ && \
-          sudo sudo sed -i 's#mydebiancodename#${CODENAME}#g' /etc/apt/sources.list &&
-          sudo touch /etc/apt/.srcinstall" \
-          "Adding secondary repos"
-      fi
-
-      execute \
-        "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
-        "Updating the package manager"
-
-      execute \
-        "sudo bash -c $linuxosdir/pkgs/lists/ubuntu-sys.sh 2> /dev/null" \
-        "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-
-      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # Raspbian
-
-    elif [[ "$DISTRO" = Raspbian ]]; then
-      printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
-      if [[ ! -f /etc/apt/.srcinstall ]]; then
-        execute \
-          "sudo cp -Rf $linuxosdir/pkgs/repos/raspbian/* /etc/apt/ && \
-          sudo touch /etc/apt/.srcinstall" \
-          "Setting up repos"
-      fi
-
-      execute \
-        "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
-        "Updating the package manager"
-
-      execute \
-        "sudo bash -c $linuxosdir/pkgs/lists/raspbian-sys.sh" \
-        "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-
-      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      #Redhat and derivatives setup
-    elif [[ "$DISTRO" = RHEL ]]; then
-      printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
-      ELRELEASE="$(rpm -q --whatprovides redhat-release --queryformat "%{VERSION}\n" | sed 's/\/.*//' | sed 's/\..*//' | sed 's/Server*//')"
-
-      execute \
-        "sudo curl -Ls https://github.com/CasjaysDev/rpm-devel/blob/master/docs/ZREPO/RHEL/rhel/casjay.repo -o /etc/yum.repos.d/casjay.repo && \
-        sudo yum makecache" \
-        "Adding repos"
-
-      execute \
-        "sudo yum install -y -q --skip-broken thefuck powerline fontawesome-fonts fish vim zsh git tmux neofetch 2> /dev/null" \
-        "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-
-      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # Fedora and derivatives
-    elif [[ "$DISTRO" = Fedora ]]; then
-      printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
-      execute \
-        "sudo sudo cp -Rf $linuxosdir/pkgs/repos/fedora/* /etc/yum.repos.d/ && \
-        sudo yum makecache 2> /dev/null" \
-        "Adding yum repos"
-
-      execute \
-        "sudo bash -c $linuxosdir/pkgs/lists/fedora-sys.sh 2> /dev/null" \
-        "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
-
+    if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
+      print_in_purple "\n • Installing system packages\n"
+      source "$linuxosdir/install_packages.sh"
+      print_in_purple " • Installing system packages\n\n"
     fi
-    printf "${PURPLE}\n • Done Setting up for $DISTRO${NC}\n\n"
+
   fi
 fi
 
@@ -482,78 +295,78 @@ fi
 
 # Install additional system files if root
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  print_in_purple "\n • Installing system files\n\n"
+  print_in_purple "\n • Installing system files\n"
   sudo bash -c $linuxosdir/install_system_files.sh
-  print_in_purple "\n • Installing system files completed\n\n"
+  print_in_purple " • Installing system files completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user directories
 print_in_purple "\n • Creating directories\n"
 bash -c $linuxosdir/create_directories.sh
-print_in_purple "\n • Creating directories completed\n\n"
+print_in_purple " • Creating directories completed\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user .local files
-print_in_purple "\n • Create local config files\n\n"
+print_in_purple "\n • Create local config files\n"
 bash -c $linuxosdir/create_local_config_files.sh
-print_in_purple "\n • Create local config files completed\n\n"
+print_in_purple " • Create local config files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user dotfile symlinks
-print_in_purple "\n • Create user files\n\n"
+print_in_purple "\n • Create user files\n"
 bash -c $linuxosdir/create_symbolic_links.sh
-print_in_purple "\n • Create user files completed\n\n"
+print_in_purple " • Create user files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user themes/fonts/icons or install to system if root
-print_in_purple "\n • Installing Customizations\n\n"
+print_in_purple "\n • Installing Customizations\n"
 bash -c $linuxosdir/install_customizations.sh
-print_in_purple "\n • Installing Customizations completed\n\n"
+print_in_purple " • Installing Customizations completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup git
 GIT=$(which git 2>/dev/null)
 if [ -z "$GIT" ]; then print_in_red "\n • The git package is not installed\n\n"; else
-  print_in_purple "\n • Installing GIT\n\n"
+  print_in_purple "\n • Installing GIT\n"
   bash -c $linuxosdir/install_git.sh
-  print_in_purple "\n • Installing GIT completed\n\n"
+  print_in_purple " • Installing GIT completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup vim
 VIM=$(which vim 2>/dev/null)
 if [ -z "$VIM" ]; then print_in_red "\n • The vim package is not installed\n\n"; else
-  print_in_purple "\n • Installing vim with plugins\n\n"
+  print_in_purple "\n • Installing vim with plugins\n"
   bash -c $linuxosdir/install_vim.sh
-  print_in_purple "\n • Installing vim with plugins completed\n\n"
+  print_in_purple " • Installing vim with plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup tmux
 TMUX=$(which tmux 2>/dev/null)
 if [ -z "$TMUX" ]; then print_in_red "\n • The tmux package is not installed\n\n"; else
-  print_in_purple "\n • Installing tmux plugins\n\n"
+  print_in_purple "\n • Installing tmux plugins\n"
   bash -c $linuxosdir/install_tmux.sh
-  print_in_purple "\n • Installing tmux plugins completed\n\n"
+  print_in_purple " • Installing tmux plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup zsh
 ZSH=$(which zsh 2>/dev/null)
 if [ -z "$ZSH" ]; then print_in_red "\n • The zsh package is not installed\n\n"; else
-  print_in_purple "\n • Installing zsh with plugins\n\n"
+  print_in_purple "\n • Installing zsh with plugins\n"
   bash -c $linuxosdir/install_ohmyzsh.sh
-  print_in_purple "\n • Installing zsh with plugins completed\n\n"
+  print_in_purple " • Installing zsh with plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup fish
 FISH=$(which fish 2>/dev/null)
 if [ -z "$FISH" ]; then print_in_red "\n • The fish package is not installed\n\n"; else
-  print_in_purple "\n • Installing fish shell and plugins\n\n"
+  print_in_purple "\n • Installing fish shell and plugins\n"
   bash -c $linuxosdir/install_ohmyfish.sh
-  print_in_purple "\n • Installing fish shell and plugins completed\n\n"
+  print_in_purple " • Installing fish shell and plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -571,18 +384,18 @@ if [ ! -z $DESKTOP_SESSION ]; then
     if [ ! -z "$POLYBAR" ]; then print_in_green "    •  polybar already installed\n"; else
       sudo bash -c $linuxosdir/make_polybar.sh
     fi
-    print_in_purple "\n • polybar install complete\n\n"
+    print_in_purple " • polybar install complete\n\n"
   fi
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   # Compile and Install jgmenu
   JGMENU=$(which jgmenu 2>/dev/null)
   if [ -z $UPDATE ]; then
-    print_in_purple "\n • jgmenu install\n\n"
+    print_in_purple " • jgmenu install\n\n"
     if [ ! -z "$JGMENU" ]; then print_in_green "    •  jgmenu already installed\n"; else
       sudo bash -c $linuxosdir/make_jgmenu.sh
     fi
-    print_in_purple "\n • jgmenu install complete\n\n"
+    print_in_purple " • jgmenu install complete\n\n"
   fi
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -592,7 +405,7 @@ if [ -n "$(which rainbowstream 2>/dev/null)" ] || [ -n "$(which toot 2>/dev/null
     sudo sh -c ""$PIP" install shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
   else
     sh -c ""$PIP" install --user shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
-    print_in_purple "\n • terminal tools install complete\n\n"
+    print_in_purple " • terminal tools install complete\n\n"
   fi
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -659,10 +472,10 @@ NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
 cp -Rf "$DOTFILES/version.txt" "$srcdir/os/version.txt"
 # End Install
 #RESULT=$?
-printf "\n${GREEN}       *** 😃 installation of dotfiles completed 😃 *** ${NC}\n"
-printf "${GREEN}     *** 😃 You now have version number: "$NEWVERSION" 😃 *** ${NC}\n\n"
-printf "${RED}            *** For the configurations to take effect *** ${NC} \n "
-printf "${RED}           *** you should logoff or reboot your system *** ${NC} \n\n\n\n "
+printf "\n${GREEN} *** 😃 installation of dotfiles completed 😃 *** ${NC}\n"
+printf "${GREEN} *** 😃 You now have version number: "$NEWVERSION" 😃 *** ${NC}\n\n"
+printf "${RED} *** For the configurations to take effect *** ${NC} \n "
+printf "${RED} *** you should logoff or reboot your system *** ${NC} \n\n\n\n "
 ##################################################################################################
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
