@@ -41,7 +41,7 @@ setup_ohmyfish() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_fishplugins() {
-  if [ -f "$srcdir/config/fish/plugins.fish" ]; then
+  if [ -f "$srcdir/config/fish/plugins.fish" ] && [ ! -f "$srcdir/config/fish/install.sh" ]; then
     execute \
       "fish $srcdir/config/fish/plugins.fish 2>/dev/null" \
       "Installing fish plugins"

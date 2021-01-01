@@ -227,7 +227,7 @@ printf "${GREEN}  *** • Installing version $CURDOTFVERSION • ***${NC}\n\n"
 # Setup the dotfiles Directory
 
 if [ -d $dotfilesDirectory/.git ]; then
-  printf "\n${PURPLE} • Updating the git repo - $dotfilesDirectory${NC}\n\n"
+  printf "\n${PURPLE} • Updating the git repo - $dotfilesDirectory${NC}\n"
   cd "$srcdir/os" && source "utils.sh"
 
   execute \
@@ -237,17 +237,19 @@ if [ -d $dotfilesDirectory/.git ]; then
 
   NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
-  printf "${GREEN}   [✔] Updated to $NEWVERSION - revision: $REVER${NC}\n\n"
+  printf "${GREEN}   [✔] Updated to $NEWVERSION - revision: $REVER${NC}\n"
+  printf "${PURPLE} • Updating the git repo completed${NC}\n\n"
 else
 
   printf "\n${PURPLE} • Cloning the git repo - $dotfilesDirectory${NC}\n"
   rm -Rf $dotfilesDirectory
   git clone --recursive -q $GITURL $dotfilesDirectory >/dev/null 2>&1
-  printf "\n${GREEN}   [✔] cloned $GITURL  → $dotfilesDirectory \n"
+  printf "${GREEN}   [✔] cloned $GITURL  → $dotfilesDirectory \n"
   NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
-  printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n\n"
+  printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n"
   cd "$srcdir/os" && source "utils.sh"
+  printf "\n${PURPLE} • Cloning the git repo completed${NC}\n\n"
 fi
 
 # grab the modules

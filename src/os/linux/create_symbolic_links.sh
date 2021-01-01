@@ -72,7 +72,6 @@ declare -a CONFFILES_TO_SYMLINK=(
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 backup_symlinks() {
-  print_in_purple "\n • Back up Files\n\n"
   local i=""
   local sourceFile=""
   local targetFile=""
@@ -96,7 +95,6 @@ backup_symlinks() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 backup_confsymlinks() {
-  print_in_purple "\n • Back up config Files\n\n"
   local i=""
   local sourceFile=""
   local targetFile=""
@@ -121,7 +119,7 @@ backup_confsymlinks() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_symlinks() {
-  print_in_purple "\n • Create symlinks\n\n"
+  print_in_purple "\n • Create file symlinks\n"
   local i=""
   local sourceFile=""
   local targetFile=""
@@ -143,7 +141,7 @@ create_symlinks() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_confsymlinks() {
-  print_in_purple "\n • Create config symlinks\n\n"
+  print_in_purple "\n • Create config symlinks\n"
   local i=""
   local sourceFile=""
   local targetFile=""
