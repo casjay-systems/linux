@@ -83,11 +83,11 @@ clear                                                                           
 printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n" #
 ###############################################################################################
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  printf "\n${RED} • Getting root privileges${NC}\n"
+  printf "\n\t${RED} • Getting root privileges${NC}\n"
   ask_for_sudo
-  printf "\t\t${GREEN} • Received root privileges${NC}\n\n"
+  printf "\t${GREEN} • Received root privileges${NC}\n\n"
 else
-  printf "\t\t${GREEN} • Can not get access to sudo${NC}\n\n"
+  printf "\t${GREEN} • Can not get access to sudo${NC}\n\n"
   exit 1
 fi
 
