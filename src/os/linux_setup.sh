@@ -19,13 +19,13 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Default dotfiles dir
 # Set primary dir - not used
 DOTFILES="$HOME/.local/dotfiles/desktop"
+SCRIPTSINSTALLER="$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)"
 
 # Dependency check
-
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
 linuxosdir="$srcdir/os/linux"
-export DOTFILES dotfilesDirectory srcdir linuxosdir
+export DOTFILES DOTTEMP dotfilesDirectory srcdir linuxosdir
 
 ##################################################################################################
 
@@ -274,7 +274,6 @@ fi
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
 for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux remmina \
   smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh; do
-
   if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
     execute \
       "git -C $dotfilesDirectory/src/config/$config pull -q" \
@@ -286,9 +285,11 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
       "Installing $config module"
   fi
 done
+
 if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
   execute \
-    "sudo bash -c $(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh) && systemmgr install installer" \
+    "sudo bash -c $SCRIPTSINSTALLER && \
+    systemmgr install installer" \
     "installing system scripts"
 fi
 

@@ -3,7 +3,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")" && . "../utils.sh"
 
 srcdir="$(cd .. && pwd)"
-customizedir="$(cd "$srcdir/customize" && pwd)"
+customizedir="$dotfilesDirectory/customize"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -37,8 +37,8 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 
   create_issue() {
     declare -r FILE_PATH="/etc/issue"
-    sudo touch /etc/issue && sudo cp -Rf "$(cd .. && pwd)/shell/motd" /etc/issue
-    sudo touch /etc/issue.net && sudo cp -Rf "$(cd .. && pwd)/shell/motd" /etc/issue.net
+    sudo touch /etc/issue && sudo cp -Rf "$srcdir/shell/motd" /etc/issue
+    sudo touch /etc/issue.net && sudo cp -Rf "$srcdir/shell/motd" /etc/issue.net
     print_result $? "$FILE_PATH"
   }
 

@@ -4,7 +4,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")" &&
   . "../utils.sh"
 
 srcdir="$(cd ../.. && pwd)"
-customizedir="$(cd $dotfilesDirectory/customize && pwd)"
+customizedir="$dotfilesDirectory/customize"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
