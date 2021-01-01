@@ -20,7 +20,7 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Set primary dir - not used
 DOTFILES="$HOME/.local/dotfiles/desktop"
 
-SUDO_PROMPT="$(printf "\033[1;36m")           • [sudo]$(printf "\033[0m") password for %p:            •"
+SUDO_PROMPT="$(printf "\033[1;36m")           • [sudo]$(printf "\033[0m") password for %p: "
 
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
