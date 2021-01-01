@@ -323,7 +323,7 @@ print_in_purple " • Create local config files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user dotfile symlinks
-print_in_purple "\n • Backing up and create user files\n"
+print_in_purple "\n • Backing up and creating user files\n"
 bash -c $linuxosdir/create_symbolic_links.sh
 print_in_purple " • Create user files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -410,8 +410,8 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if [ -n "$(command -v shodan 2>/dev/null)" ] || [ -n "$(command -v ytmdl 2>/dev/null)" ] ||
-  [ -n "$(command -v toot 2>/dev/null)" ] || [ -n "$(command -v rainbowstream 2>/dev/null)" ]; then
+if [ -z "$(command -v shodan 2>/dev/null)" ] || [ -z "$(command -v ytmdl 2>/dev/null)" ] ||
+  [ -z "$(command -v toot 2>/dev/null)" ] || [ -z "$(command -v rainbowstream 2>/dev/null)" ]; then
   print_in_purple "\n • Installing terminal tools\n"
   for PIPTOOLS in git+https://github.com/sixohsix/python-irclib shodan ytmdl toot castero rainbowstream; do
     if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then

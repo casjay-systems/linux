@@ -108,7 +108,6 @@ backup_confsymlinks() {
     nameFile="$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
 
     if [ -f $targetFile ] || [ -d $targetFile ] && [ ! -L $targetFile ] && [ ! -f $srcdir/config/$i/install.sh ]; then
-      #mkdir -p "$backups/$CONFFILES_TO_SYMLINK"
       execute \
         "mv -f $targetFile $backups/configs/$nameFile" \
         "Backing up $targetFile → $backups/configs/$nameFile"
