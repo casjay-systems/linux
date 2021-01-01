@@ -289,7 +289,7 @@ done
 
 if [ -z "$SYSTEMMGR" ]; then
   execute \
-    "sudo bash -c $SCRIPTSINSTALLER && \
+    "sudo bash -c ${SCRIPTSINSTALLER} && \
     systemmgr install installer" \
     "installing system scripts"
 fi
