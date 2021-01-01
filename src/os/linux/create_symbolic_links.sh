@@ -128,6 +128,13 @@ create_symlinks() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_confsymlinks() {
+  setup() {
+    ln -fs $sourceFile $targetFile
+    if [ -f "$targetFile/install.sh" ]; then
+      "$targetFile/install.sh"
+    fi
+  }
+
   print_in_purple "\n • Create config symlinks\n"
   local i=""
   local sourceFile=""
@@ -142,7 +149,7 @@ create_confsymlinks() {
     rm -Rf $targetFile 2>/dev/null
     if [ -e "$sourceFile" ]; then
       execute \
-        "ln -fs $sourceFile $targetFile" \
+        "setup" \
         "$targetFile → $sourceFile"
     fi
   done
