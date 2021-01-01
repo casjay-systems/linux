@@ -72,12 +72,10 @@ clear                                                                           
 printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n" #
 ###############################################################################################
 # Remove previous installs
-if [ -d "$DOTFILES/.git" ]; then
-  git -C "$DOTFILES" reset --hard
-  git -C "$DOTFILES" pull -q
-else
+if [ ! -d "$DOTFILES/.git" ]; then
   rm -Rf "$DOTFILES"
 fi
+
 if [ -d $HOME/.config/bash/profile ]; then rm -Rf $HOME/.config/bash/profile/zz-*; fi
 if [ ! -d "$HOME/.config/dotfiles/backups/configs" ]; then mkdir -p "$HOME/.config/dotfiles/backups/configs"; fi
 
@@ -231,7 +229,7 @@ if [ -d $dotfilesDirectory/.git ]; then
   cd "$srcdir/os" && source "utils.sh"
 
   execute \
-    "git -C $dotfilesDirectory reset --hard -q && \
+    "git -C $dotfilesDirectory reset --hard -q >/dev/null && \
     git -C $dotfilesDirectory pull --recurse-submodules -q" \
     "Updating dotfiles"
 
