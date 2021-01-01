@@ -463,6 +463,7 @@ fi
 # run clean up
 print_in_purple "\n • Running cleanup\n"
 
+# remove unwanted system files
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   for sudocleanfile in /usr/share/xsessions/*-shmlog.desktop; do
     if [ -e "$sudocleanfile" ]; then
@@ -473,7 +474,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   done
 fi
 
-# remove arch aur cache
+# remove unwanted user temp files
 for homecleanfile in ~/.cache/yay; do
   if [ -e "$homecleanfile" ]; then
     execute \
