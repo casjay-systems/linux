@@ -4,7 +4,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")" &&
   . "../utils.sh"
 
 srcdir="$(cd .. && pwd)"
-backups="~/.config/dotfiles/backups"
+backups="$HOME/.config/dotfiles/backups"
 mkdir -p "$backups/configs"
 mkdir -p "$backups/home"
 
@@ -84,7 +84,7 @@ backup_symlinks() {
     targetFile="$HOME/.$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
     nameFile="$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
 
-    if [ -f $targetFile ] && [ ! -L $targetFile ]; then
+    if [ -f "$targetFile" ] && [ ! -L "$targetFile" ]; then
       execute \
         "mv -f $targetFile $backups/home/$nameFile" \
         "Backing up $targetFile  →  $backups/home/$nameFile"
@@ -124,7 +124,6 @@ create_symlinks() {
   local sourceFile=""
   local targetFile=""
   local skipQuestions=true
-
   skip_questions "$@" && skipQuestions=true
 
   for i in "${FILES_TO_SYMLINK[@]}"; do
