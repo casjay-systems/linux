@@ -377,7 +377,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #No point in running if no desktop
-if [ ! -z $DESKTOP_SESSION ]; then
+if [ -n "$DESKTOP_SESSION" ]; then
   # Compile and Install polybar
   POLYBAR=$(which polybar 2>/dev/null)
   if [ -z $UPDATE ]; then
