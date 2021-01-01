@@ -296,32 +296,32 @@ fi
 
 # Install additional system files if root
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  print_in_purple "\n • Installing system files\n"
+  print_in_purple "\n • Installing system files"
   sudo bash -c $linuxosdir/install_system_files.sh
   print_in_purple " • Installing system files completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user directories
-print_in_purple "\n • Creating directories\n"
+print_in_purple "\n • Creating directories"
 bash -c $linuxosdir/create_directories.sh
 print_in_purple " • Creating directories completed\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user .local files
-print_in_purple "\n • Create local config files\n"
+print_in_purple "\n • Create local config files"
 bash -c $linuxosdir/create_local_config_files.sh
 print_in_purple " • Create local config files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user dotfile symlinks
-print_in_purple "\n • Create user files\n"
+print_in_purple "\n • Create user files"
 bash -c $linuxosdir/create_symbolic_links.sh
 print_in_purple " • Create user files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user themes/fonts/icons or install to system if root
-print_in_purple "\n • Installing Customizations\n"
+print_in_purple "\n • Installing Customizations"
 bash -c $linuxosdir/install_customizations.sh
 print_in_purple " • Installing Customizations completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -329,7 +329,7 @@ print_in_purple " • Installing Customizations completed\n\n"
 # Create and Setup git
 GIT=$(which git 2>/dev/null)
 if [ -z "$GIT" ]; then print_in_red "\n • The git package is not installed\n\n"; else
-  print_in_purple "\n • Installing GIT\n"
+  print_in_purple "\n • Installing GIT"
   bash -c $linuxosdir/install_git.sh
   print_in_purple " • Installing GIT completed\n\n"
 fi
@@ -338,7 +338,7 @@ fi
 # Create and Setup vim
 VIM=$(which vim 2>/dev/null)
 if [ -z "$VIM" ]; then print_in_red "\n • The vim package is not installed\n\n"; else
-  print_in_purple "\n • Installing vim with plugins\n"
+  print_in_purple "\n • Installing vim with plugins"
   bash -c $linuxosdir/install_vim.sh
   print_in_purple " • Installing vim with plugins completed\n\n"
 fi
@@ -347,7 +347,7 @@ fi
 # Create and Setup tmux
 TMUX=$(which tmux 2>/dev/null)
 if [ -z "$TMUX" ]; then print_in_red "\n • The tmux package is not installed\n\n"; else
-  print_in_purple "\n • Installing tmux plugins\n"
+  print_in_purple "\n • Installing tmux plugins"
   bash -c $linuxosdir/install_tmux.sh
   print_in_purple " • Installing tmux plugins completed\n\n"
 fi
@@ -356,7 +356,7 @@ fi
 # Create and Setup zsh
 ZSH=$(which zsh 2>/dev/null)
 if [ -z "$ZSH" ]; then print_in_red "\n • The zsh package is not installed\n\n"; else
-  print_in_purple "\n • Installing zsh with plugins\n"
+  print_in_purple "\n • Installing zsh with plugins"
   bash -c $linuxosdir/install_ohmyzsh.sh
   print_in_purple " • Installing zsh with plugins completed\n\n"
 fi
@@ -365,7 +365,7 @@ fi
 # Create and Setup fish
 FISH=$(which fish 2>/dev/null)
 if [ -z "$FISH" ]; then print_in_red "\n • The fish package is not installed\n\n"; else
-  print_in_purple "\n • Installing fish shell and plugins\n"
+  print_in_purple "\n • Installing fish shell and plugins"
   bash -c $linuxosdir/install_ohmyfish.sh
   print_in_purple " • Installing fish shell and plugins completed\n\n"
 fi
@@ -382,7 +382,7 @@ if [ -n "$DESKTOP_SESSION" ]; then
   POLYBAR=$(which polybar 2>/dev/null)
   if [ -z $UPDATE ]; then
     print_in_purple "\n • polybar install\n\n"
-    if [ ! -z "$POLYBAR" ]; then print_in_green "    •  polybar already installed\n"; else
+    if [ -n "$POLYBAR" ]; then print_in_green "    •  polybar already installed\n"; else
       sudo bash -c $linuxosdir/make_polybar.sh
     fi
     print_in_purple " • polybar install complete\n\n"
@@ -402,7 +402,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ -n "$(which rainbowstream 2>/dev/null)" ] || [ -n "$(which toot 2>/dev/null)" ] || [ -n "$(which castero 2>/dev/null)" ]; then
   if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then
-    print_in_purple "\n • terminal tools install\n\n"
+    print_in_purple "\n • terminal tools install"
     sudo sh -c ""$PIP" install shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
   else
     sh -c ""$PIP" install --user shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib >/dev/null 2>&1"
@@ -453,7 +453,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # run clean up
-print_in_purple "\n • Running cleanup\n\n"
+print_in_purple "\n • Running cleanup"
 
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   execute \
@@ -464,7 +464,7 @@ fi
 # remove arch aur cache
 rm -Rf ~/.cache/yay 2>/dev/null
 
-print_in_purple "\n • Running cleanup complete\n\n"
+print_in_purple " • Running cleanup complete\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
