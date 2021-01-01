@@ -231,7 +231,7 @@ if [ -d $dotfilesDirectory/.git ]; then
   cd "$srcdir/os" && source "utils.sh"
 
   execute \
-    "git -C $dotfilesDirectory reset --hard && \
+    "git -C $dotfilesDirectory reset --hard -q && \
     git -C $dotfilesDirectory pull --recurse-submodules -q" \
     "Updating dotfiles"
 
