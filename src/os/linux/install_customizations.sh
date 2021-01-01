@@ -49,7 +49,6 @@ create_themes() {
     mv -f ~/.local/share/themes ~/.local/share/themes.old
   fi
 
-  echo ""
   if [ -d ~/.local/share/themes.old ]; then
     execute \
       "ln -sf $customizedir/themes ~/.local/share/themes && \
@@ -73,19 +72,18 @@ create_fonts() {
     mv -f ~/.local/share/fonts ~/.local/share/fonts.old
   fi
 
-  echo ""
   if [ -d ~/.local/share/fonts.old ]; then
     execute \
       "ln -sf $customizedir/fonts ~/.local/share/fonts && \
-         rsync -ahq ~/.local/share/fonts.old/* ~/.local/share/fonts/ 2>/dev/null && \
-         rm -Rf ~/.local/share/fonts.old/ && \
-         fc-cache -f" \
+      rsync -ahq ~/.local/share/fonts.old/* ~/.local/share/fonts/ 2>/dev/null && \
+      rm -Rf ~/.local/share/fonts.old/ && \
+      fc-cache -f" \
       "$customizedir/fonts → ~/.local/share/fonts"
 
   else
     execute \
       "ln -sf $customizedir/fonts ~/.local/share/fonts && \
-         fc-cache -f" \
+      fc-cache -f" \
       "$customizedir/fonts → ~/.local/share/fonts"
   fi
 

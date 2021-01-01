@@ -10,7 +10,7 @@ srcdir="$(cd .. && pwd)"
 install_vim() {
   if [ -f "$srcdir/config/vim/install.sh" ]; then
     execute "$srcdir/config/vim/install.sh" "Installing vim"
-  else
+  elif [ -f "$srcdir/config/vim/vimrc" ]; then
     rm -Rf ~/.vimrc
     if [ -L ~/.vim ]; then unlink ~/.vim 2>/dev/null; fi
     if [ -d ~/.vim ]; then rm -Rf -f ~/.vim 2>/dev/null; fi
@@ -22,23 +22,26 @@ install_vim() {
     execute \
       "ln -sf $srcdir/config/vim/vimrc ~/.vimrc" \
       "$srcdir/config/vim/vimrc  → ~/.vimrc"
+  else
+    exit
+  fi
+}
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    if [ ! -d "$HOME/.local/share/vim/Vundle.vim/.git" ]; then
-      execute \
-        "rm -Rf $HOME/.local/share/vim/Vundle.vim && \
+install_vimplugins() {
+  if [ ! -d "$HOME/.local/share/vim/Vundle.vim/.git" ]; then
+    execute \
+      "rm -Rf $HOME/.local/share/vim/Vundle.vim && \
         git clone -q https://github.com/VundleVim/Vundle.vim.git $HOME/.local/share/vim/Vundle.vim && \
         vim +PluginInstall +qall < /dev/null > /dev/null 2>&1" \
-        "vim +PluginInstall +qall → $HOME/.local/share/vim/"
-
-    else
-      execute \
-        "cd $HOME/.local/share/vim/Vundle.vim && \
+      "vim +PluginInstall +qall → $HOME/.local/share/vim/"
+  else
+    execute \
+      "cd $HOME/.local/share/vim/Vundle.vim && \
         git pull -q && \
         vim +PluginInstall +qall < /dev/null > /dev/null 2>&1" \
-        "Updating Vundle and Plugins"
-    fi
+      "Updating Vundle and Plugins"
   fi
 }
 
@@ -47,6 +50,7 @@ install_vim() {
 main() {
 
   install_vim
+  install_vimplugins
 
 }
 

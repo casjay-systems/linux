@@ -10,10 +10,12 @@ srcdir="$(cd .. && pwd)"
 install_git() {
   if [ -f "$srcdir/config/git/install.sh" ]; then
     execute "$srcdir/config/git/install.sh" "Installing GIT"
-  else
+  elif [ -d "$srcdir/config/git/gitconfig " ]; then
     execute \
       "ln -sf $srcdir/config/git/gitconfig ~/.gitconfig" \
       "$srcdir/config/git/gitconfig  → ~/.gitconfig"
+  else
+    exit
   fi
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

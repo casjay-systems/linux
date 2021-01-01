@@ -10,11 +10,13 @@ srcdir="$(cd .. && pwd)"
 setup_zsh() {
   if [ -f "$srcdir/config/zsh/install.sh" ]; then
     execute "$srcdir/config/zsh/install.sh" "Installing zsh"
-  else
+  elif [ -d "$srcdir/config/zsh" ]; then
     rm -Rf ~/.zshrc
     execute \
       "ln -sf $srcdir/config/zsh/zshrc ~/.zshrc" \
       "$srcdir/config/zsh/zshrc → ~/.zshrc"
+  else
+    exit
   fi
 }
 

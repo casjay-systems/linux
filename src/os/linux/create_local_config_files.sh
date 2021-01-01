@@ -35,7 +35,7 @@ create_fish_local() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_tmux_local() {
-  declare -r FILE_PATH="$HOME/.config/locals/tmux.local"
+  declare -r FILE_PATH="$HOME/.config/local/tmux.local"
   if [ ! -e "$FILE_PATH" ]; then
     printf "" >>"$FILE_PATH"
   fi
@@ -45,7 +45,7 @@ create_tmux_local() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_vimrc_local() {
-  declare -r FILE_PATH="$HOME/.config/locals/vimrc.local"
+  declare -r FILE_PATH="$HOME/.config/local/vimrc.local"
   if [ ! -e "$FILE_PATH" ]; then
     printf "" >>"$FILE_PATH"
   fi
@@ -55,7 +55,7 @@ create_vimrc_local() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_gitconfig_local() {
-  declare -r FILE_PATH="$HOME/.config/locals/gitconfig.local"
+  declare -r FILE_PATH="$HOME/.config/local/gitconfig.local"
   if [ ! -e "$FILE_PATH" ]; then
     printf "" >>"$FILE_PATH"
   fi
@@ -65,7 +65,7 @@ create_gitconfig_local() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_screen_local() {
-  declare -r FILE_PATH="$HOME/.config/locals/screen.local"
+  declare -r FILE_PATH="$HOME/.config/local/screen.local"
   if [ ! -e "$FILE_PATH" ]; then
     printf "" >>"$FILE_PATH"
   fi
