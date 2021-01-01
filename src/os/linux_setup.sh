@@ -251,7 +251,7 @@ else
 fi
 
 # grab the modules
-printf "\n${GREEN}  *** • Downloading additional configuration files • ***${NC}\n"
+printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
 for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux remmina \
   smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh; do
 
@@ -266,6 +266,7 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
       "Installing $config module"
   fi
 done
+printf "${PURPLE}  *** • Downloading additional configuration files completed • ***${NC}\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Make Directories and fix permissions
@@ -462,13 +463,19 @@ fi
 print_in_purple "\n • Running cleanup\n"
 
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  execute \
-    "sudo rm -Rf /usr/share/xsessions/*-shmlog.desktop" \
-    "Clean up"
+  for sudocleanfile in /usr/share/xsessions/*-shmlog.desktop; do
+    execute \
+      "sudo rm -Rf $sudocleanfile" \
+      "Clean up cleaning up $sudocleanfile"
+  done
 fi
 
 # remove arch aur cache
-rm -Rf ~/.cache/yay 2>/dev/null
+for homecleanfile in ~/.cache/yay; do
+  execute \
+    "rm -Rf ~/.cache/yay 2>/dev/null" \
+    "cleaning up $cleanfilehome"
+done
 
 print_in_purple " • Running cleanup complete\n\n"
 
