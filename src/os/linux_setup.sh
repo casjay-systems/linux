@@ -292,25 +292,26 @@ fi
 
 # grab the modules
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
-for config in bash geany git htop neofetch fish tmux terminology termite Thunar transmission variety vifm vim xfce4 zsh; do
-  if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
-    execute \
-      "git -C $dotfilesDirectory/src/config/$config pull -q" \
-      "Updating $config module"
-  else
-    rm -Rf "$dotfilesDirectory/src/config/$config"
-    execute \
-      "git clone -q https://github.com/casjay-dotfiles/$config $dotfilesDirectory/src/config/$config" \
-      "Installing $config module"
-  fi
-done
-
 if [ ! -f "$(command -v systemmgr 2>/dev/null)" ]; then
   printf "${GREEN}   [✔] installing system scripts${NC}\n"
   sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
     systemmgr install installer >/dev/null 2>&1
 fi
 
+for config in bash geany git htop neofetch fish tmux terminology termite Thunar transmission variety vifm vim zsh; do
+  if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
+    execute \
+      "git -C $dotfilesDirectory/src/config/$config pull -q &&
+      $dotfilesDirectory/src/config/$config/install.sh" \
+      "Updating $config module"
+  else
+    rm -Rf "$dotfilesDirectory/src/config/$config"
+    execute \
+      "git clone -q https://github.com/casjay-dotfiles/$config $dotfilesDirectory/src/config/$config &&
+      $dotfilesDirectory/src/config/$config/install.sh" \
+      "Installing $config module"
+  fi
+done
 printf "${PURPLE}  *** • Downloading additional configuration files completed • ***${NC}\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
