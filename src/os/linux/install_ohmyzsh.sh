@@ -39,7 +39,7 @@ setup_omyzsh() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_zsh9k() {
-  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k/.git" ]; then
+  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k/.git" ] && [ ! -f "$srcdir/config/zsh/install.sh" ]; then
     execute \
       "cd $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k && \
       git pull -q" \
@@ -55,7 +55,7 @@ setup_zsh9k() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_zsh10k() {
-  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k/.git" ]; then
+  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k/.git" ] && [ ! -f "$srcdir/config/zsh/install.sh" ]; then
     execute \
       "cd $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k && \
       git pull -q" \
