@@ -425,8 +425,8 @@ fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if [ -n "$(command -v shodan 2>/dev/null)" ] && [ -n "$(command -v ytmdl 2>/dev/null)" ] && [ -n "$(command -n toot 2>/dev/null)" ] &&
-  [ -n "$(command -v castero 2>/dev/null)" ] && [ -n "$(command -v rainbowstream 2>/dev/null)" ]; then
+if [ -z "$(command -v shodan 2>/dev/null)" ] && [ -z "$(command -v ytmdl 2>/dev/null)" ] && [ -z "$(command -n toot 2>/dev/null)" ] &&
+  [ -z "$(command -v castero 2>/dev/null)" ] && [ -z "$(command -v rainbowstream 2>/dev/null)" ]; then
   print_in_purple "\n • Installing terminal tools\n"
   for PIPTOOLS in git+https://github.com/sixohsix/python-irclib shodan ytmdl toot castero rainbowstream; do
     if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then
