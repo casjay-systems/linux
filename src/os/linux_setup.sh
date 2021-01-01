@@ -232,7 +232,7 @@ if [ -d $dotfilesDirectory/.git ]; then
 
   execute \
     "git -C $dotfilesDirectory reset --hard && \
-    git -C $dotfilesDirectory pull --recursive -q" \
+    git -C $dotfilesDirectory pull --recurse-submodules -q" \
     "Updating dotfiles"
 
   NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
