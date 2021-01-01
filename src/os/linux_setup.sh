@@ -407,7 +407,9 @@ if [ -n "$DESKTOP_SESSION" ]; then
     print_in_purple " • jgmenu install complete\n\n"
   fi
 fi
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 if [ -n "$(command -v shodan 2>/dev/null)" ] || [ -n "$(command -v ytmdl 2>/dev/null)" ] ||
   [ -n "$(command -v toot 2>/dev/null)" ] || [ -n "$(command -v rainbowstream 2>/dev/null)" ]; then
   print_in_purple "\n • Installing terminal tools\n"
