@@ -23,48 +23,54 @@ setup_zsh() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_omyzsh() {
-  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/.git" ] && [ ! -f "$srcdir/config/zsh/install.sh" ]; then
-    execute \
-      "cd $HOME/.local/share/zsh/oh-my-zsh && git pull -q" \
-      "Updating oh-my-zsh"
+  if [ ! -f "$srcdir/config/zsh/install.sh" ]; then
+    if [ -d "$HOME/.local/share/zsh/oh-my-zsh/.git" ]; then
+      execute \
+        "cd $HOME/.local/share/zsh/oh-my-zsh && git pull -q" \
+        "Updating oh-my-zsh"
 
-  else
-    execute \
-      "rm -Rf $HOME/.local/share/zsh/oh-my-zsh && \
+    else
+      execute \
+        "rm -Rf $HOME/.local/share/zsh/oh-my-zsh && \
       git clone -q https://github.com/robbyrussell/oh-my-zsh.git $HOME/.local/share/zsh/oh-my-zsh" \
-      "https://github.com/robbyrussell/oh-my-zsh.git → $HOME/.local/share/zsh/oh-my-zsh"
+        "https://github.com/robbyrussell/oh-my-zsh.git → $HOME/.local/share/zsh/oh-my-zsh"
+    fi
   fi
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_zsh9k() {
-  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k/.git" ] && [ ! -f "$srcdir/config/zsh/install.sh" ]; then
-    execute \
-      "cd $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k && \
+  if [ ! -f "$srcdir/config/zsh/install.sh" ]; then
+    if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k/.git" ]; then
+      execute \
+        "cd $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k && \
       git pull -q" \
-      "Updating powerlevel9k "
-  else
-    execute \
-      "rm -Rf $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k && \
+        "Updating powerlevel9k "
+    else
+      execute \
+        "rm -Rf $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k && \
       git clone -q https://github.com/bhilburn/powerlevel9k.git $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k" \
-      "https://github.com/bhilburn/powerlevel9k.git → $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k"
+        "https://github.com/bhilburn/powerlevel9k.git → $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel9k"
+    fi
   fi
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_zsh10k() {
-  if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k/.git" ] && [ ! -f "$srcdir/config/zsh/install.sh" ]; then
-    execute \
-      "cd $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k && \
+  if [ ! -f "$srcdir/config/zsh/install.sh" ]; then
+    if [ -d "$HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k/.git" ]; then
+      execute \
+        "cd $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k && \
       git pull -q" \
-      "Updating powerlevel10k"
-  else
-    execute \
-      "rm -Rf $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k && \
+        "Updating powerlevel10k"
+    else
+      execute \
+        "rm -Rf $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k && \
       git clone -q https://github.com/romkatv/powerlevel10k.git $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k" \
-      "https://github.com/romkatv/powerlevel10k.git → $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k"
+        "https://github.com/romkatv/powerlevel10k.git → $HOME/.local/share/zsh/oh-my-zsh/custom/themes/powerlevel10k"
+    fi
   fi
 }
 
