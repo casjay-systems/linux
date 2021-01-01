@@ -392,13 +392,6 @@ if [ -z "$FISH" ]; then print_in_red "\n • The fish package is not installed\n
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Install additional
-[ -f "$(command -v dfmgr 2>/dev/null)" ] && dfmgr install misc >/dev/null 2>&1
-
-##
-##
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 #No point in running if no desktop
 if [ -n "$DESKTOP_SESSION" ]; then
   # Compile and Install polybar
@@ -441,6 +434,11 @@ if [ -z "$(command -v shodan 2>/dev/null)" ] && [ -z "$(command -v ytmdl 2>/dev/
   done
   print_in_purple " • Installing terminal tools completed\n\n"
 fi
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Install additional
+[ -f "$(command -v dfmgr 2>/dev/null)" ] && dfmgr install misc >/dev/null 2>&1
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
