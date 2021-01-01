@@ -408,7 +408,8 @@ if [ -n "$DESKTOP_SESSION" ]; then
   fi
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-if [ -n "$(which rainbowstream 2>/dev/null)" ] || [ -n "$(which toot 2>/dev/null)" ] || [ -n "$(which castero 2>/dev/null)" ]; then
+if [ -n "$(command -v shodan 2>/dev/null)" ] || [ -n "$(command -v ytmdl 2>/dev/null)" ] ||
+  [ -n "$(command -v toot 2>/dev/null)" ] || [ -n "$(command -v rainbowstream 2>/dev/null)" ]; then
   print_in_purple "\n • Installing terminal tools\n"
   for PIPTOOLS in shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib; do
     if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then
