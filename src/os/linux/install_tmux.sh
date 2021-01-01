@@ -9,7 +9,7 @@ srcdir="$(cd .. && pwd)"
 
 setup_tmux() {
   if [ -f "$srcdir/config/tmux/install.sh" ]; then
-    execute "$srcdir/config/tmux/install.sh" "Installing tmux"
+    execute "$srcdir/config/tmux/install.sh" "Installing tmux: $srcdir/config/tmux/install.sh"
 
   elif [ -d "$srcdir/config/tmux" ]; then
     if [ -L ~/.tmux ]; then unlink ~/.tmux 2>/dev/null; fi

@@ -9,7 +9,7 @@ srcdir="$(cd .. && pwd)"
 
 setup_zsh() {
   if [ -f "$srcdir/config/zsh/install.sh" ]; then
-    execute "$srcdir/config/zsh/install.sh" "Installing zsh"
+    execute "$srcdir/config/zsh/install.sh" "Installing zsh: $srcdir/config/zsh/install.sh"
   elif [ -d "$srcdir/config/zsh" ]; then
     rm -Rf ~/.zshrc
     execute \
