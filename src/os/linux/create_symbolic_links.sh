@@ -29,6 +29,7 @@ declare -a FILES_TO_SYMLINK=(
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 declare -a CONFFILES_TO_SYMLINK=(
+  "misc"
   "bash"
   "Thunar"
   "awesome"

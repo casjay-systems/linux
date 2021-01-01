@@ -274,7 +274,7 @@ fi
 # grab the modules
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
 for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux remmina \
-  smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh; do
+  smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh misc; do
   if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
     execute \
       "git -C $dotfilesDirectory/src/config/$config pull -q" \
