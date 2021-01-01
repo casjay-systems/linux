@@ -176,7 +176,6 @@ SUDO=$(command -v sudo 2>/dev/null)
 LSBR=$(command -v lsb_release 2>/dev/null)
 POLYBAR=$(command -v polybar 2>/dev/null)
 JGMENU=$(command -v jgmenu 2>/dev/null)
-SYSTEMMGR=$(command -v systemmgr 2>/dev/null)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
