@@ -411,7 +411,7 @@ fi
 if [ -n "$(command -v shodan 2>/dev/null)" ] || [ -n "$(command -v ytmdl 2>/dev/null)" ] ||
   [ -n "$(command -v toot 2>/dev/null)" ] || [ -n "$(command -v rainbowstream 2>/dev/null)" ]; then
   print_in_purple "\n • Installing terminal tools\n"
-  for PIPTOOLS in shodan ytmdl toot castero rainbowstream git+https://github.com/sixohsix/python-irclib; do
+  for PIPTOOLS in git+https://github.com/sixohsix/python-irclib shodan ytmdl toot castero rainbowstream; do
     if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then
       execute \
         "sudo sh -c $PIP install $PIPTOOLS >/dev/null 2>&1" \
