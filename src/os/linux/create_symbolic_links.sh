@@ -12,9 +12,6 @@ mkdir -p "$backups/home"
 
 declare -a FILES_TO_SYMLINK=(
   "config/xmonad"
-  "config/bash/bash_logout"
-  "config/bash/bash_profile"
-  "config/bash/bashrc"
   "shell/curlrc"
   "shell/dircolors"
   "shell/inputrc"
