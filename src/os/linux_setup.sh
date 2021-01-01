@@ -285,6 +285,12 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
       "Installing $config module"
   fi
 done
+if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
+  execute \
+    "sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" && systemmgr install installer" \
+    "installing system scripts"
+fi
+
 printf "${PURPLE}  *** • Downloading additional configuration files completed • ***${NC}\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
