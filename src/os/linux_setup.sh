@@ -25,8 +25,8 @@ DOTFILES="$HOME/.local/dotfiles/desktop"
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
 linuxosdir="$srcdir/os/linux"
+export DOTFILES dotfilesDirectory srcdir linuxosdir
 
-export dotfilesDirectory srcdir linuxosdir
 ##################################################################################################
 
 # Define colors
@@ -288,7 +288,7 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
 done
 if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
   execute \
-    "sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" && systemmgr install installer" \
+    "sudo bash -c $(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh) && systemmgr install installer" \
     "installing system scripts"
 fi
 
