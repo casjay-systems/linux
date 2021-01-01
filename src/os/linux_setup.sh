@@ -247,7 +247,7 @@ else
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
   printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n"
   cd "$srcdir/os" && source "utils.sh"
-  printf "\n${PURPLE} • Cloning the git repo completed${NC}\n\n"
+  printf "${PURPLE} • Cloning the git repo completed${NC}\n\n"
 fi
 
 # grab the modules
