@@ -269,10 +269,30 @@ else
   printf "${PURPLE} • Cloning the git repo completed${NC}\n\n"
 fi
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Make Directories and fix permissions
+
+mkdir -p ~/.gnupg ~/.ssh 2>/dev/null
+find "$HOME" -xtype l -delete 2>/dev/null
+find ~/.gnupg ~/.ssh -type f -exec chmod 600 {} \; 2>/dev/null
+find ~/.gnupg ~/.ssh -type d -exec chmod 700 {} \; 2>/dev/null
+find $dotfilesDirectory/ -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+if [ -z "$UPDATE" ]; then
+  if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
+    print_in_purple "\n • Installing system packages\n"
+    source "$linuxosdir/install_packages.sh"
+    print_in_purple " • Installing system packages completed\n\n"
+  fi
+fi
+
+###################################################################
+
 # grab the modules
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
-for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux remmina \
-  smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh; do
+for config in bash geany git htop neofetch fish tmux terminology termite Thunar transmission variety vifm vim xfce4 zsh; do
   if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
     execute \
       "git -C $dotfilesDirectory/src/config/$config pull -q" \
@@ -294,26 +314,6 @@ fi
 printf "${PURPLE}  *** • Downloading additional configuration files completed • ***${NC}\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Make Directories and fix permissions
-
-mkdir -p ~/.gnupg ~/.ssh 2>/dev/null
-find "$HOME" -xtype l -delete 2>/dev/null
-find ~/.gnupg ~/.ssh -type f -exec chmod 600 {} \; 2>/dev/null
-find ~/.gnupg ~/.ssh -type d -exec chmod 700 {} \; 2>/dev/null
-find $dotfilesDirectory/ -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-if [ -z "$UPDATE" ]; then
-  if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-    print_in_purple "\n • Installing system packages\n"
-    source "$linuxosdir/install_packages.sh"
-    print_in_purple " • Installing system packages completed\n\n"
-  fi
-fi
-
-###################################################################
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Install additional system files if root
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
@@ -321,6 +321,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   sudo bash -c "$linuxosdir/install_system_files.sh"
   print_in_purple " • Installing system files completed\n\n"
 fi
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user directories
@@ -441,6 +442,21 @@ fi
 print_in_purple "\n • Installing additional tools\n"
 [ -f "$(command -v dfmgr 2>/dev/null)" ] && execute "dfmgr install misc"
 print_in_purple " • Installing additional tools completed\n\n"
+
+if [ -n "$DESKTOP_SESSION" ]; then
+  case "$DESKTOP_SESSION" in
+  awesome) execute "dfmgr install awesome" "Setting up for awesome" ;;
+  bspwm) execute "dfmgr install bspwm" "Setting up for bspwm" ;;
+  i3 | i3wm) execute "dfmgr install i3" "Setting up for i3" ;;
+    #     jwm) execute "dfmgr install jwm" "Setting up for jwm";;
+    #     lxde) execute "dfmgr install lxde" "Setting up for lxde";;
+    #     lxqt) execute "dfmgr install lxqt" "Setting up for lxqt";;
+  qtile) execute "dfmgr install qtile" "Setting up for qtile" ;;
+  xfce) execute "dfmgr install xfce" "Setting up for xfce" ;;
+  openbox) execute "dfmgr install openbox" "Setting up for openbox" ;;
+  xmonad) execute "dfmgr install xmonad" "Setting up for xmonad" ;;
+  esac
+fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
