@@ -37,13 +37,7 @@ NC='\033[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Grab the OS detection script if it doesn't exist script
-if [ -f "$srcdir/os" ]; then
-  cd "$srcdir/os" && source "utils.sh"
-else
-  clear
-  printf "\n\n${RED}Failed to source the $srcdir/os/utils.sh file${NC}\n\n"
-  exit 1
-fi
+
 if [ -f $srcdir/os/osdetect.sh ]; then
   source $srcdir/os/osdetect.sh
 else
