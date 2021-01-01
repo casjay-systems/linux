@@ -128,11 +128,13 @@ create_symlinks() {
   for i in "${FILES_TO_SYMLINK[@]}"; do
     sourceFile="$srcdir/$i"
     targetFile="$HOME/.$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
-    unlink -f $targetFile 2>/dev/null
-    rm -Rf $targetFile 2>/dev/null
-    execute \
-      "ln -fs $sourceFile $targetFile" \
-      "$targetFile → $sourceFile"
+    if [ -e "$sourceFile" ]; then
+      unlink -f $targetFile 2>/dev/null
+      rm -Rf $targetFile 2>/dev/null
+      execute \
+        "ln -fs $sourceFile $targetFile" \
+        "$targetFile → $sourceFile"
+    fi
   done
 }
 
@@ -151,9 +153,11 @@ create_confsymlinks() {
     targetFile="$HOME/.config/$i"
     unlink -f $targetFile 2>/dev/null
     rm -Rf $targetFile 2>/dev/null
-    execute \
-      "ln -fs $sourceFile $targetFile" \
-      "$targetFile → $sourceFile"
+    if [ -e "$sourceFile" ]; then
+      execute \
+        "ln -fs $sourceFile $targetFile" \
+        "$targetFile → $sourceFile"
+    fi
   done
 }
 
