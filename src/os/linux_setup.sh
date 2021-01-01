@@ -55,6 +55,7 @@ printf "\n\n\n\n\n   ${BLUE}      *** Initializing the installer please wait ***
 # Remove previous installs
 if [ -d $DOTFILES.git ]; then cd $DOTFILES && git pull; else rm -Rf $DOTFILES; fi
 if [ -d $HOME/.config/bash/profile ]; then rm -Rf $HOME/.config/bash/profile/zz-*; fi
+if [ ! -d "$HOME/.config/dotfiles/backups/configs" ]; then mkdir -p "$HOME/.config/dotfiles/backups/configs"; fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ -z $UPDATE ]; then
