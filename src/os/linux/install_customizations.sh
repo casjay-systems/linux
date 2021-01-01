@@ -9,6 +9,21 @@ customizedir="$(cd $srcdir/../customize && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_icons() {
+  setup() {
+    ln -sf $customizedir/icons ~/.local/share/icons &&
+      fc-cache -f ~/.local/share/icons/N.I.B./ &&
+      fc-cache -f ~/.local/share/icons/Obsidian-Purple/
+  }
+
+  setup_old() {
+    ln -sf $customizedir/icons ~/.local/share/icons &&
+      rsync -aqh ~/.local/share/icons.old/* ~/.local/share/icons/ 2>/dev/null &&
+      rm -Rf ~/.local/share/icons.old/ &&
+      fc-cache -f ~/.local/share/icons/N.I.B./ &&
+      fc-cache -f ~/.local/share/icons/Obsidian-Purple/
+  }
+  # - - - - - - - - - - - - - - -
+
   if [ -L ~/.local/share/icons ]; then unlink ~/.local/share/icons; fi
   if [ -d ~/.local/share/icons ] && [ ! -L ~/.local/share/icons ]; then
     mv -f ~/.local/share/icons ~/.local/share/icons.old
@@ -16,17 +31,11 @@ create_icons() {
 
   if [ -d ~/.local/share/icons.old ]; then
     execute \
-      "ln -sf $customizedir/icons ~/.local/share/icons && \
-      rsync -aqh ~/.local/share/icons.old/* ~/.local/share/icons/ 2>/dev/null && \
-      rm -Rf ~/.local/share/icons.old/ && \
-      fc-cache -f ~/.local/share/icons/N.I.B./ && \
-      fc-cache -f ~/.local/share/icons/Obsidian-Purple/" \
+      "setup_old" \
       "$customizedir/icons → ~/.local/share/icons"
   else
     execute \
-      "ln -sf $customizedir/icons ~/.local/share/icons && \
-      fc-cache -f ~/.local/share/icons/N.I.B./ && \
-      fc-cache -f ~/.local/share/icons/Obsidian-Purple/" \
+      "setup" \
       "$customizedir/icons → ~/.local/share/icons"
   fi
 
@@ -43,6 +52,16 @@ create_icons() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_themes() {
+  setup() {
+    ln -sf $customizedir/themes ~/.local/share/themes
+  }
+
+  setup_old() {
+    ln -sf $customizedir/themes ~/.local/share/themes &&
+      rsync -ahq ~/.local/share/themes.old/* ~/.local/share/themes/ 2>/dev/null &&
+      rm -Rf ~/.local/share/themes.old/
+  }
+  # - - - - - - - - - - - - - - -
 
   if [ -L ~/.local/share/themes ]; then unlink ~/.local/share/themes; fi
   if [ -d ~/.local/share/themes ] && [ ! -L ~/.local/share/themes ]; then
@@ -51,13 +70,11 @@ create_themes() {
 
   if [ -d ~/.local/share/themes.old ]; then
     execute \
-      "ln -sf $customizedir/themes ~/.local/share/themes && \
-      rsync -ahq ~/.local/share/themes.old/* ~/.local/share/themes/ 2>/dev/null && \
-      rm -Rf ~/.local/share/themes.old/"
-    "$customizedir/themes → ~/.local/share/themes"
+      "setup_old" \
+      "$customizedir/themes → ~/.local/share/themes"
   else
     execute \
-      "ln -sf $customizedir/themes ~/.local/share/themes" \
+      "setup" \
       "$customizedir/themes → ~/.local/share/themes"
   fi
 
@@ -66,6 +83,17 @@ create_themes() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_fonts() {
+  setup() {
+    ln -sf $customizedir/fonts ~/.local/share/fonts &&
+      fc-cache -f
+  }
+  setup_old() {
+    ln -sf $customizedir/fonts ~/.local/share/fonts &&
+      rsync -ahq ~/.local/share/fonts.old/* ~/.local/share/fonts/ 2>/dev/null &&
+      rm -Rf ~/.local/share/fonts.old/ &&
+      fc-cache -f
+  }
+  # - - - - - - - - - - - - - - -
 
   if [ -L ~/.local/share/fonts ]; then unlink ~/.local/share/fonts; fi
   if [ -d ~/.local/share/fonts ] && [ ! -L ~/.local/share/fonts ]; then
@@ -74,16 +102,12 @@ create_fonts() {
 
   if [ -d ~/.local/share/fonts.old ]; then
     execute \
-      "ln -sf $customizedir/fonts ~/.local/share/fonts && \
-      rsync -ahq ~/.local/share/fonts.old/* ~/.local/share/fonts/ 2>/dev/null && \
-      rm -Rf ~/.local/share/fonts.old/ && \
-      fc-cache -f" \
+      "setup_old" \
       "$customizedir/fonts → ~/.local/share/fonts"
 
   else
     execute \
-      "ln -sf $customizedir/fonts ~/.local/share/fonts && \
-      fc-cache -f" \
+      "setup" \
       "$customizedir/fonts → ~/.local/share/fonts"
   fi
 
@@ -93,9 +117,7 @@ create_fonts() {
 main() {
 
   create_themes
-
   create_fonts
-
   create_icons
 
 }

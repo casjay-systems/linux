@@ -79,15 +79,20 @@ fi
 # Automatic linux install
 
 ###############################################################################################
-clear                                                                                       #
-printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n" #
+clear                                                                              #
+printf "\n\n\n\n\n${BLUE}  *** Initializing the installer please wait *** ${NC}\n" #
 ###############################################################################################
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  printf "\n${RED}           • Getting root privileges •${NC}\n"
-  ask_for_sudo
-  printf "${GREEN}           • Received root privileges •${NC}\n\n"
+  printf "\n${RED}  • Getting root privileges •${NC}\n" &&
+    ask_for_sudo
+  if [ "$?" -eq 0 ]; then
+    printf "${GREEN}  • Received root privileges •${NC}\n\n"
+  else
+    printf "${GREEN}  • Can not get access to sudo •${NC}\n\n"
+    exit 1
+  fi
 else
-  printf "${GREEN}           • Can not get access to sudo •${NC}\n\n"
+  printf "${GREEN}  • Can not get access to sudo •${NC}\n\n"
   exit 1
 fi
 
@@ -146,7 +151,7 @@ fi
 
 wait_time=10 # seconds
 temp_cnt=${wait_time}
-printf "\n\n\n${GREEN}         *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
+printf "\n\n\n${GREEN}  *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
 printf "${YELLOW}  *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n\n"
 
 while [[ ${temp_cnt} -gt 0 ]]; do
@@ -292,7 +297,7 @@ fi
 
 # grab the modules
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
-if [ ! -f "$(command -v systemmgr 2>/dev/null)" ]; then
+if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
   printf "${GREEN}   [✔] installing system scripts${NC}\n"
   sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
     systemmgr install installer >/dev/null 2>&1
@@ -447,9 +452,9 @@ if [ -n "$DESKTOP_SESSION" ]; then
   awesome) execute "dfmgr install awesome" "Setting up for awesome" ;;
   bspwm) execute "dfmgr install bspwm" "Setting up for bspwm" ;;
   i3 | i3wm) execute "dfmgr install i3" "Setting up for i3" ;;
-    #     jwm) execute "dfmgr install jwm" "Setting up for jwm";;
-    #     lxde) execute "dfmgr install lxde" "Setting up for lxde";;
-    #     lxqt) execute "dfmgr install lxqt" "Setting up for lxqt";;
+    #jwm) execute "dfmgr install jwm" "Setting up for jwm";;
+    #lxde) execute "dfmgr install lxde" "Setting up for lxde";;
+    #lxqt) execute "dfmgr install lxqt" "Setting up for lxqt";;
   qtile) execute "dfmgr install qtile" "Setting up for qtile" ;;
   xfce) execute "dfmgr install xfce" "Setting up for xfce" ;;
   openbox) execute "dfmgr install openbox" "Setting up for openbox" ;;
@@ -461,6 +466,7 @@ fi
 
 # Go home
 cd $HOME
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Fix permissions again
@@ -490,6 +496,7 @@ if [ ! -f ~/.config/dotfiles/env ]; then
   echo "POLYBAR="$POLYBAR"" >>~/.config/dotfiles/env
   echo "JGMENU="$JGMENU"" >>~/.config/dotfiles/env
 fi
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #Reconfigure lxdm
