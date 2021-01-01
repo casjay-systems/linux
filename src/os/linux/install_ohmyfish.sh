@@ -32,7 +32,7 @@ setup_ohmyfish() {
     if [ ! -d "$HOME/.local/share/omf" ]; then
       execute \
         "curl -LSs github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/omf-install && \
-        fish /tmp/omf-install --noninteractive --yes" \
+        fish -c /tmp/omf-install --noninteractive --yes" \
         "Installing oh-my-fish"
     fi
   fi
@@ -43,7 +43,7 @@ setup_ohmyfish() {
 setup_fishplugins() {
   if [ -f "$srcdir/config/fish/plugins.fish" ]; then
     execute \
-      "fish $srcdir/config/fish/plugins.fish 2>/dev/null" \
+      "fish -c $srcdir/config/fish/plugins.fish 2>/dev/null" \
       "Installing fish plugins"
   fi
 }
