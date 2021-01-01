@@ -273,7 +273,7 @@ fi
 # grab the modules
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
 for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen openbox qtile fish tmux remmina \
-  smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh misc; do
+  smplayer smtube terminology termite Thunar transmission variety vifm vim xfce4 xmonad zsh; do
   if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
     execute \
       "git -C $dotfilesDirectory/src/config/$config pull -q" \
@@ -286,8 +286,8 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
   fi
 done
 
-if [ -z "$SYSTEMMGR" ]; then
-  printf "${RED}   [✔] installing system scripts${NC}\n"
+if [ ! -f "$(command -v systemmgr 2>/dev/null)" ]; then
+  printf "${GREEN}   [✔] installing system scripts${NC}\n"
   sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
     systemmgr install installer >/dev/null 2>&1
 fi
@@ -393,7 +393,9 @@ if [ -z "$FISH" ]; then print_in_red "\n • The fish package is not installed\n
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Install additional system files if root
+# Install additional
+[ -f "$(command -v dfmgr 2>/dev/null)" ] && dfmgr install misc >/dev/null 2>&1
+
 ##
 ##
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
