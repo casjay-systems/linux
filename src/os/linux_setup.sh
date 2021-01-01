@@ -419,9 +419,9 @@ if [ -n "$(which rainbowstream 2>/dev/null)" ] || [ -n "$(which toot 2>/dev/null
       execute \
         "sh -c $PIP install --user $PIPTOOLS >/dev/null 2>&1" \
         "Installing $PIPTOOL"
-      print_in_purple " • Installing terminal tools completed\n\n"
     fi
   done
+  print_in_purple " • Installing terminal tools completed\n\n"
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
