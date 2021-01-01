@@ -21,12 +21,11 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 DOTFILES="$HOME/.local/dotfiles/desktop"
 
 SUDO_PROMPT="$(printf "\t\t\033[1;36m")[sudo]$(printf "\033[0m") password for %p: "
-SCRIPTSINSTALLER="$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)"
 
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
 linuxosdir="$srcdir/os/linux"
-export DOTFILES DOTTEMP dotfilesDirectory srcdir linuxosdir SUDO_PROMPT SCRIPTSINSTALLER
+export DOTFILES DOTTEMP dotfilesDirectory srcdir linuxosdir SUDO_PROMPT
 
 ##################################################################################################
 
@@ -288,10 +287,9 @@ for config in awesome bash geany git gtk-2.0 gtk-3.0 htop i3 neofetch nitrogen o
 done
 
 if [ -z "$SYSTEMMGR" ]; then
-  execute \
-    "sudo bash -c ${SCRIPTSINSTALLER} && \
-    systemmgr install installer" \
-    "installing system scripts"
+  printf "${RED}   [✔] installing system scripts${NC}\n"
+  sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
+    systemmgr install installer >/dev/null 2>&1
 fi
 
 printf "${PURPLE}  *** • Downloading additional configuration files completed • ***${NC}\n\n"
