@@ -84,7 +84,7 @@ backup_symlinks() {
     targetFile="$HOME/.$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
     nameFile="$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
 
-    if [ -f "$targetFile" ] && [ ! -L "$targetFile" ]; then
+    if [ -f "$targetFile" ] && [ ! -L "$targetFile" ] && [ -e "$sourceFile" ]; then
       execute \
         "mv -f $targetFile $backups/home/$nameFile" \
         "Backing up $targetFile  →  $backups/home/$nameFile"
@@ -107,7 +107,7 @@ backup_confsymlinks() {
     targetFile="$HOME/.config/$i"
     nameFile="$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
 
-    if [ -f $targetFile ] || [ -d $targetFile ] && [ ! -L $targetFile ] && [ ! -f $srcdir/config/$i/install.sh ]; then
+    if [ -f $targetFile ] || [ -d $targetFile ] && [ ! -L $targetFile ] && [ ! -f $srcdir/config/$i/install.sh ] && [ -e "$sourceFile" ]; then
       execute \
         "mv -f $targetFile $backups/configs/$nameFile" \
         "Backing up $targetFile → $backups/configs/$nameFile"
