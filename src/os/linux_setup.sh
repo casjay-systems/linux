@@ -272,9 +272,9 @@ find $dotfilesDirectory/ -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
 # Check for then get root permissions
 if [ -z $UPDATE ]; then
   if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-    printf "\n${RED} • Getting root privileges${NC}\n\n"
+    printf "\n${RED} • Getting root privileges${NC}\n"
     ask_for_sudo
-    printf "\n${GREEN} • Received root privileges${NC}\n\n"
+    printf "${GREEN} • Received root privileges${NC}\n\n"
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Install Packages
