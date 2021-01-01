@@ -297,10 +297,17 @@ fi
 
 # grab the modules
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
-if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
-  printf "${GREEN}   [✔] installing system scripts${NC}\n"
-  sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
+if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
+systemmgr_inst() {
+sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
     systemmgr install installer >/dev/null 2>&1
+}
+
+if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
+  execute "systemmgr_inst" "installing system scripts"
+else
+  execute "systemmgr_inst" "Updating system scripts"
+fi
 fi
 
 for config in bash geany git htop neofetch fish tmux terminology termite Thunar transmission variety vifm vim zsh; do
@@ -452,13 +459,13 @@ if [ -n "$DESKTOP_SESSION" ]; then
   awesome) execute "dfmgr install awesome" "Setting up for awesome" ;;
   bspwm) execute "dfmgr install bspwm" "Setting up for bspwm" ;;
   i3 | i3wm) execute "dfmgr install i3" "Setting up for i3" ;;
-    #jwm) execute "dfmgr install jwm" "Setting up for jwm";;
-    #lxde) execute "dfmgr install lxde" "Setting up for lxde";;
-    #lxqt) execute "dfmgr install lxqt" "Setting up for lxqt";;
   qtile) execute "dfmgr install qtile" "Setting up for qtile" ;;
   xfce) execute "dfmgr install xfce" "Setting up for xfce" ;;
   openbox) execute "dfmgr install openbox" "Setting up for openbox" ;;
   xmonad) execute "dfmgr install xmonad" "Setting up for xmonad" ;;
+  #jwm) execute "dfmgr install jwm" "Setting up for jwm";;
+  #lxde) execute "dfmgr install lxde" "Setting up for lxde";;
+  #lxqt) execute "dfmgr install lxqt" "Setting up for lxqt";;
   esac
 fi
 
