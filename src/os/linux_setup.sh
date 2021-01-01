@@ -439,7 +439,7 @@ fi
 
 # Install additional
 print_in_purple "\n • Installing additional tools\n"
-[ -f "$(command -v dfmgr 2>/dev/null)" ] && dfmgr install misc >/dev/null 2>&1
+[ -f "$(command -v dfmgr 2>/dev/null)" ] && execute "dfmgr install misc"
 print_in_purple " • Installing additional tools completed\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
