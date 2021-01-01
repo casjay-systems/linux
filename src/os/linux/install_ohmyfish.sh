@@ -29,8 +29,11 @@ setup_ohmyfish() {
       "Updating oh-my-fish"
   else
     execute \
-      "curl -LSsq https://get.oh-my.fish -o $HOME/.config/fish/omf-install \
-      fish $HOME/.config/fish/omf-install --path=-$HOME/.local/share/fish/oh-my-fish --config=~/.config/fish/omf --noninteractive --yes" \
+      "curl -LSsq https://get.oh-my.fish -o $HOME/.config/fish/omf-install" \
+      "Grabbing the oh-my-fish install script"
+
+    execute \
+      "fish $HOME/.config/fish/omf-install --path=-$HOME/.local/share/fish/oh-my-fish --config=~/.config/fish/omf --noninteractive --yes" \
       "Installing oh-my-fish"
   fi
 }
@@ -38,9 +41,11 @@ setup_ohmyfish() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 setup_fishplugins() {
-  execute \
-    "fish $HOME/.config/fish/plugins.fish 2>/dev/null" \
-    "Installing fish plugins"
+  if [ -f "$srcdir/config/fish/plugins.fish" ]; then
+    execute \
+      "fish $srcdir/config/fish/plugins.fish 2>/dev/null" \
+      "Installing fish plugins"
+  fi
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
