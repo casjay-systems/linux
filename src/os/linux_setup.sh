@@ -67,11 +67,11 @@ fi
 
 # Automatic linux install
 
-#################################################################################################
-clear                                                                                                 #
-printf "\n\n\n\n\n   ${BLUE}      *** Initializing the installer please wait *** ${NC} \n\n"          #
-printf "\n\n${PURPLE}        *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n" #
-#################################################################################################
+###############################################################################################
+clear                                                                                         #
+printf "\n\n\n\n\n${BLUE}           *** Initializing the installer please wait *** ${NC}\n"   #
+printf "${PURPLE}    *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n" #
+###############################################################################################
 # Remove previous installs
 if [ -d $DOTFILES.git ]; then cd $DOTFILES && git pull; else rm -Rf $DOTFILES; fi
 if [ -d $HOME/.config/bash/profile ]; then rm -Rf $HOME/.config/bash/profile/zz-*; fi
