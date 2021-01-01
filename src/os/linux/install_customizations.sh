@@ -92,11 +92,11 @@ create_fonts() {
 
 main() {
 
-  create_icons
-
   create_themes
 
   create_fonts
+
+  create_icons
 
 }
 
