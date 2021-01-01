@@ -323,7 +323,7 @@ print_in_purple " • Create local config files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user dotfile symlinks
-print_in_purple "\n • Create user files\n"
+print_in_purple "\n • Backing up and create user files\n"
 bash -c $linuxosdir/create_symbolic_links.sh
 print_in_purple " • Create user files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
