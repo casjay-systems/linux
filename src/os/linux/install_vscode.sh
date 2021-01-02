@@ -100,7 +100,7 @@ declare -a PLUGINS_TO_INSTALL=(
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_code() {
-  execute "pkmgr visual-studio-code" "Install Visual Studio code"
+  execute "pkmgr install visual-studio-code" "Install Visual Studio code"
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
