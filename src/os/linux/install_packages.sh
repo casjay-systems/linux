@@ -7,6 +7,41 @@ srcdir="$(cd .. && pwd)"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+if [ -f "$(command -v apt)" ]; then
+  ID=="$(grep ID= /etc/os-release | sed 's#ID=##')"
+  ID_LIKE="$(grep ID_LIKE= /etc/os-release | sed 's#ID_LIKE=##')"
+  if [[ "$ID" =~ Debian ]] && [[ "$ID_LIKE" =~ Debian ]]; then
+    sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/google-chrome.list /etc/apt/sources.list.d/
+    sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/opera-stable.list /etc/apt/sources.list.d/
+    sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/typora.list /etc/apt/sources.list.d/
+    sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/vscode.list /etc/apt/sources.list.d/
+    sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/vivaldi.list /etc/apt/sources.list.d/
+  fi
+  if [[ "$ID" =~ Ubuntu ]] && [[ "$ID_LIKE" =~ Ubuntu ]]; then
+    sudo cp -Rf $linuxosdir/pkgs/repos/ubuntu/* /etc/apt/
+    sudo sudo sed -i 's#mydebiancodename#${CODENAME}#g' /etc/apt/sources.list
+  fi
+
+  # Visual Studio Code
+  wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
+  sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+  sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+
+  # vivaldi web browser
+  wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo apt-key add -
+  echo 'deb https://repo.vivaldi.com/archive/deb/ stable main' | sudo tee /etc/apt/sources.list.d/vivaldi.list
+  #
+
+  # google chrome browser
+  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+  echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+
+  # typora
+  wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+  echo 'deb https://typora.io/linux ./' | sudo tee /etc/apt/sources.list.d/typora.list
+
+fi
+
 # Arch linux and derivatives setup
 if [[ "$DISTRO" = Arch ]]; then
   printf "\n${PURPLE} • Setting up for $DISTRO${NC}\n\n"
@@ -46,12 +81,7 @@ elif [[ "$DISTRO" = Debian ]]; then
       "Adding secondary keys"
 
     execute \
-      "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/google-chrome.list /etc/apt/sources.list.d/ && \
-      sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/opera-stable.list /etc/apt/sources.list.d/ && \
-      sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/typora.list /etc/apt/sources.list.d/ && \
-      sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/vscode.list /etc/apt/sources.list.d/ && \
-      sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/vivaldi.list /etc/apt/sources.list.d/ && \
-      sudo touch /etc/apt/.srcinstall" \
+      "sudo touch /etc/apt/.srcinstall" \
       "Adding secondary repos"
   fi
 
@@ -59,9 +89,7 @@ elif [[ "$DISTRO" = Debian ]]; then
   # Debian functions
   if [[ "$CODENAME" != "kali" ]] && [[ "$CODENAME" != "parrot" ]]; then
     execute \
-      "sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list /etc/apt/sources.list && \
-      sudo sed -i 's#mydebiancodename#${CODENAME}#g' /etc/apt/sources.list && \
-      sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
+      "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
       sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
       sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
       "Updating the package manager"
@@ -124,16 +152,14 @@ elif [[ "$DISTRO" = Ubuntu ]]; then
       "Adding secondary keys"
 
     execute \
-      "sudo cp -Rf $linuxosdir/pkgs/repos/ubuntu/* /etc/apt/ && \
-      sudo sudo sed -i 's#mydebiancodename#${CODENAME}#g' /etc/apt/sources.list &&
-      sudo touch /etc/apt/.srcinstall" \
+      "sudo touch /etc/apt/.srcinstall" \
       "Adding secondary repos"
   fi
 
   execute \
     "sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
-        sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null && \
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -yy -qq --ignore-missing update 2> /dev/null" \
     "Updating the package manager"
 
   execute \
