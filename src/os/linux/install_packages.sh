@@ -8,7 +8,7 @@ srcdir="$(cd .. && pwd)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if [ -f "$(command -v apt)" ]; then
-  ID=="$(grep ID= /etc/os-release | sed 's#ID=##')"
+  ID="$(grep ID= /etc/os-release | sed 's#ID=##')"
   ID_LIKE="$(grep ID_LIKE= /etc/os-release | sed 's#ID_LIKE=##')"
   if [[ "$ID" =~ Debian ]] && [[ "$ID_LIKE" =~ Debian ]]; then
     sudo cp -Rf $linuxosdir/pkgs/repos/debian/sources.list.d/google-chrome.list /etc/apt/sources.list.d/
@@ -28,17 +28,17 @@ if [ -f "$(command -v apt)" ]; then
   sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 
   # vivaldi web browser
-  wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo apt-key add -
-  echo 'deb https://repo.vivaldi.com/archive/deb/ stable main' | sudo tee /etc/apt/sources.list.d/vivaldi.list
+  wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo apt-key add - >/dev/null 2>&1
+  echo 'deb https://repo.vivaldi.com/archive/deb/ stable main' | sudo tee /etc/apt/sources.list.d/vivaldi.list >/dev/null 2>&1
   #
 
   # google chrome browser
-  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - >/dev/null 2>&1
+  echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list >/dev/null 2>&1
 
   # typora
-  wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
-  echo 'deb https://typora.io/linux ./' | sudo tee /etc/apt/sources.list.d/typora.list
+  wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add - >/dev/null 2>&1
+  echo 'deb https://typora.io/linux ./' | sudo tee /etc/apt/sources.list.d/typora.list >/dev/null 2>&1
 
 fi
 
