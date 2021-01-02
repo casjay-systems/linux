@@ -408,6 +408,14 @@ if [ -z "$FISH" ]; then print_in_red "\n • The fish package is not installed\n
   print_in_purple " • Installing fish shell and plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Create and Setup Visual Studio code
+CODE=$(command -v code 2>/dev/null)
+if [ -z "$CODE" ]; then print_in_red "\n • The Visual Studio code package is not installed\n\n"; else
+  print_in_purple "\n • Installing Visual Studio code and plugins\n"
+  $linuxosdir/install_vscode.sh
+  print_in_purple " • Installing Visual Studio code shell and plugins completed\n"
+fi
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #No point in running if no desktop
 if [ -n "$DESKTOP_SESSION" ]; then
