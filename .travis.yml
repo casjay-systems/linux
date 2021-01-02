@@ -4,11 +4,11 @@
 # https://docs.travis-ci.com
 
 sudo: enabled
+before_install:
+  - sudo apt-get update
 
 install:
   - sudo bash -c "$(curl -LSs https://github.com/casjay-dotfiles/scripts/raw/master/install.sh)"
-  - sudo pkmgr makecache
-  - sudo pkmgr update
   - sudo bash -c "$(curl -LSs https://github.com/casjay-dotfiles/scripts/raw/master/install.sh)"
   - bash -c "$(curl -LsS https://github.com/casjay-systems/linux/raw/master/install.sh)"
   - bash -c "$HOME/.local/dotfiles/desktop/install.sh"
@@ -19,6 +19,8 @@ matrix:
       dist: focal
       language: bash
       sudo: enabled
+      arch:
+        - amd64
 
 notifications:
   email:
