@@ -39,7 +39,7 @@ NC='\033[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if [[ ! "$OSTYPE" =~ ^linux ]]; then
-  printf "\n\t\t${RED} This script is for Linux\n\n${NC}"
+  printf "\n\t\t${RED} This script is for Linux${NC}\n\n"
   exit 1
 fi
 

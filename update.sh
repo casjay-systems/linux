@@ -6,9 +6,10 @@ yellow='\e[1;33m%s\e[0m\n'
 blue='\e[1;34m%s\e[0m\n'
 magenta='\e[1;35m%s\e[0m\n'
 cyan='\e[1;36m%s\e[0m\n'
+NC='\033[0m'
 
 if [[ ! "$OSTYPE" =~ ^linux ]]; then
-  printf "\n\t\t${RED} This script is for Linux\n\n${NC}"
+  printf "\n\t\t${RED} This script is for Linux${NC}\n\n"
   exit 1
 fi
 
