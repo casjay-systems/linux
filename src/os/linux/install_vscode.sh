@@ -113,8 +113,9 @@ install_plugins() {
 }
 
 install_settings() {
+  mkdir -p "$HOME/.config/Code/User"
   declare -r FILE_PATH="$HOME/.config/Code/User/settings.json"
-  declare -r CONFIGS="
+  declare -r CONFIGS='
 {
   "sync.gist": "",
   "bracketPairColorizer.colorMode": "Independent",
@@ -298,15 +299,18 @@ install_settings() {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
-"
+'
   #
-  isInFile=$(cat "$FILE_PATH" | grep -c "shellcheck.exclude")
-  if [ $isInFile -eq 0 ]; then
+  if [ -f "$FILE_PATH" ]; then
+    isInFile=$(cat "$FILE_PATH" | grep -c "shellcheck.exclude")
+    if [ $isInFile -eq 0 ]; then
 
-    execute \
-      "printf '%s' '$CONFIGS' >$FILE_PATH" \
-      "settings.json → $FILE_PATH"
+      execute \
+        "printf '%s' '$CONFIGS' >$FILE_PATH" \
+        "settings.json → $FILE_PATH"
+    fi
   fi
+
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
