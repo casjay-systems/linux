@@ -10,17 +10,17 @@ customizedir="$(cd $srcdir/../customize && pwd)"
 
 create_icons() {
   setup() {
-    ln -sf $customizedir/icons ~/.local/share/icons &&
-      fc-cache -f ~/.local/share/icons/N.I.B./ &&
-      fc-cache -f ~/.local/share/icons/Obsidian-Purple/
+    ln -sf $customizedir/icons ~/.local/share/icons
+    fc-cache -f ~/.local/share/icons/N.I.B./
+    fc-cache -f ~/.local/share/icons/Obsidian-Purple/
   }
 
   setup_old() {
-    ln -sf $customizedir/icons ~/.local/share/icons &&
-      rsync -aqh ~/.local/share/icons.old/* ~/.local/share/icons/ 2>/dev/null &&
-      rm -Rf ~/.local/share/icons.old/ &&
-      fc-cache -f ~/.local/share/icons/N.I.B./ &&
-      fc-cache -f ~/.local/share/icons/Obsidian-Purple/
+    ln -sf $customizedir/icons ~/.local/share/icons
+    rsync -aqh ~/.local/share/icons.old/* ~/.local/share/icons/ 2>/dev/null
+    rm -Rf ~/.local/share/icons.old/
+    fc-cache -f ~/.local/share/icons/N.I.B./
+    fc-cache -f ~/.local/share/icons/Obsidian-Purple/
   }
   # - - - - - - - - - - - - - - -
 
@@ -57,9 +57,9 @@ create_themes() {
   }
 
   setup_old() {
-    ln -sf $customizedir/themes ~/.local/share/themes &&
-      rsync -ahq ~/.local/share/themes.old/* ~/.local/share/themes/ 2>/dev/null &&
-      rm -Rf ~/.local/share/themes.old/
+    ln -sf $customizedir/themes ~/.local/share/themes
+    rsync -ahq ~/.local/share/themes.old/* ~/.local/share/themes/ 2>/dev/null
+    rm -Rf ~/.local/share/themes.old/
   }
   # - - - - - - - - - - - - - - -
 
@@ -84,14 +84,14 @@ create_themes() {
 
 create_fonts() {
   setup() {
-    ln -sf $customizedir/fonts ~/.local/share/fonts &&
-      fc-cache -f
+    ln -sf $customizedir/fonts ~/.local/share/fonts
+    fc-cache -f
   }
   setup_old() {
-    ln -sf $customizedir/fonts ~/.local/share/fonts &&
-      rsync -ahq ~/.local/share/fonts.old/* ~/.local/share/fonts/ 2>/dev/null &&
-      rm -Rf ~/.local/share/fonts.old/ &&
-      fc-cache -f
+    ln -sf $customizedir/fonts ~/.local/share/fonts
+    rsync -ahq ~/.local/share/fonts.old/* ~/.local/share/fonts/ 2>/dev/null
+    rm -Rf ~/.local/share/fonts.old/
+    fc-cache -f
   }
   # - - - - - - - - - - - - - - -
 
