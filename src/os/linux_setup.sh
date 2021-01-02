@@ -242,7 +242,7 @@ fi
 
 # Set version from git
 
-CURDOTFVERSION="$(echo $(curl -Lsq https://$GITREPO/raw/master/version.txt | grep -v "#" | tail -n 1))"
+CURDOTFVERSION="$(echo $(curl -LSsq https://$GITREPO/raw/master/version.txt | grep -v "#" | head))"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Print info
