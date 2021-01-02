@@ -38,6 +38,11 @@ YELLOW='\033[0;33m'
 NC='\033[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+if [[ ! "$OSTYPE" =~ ^linux ]]; then
+  printf "\n\t\t${RED} This script is for Linux\n\n${NC}"
+  exit 1
+fi
+
 # Grab the OS detection script if it doesn't exist script
 
 if [ -f "$srcdir/os/osdetect.sh" ] && [ -f "$srcdir/os/utils.sh" ]; then
@@ -298,16 +303,16 @@ fi
 # grab the modules
 printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-systemmgr_inst() {
-sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
-    systemmgr install installer >/dev/null 2>&1
-}
+  systemmgr_inst() {
+    sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
+      systemmgr install installer >/dev/null 2>&1
+  }
 
-if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
-  execute "systemmgr_inst" "installing system scripts"
-else
-  execute "systemmgr_inst" "Updating system scripts"
-fi
+  if [ -z "$(command -v systemmgr 2>/dev/null)" ]; then
+    execute "systemmgr_inst" "installing system scripts"
+  else
+    execute "systemmgr_inst" "Updating system scripts"
+  fi
 fi
 
 for config in bash geany git htop neofetch fish tmux terminology termite Thunar transmission variety vifm vim zsh; do
@@ -463,9 +468,9 @@ if [ -n "$DESKTOP_SESSION" ]; then
   xfce) execute "dfmgr install xfce" "Setting up for xfce" ;;
   openbox) execute "dfmgr install openbox" "Setting up for openbox" ;;
   xmonad) execute "dfmgr install xmonad" "Setting up for xmonad" ;;
-  #jwm) execute "dfmgr install jwm" "Setting up for jwm";;
-  #lxde) execute "dfmgr install lxde" "Setting up for lxde";;
-  #lxqt) execute "dfmgr install lxqt" "Setting up for lxqt";;
+    #jwm) execute "dfmgr install jwm" "Setting up for jwm";;
+    #lxde) execute "dfmgr install lxde" "Setting up for lxde";;
+    #lxqt) execute "dfmgr install lxqt" "Setting up for lxqt";;
   esac
 fi
 

@@ -7,6 +7,11 @@ blue='\e[1;34m%s\e[0m\n'
 magenta='\e[1;35m%s\e[0m\n'
 cyan='\e[1;36m%s\e[0m\n'
 
+if [[ ! "$OSTYPE" =~ ^linux ]]; then
+  printf "\n\t\t${RED} This script is for Linux\n\n${NC}"
+  exit 1
+fi
+
 #clear vars
 NEWVERSION=""
 OLDVERSION=""
