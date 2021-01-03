@@ -302,10 +302,8 @@ if [ -z "$UPDATE" ] || [ "$1" = "--force" ]; then
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # MacOS setup
     printf "\n${PURPLE} • Setting up for ${DISTRO} $(get_os_version) ${NC}\n"
-    printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
-    printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
     source "$linuxosdir/install_packages.sh"
-    printf "\n${PURPLE} • Done Setting up for the Mac${NC}\n\n"
+    printf "\n${PURPLE} • Done Setting up for the ${DISTRO}${NC}\n\n"
   fi
 fi
 ###################################################################

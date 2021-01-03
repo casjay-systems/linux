@@ -44,7 +44,9 @@ fi
 
 # Arch linux and derivatives setup
 if [[ "$DISTRO" = Arch ]]; then
-  printf "\n${PURPLE} • Setting up for $DISTRO${NC}\n\n"
+  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+
   if [[ ! -f /etc/pacman.d/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo pacman-key --init 2> /dev/null && \
@@ -61,12 +63,12 @@ if [[ "$DISTRO" = Arch ]]; then
   # Lets install main packages
   execute \
     "sudo bash -c $linuxosdir/pkgs/lists/arch-sys.sh 2> /dev/null" \
-    "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+    "Installing Packages"
 
   # Now for aur packages
   execute \
     "sudo bash -c $linuxosdir/pkgs/lists/arch-yay.sh 2> /dev/null" \
-    "Installing aur Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+    "Installing aur Packages"
 
   ### TODO: Add if statements no point in running if already done
 
@@ -75,6 +77,9 @@ if [[ "$DISTRO" = Arch ]]; then
 elif [[ "$DISTRO" = Debian ]]; then
   if [[ "$CODENAME" == "na" ]]; then CODENAME=buster; fi
   printf "\n${PURPLE} • Setting up for $CODENAME${NC}\n\n"
+  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+
   if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null" \
@@ -96,7 +101,7 @@ elif [[ "$DISTRO" = Debian ]]; then
 
     execute \
       "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
-      "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+      "Installing Packages"
 
   fi
 
@@ -117,7 +122,7 @@ elif [[ "$DISTRO" = Debian ]]; then
 
     execute \
       "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
-      "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+      "Installing Packages"
   fi
 
   # - - - - - - - - - - - - - - - - - -
@@ -136,7 +141,7 @@ elif [[ "$DISTRO" = Debian ]]; then
 
     execute \
       "sudo bash -c $linuxosdir/pkgs/lists/debian-sys.sh 2> /dev/null" \
-      "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+      "Installing Packages"
   fi
 
   ################## End of Debian and derivatives setup
@@ -144,7 +149,10 @@ elif [[ "$DISTRO" = Debian ]]; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Ubuntu and derivatives setup - repogen.simplylinux.ch
 elif [[ "$DISTRO" = Ubuntu ]]; then
-  printf "${PURPLE}\n • Setting up for $CODENAME${NC}\n\n"
+  printf "${PURPLE}\n • Setting up for $CODENAME${NC}\n"
+  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+
   if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo bash -c $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null && \
@@ -164,13 +172,16 @@ elif [[ "$DISTRO" = Ubuntu ]]; then
 
   execute \
     "sudo bash -c $linuxosdir/pkgs/lists/ubuntu-sys.sh 2> /dev/null" \
-    "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+    "Installing Packages"
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Raspbian
 
 elif [[ "$DISTRO" = Raspbian ]]; then
-  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
+  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n"
+  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+
   if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/raspbian/* /etc/apt/ && \
@@ -186,12 +197,15 @@ elif [[ "$DISTRO" = Raspbian ]]; then
 
   execute \
     "sudo bash -c $linuxosdir/pkgs/lists/raspbian-sys.sh" \
-    "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+    "Installing Packages"
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   #Redhat and derivatives setup
 elif [[ "$DISTRO" = RHEL ]]; then
-  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
+  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n"
+  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+
   ELRELEASE="$(rpm -q --whatprovides redhat-release --queryformat "%{VERSION}\n" | sed 's/\/.*//' | sed 's/\..*//' | sed 's/Server*//')"
 
   execute \
@@ -201,12 +215,15 @@ elif [[ "$DISTRO" = RHEL ]]; then
 
   execute \
     "sudo yum install -y -q --skip-broken thefuck powerline fontawesome-fonts fish vim zsh git tmux neofetch 2> /dev/null" \
-    "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+    "Installing Packages"
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Fedora and derivatives
 elif [[ "$DISTRO" = Fedora ]]; then
-  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
+  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n"
+  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+
   execute \
     "sudo sudo cp -Rf $linuxosdir/pkgs/repos/fedora/* /etc/yum.repos.d/ && \
         sudo yum makecache 2> /dev/null" \
@@ -214,8 +231,6 @@ elif [[ "$DISTRO" = Fedora ]]; then
 
   execute \
     "sudo bash -c $linuxosdir/pkgs/lists/fedora-sys.sh 2> /dev/null" \
-    "Installing Packages.... This May take awhile please be patient... Possibly 20+ Minutes"
+    "Installing Packages"
 
 fi
-
-printf "${PURPLE}\n • Done Setting up for $DISTRO${NC}\n\n"
