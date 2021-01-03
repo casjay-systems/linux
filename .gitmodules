@@ -22,9 +22,6 @@
 [submodule "src/config/nitrogen"]
 	path = src/config/nitrogen
 	url = https://github.com/casjay-dotfiles/nitrogen
-[submodule "src/config/termite"]
-	path = src/config/termite
-	url = https://github.com/casjay-dotfiles/termite
 [submodule "src/config/terminology"]
 	path = src/config/terminology
 	url = https://github.com/casjay-dotfiles/terminology
