@@ -150,7 +150,7 @@ get_os_version() {
     version="$(sw_vers -productVersion)"
   elif [ "$os" == "linux" ]; then
     #version="$(lsb_release -i | awk '{print $3}')"
-    version=$(cat /etc/*release | grep VERSION | sed 's#VERSION_ID=##g' | grep -v VERSION | head -n 1)
+    version=$(cat /etc/*release 2>/dev/null | grep VERSION | sed 's#VERSION_ID=##g' | grep -v VERSION | head -n 1)
   fi
 
   printf "%s" "$version"

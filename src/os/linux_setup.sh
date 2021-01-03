@@ -229,15 +229,15 @@ if [[ ! "$LSBR" ]]; then MISSING="$MISSING $LSBPAC"; fi
 if [ -z "$LSBR" ] || [ -z "$GIT" ] || [ -z "$CURL" ] || [ -z "$WGET" ] || [ -z "$VIM" ] || [ -z "$TMUX" ] || [ -z "$ZSH" ] || [ -z "$FISH" ] || [ -z "$SUDO" ]; then
   printf "${RED}  *** • The following are needed: • ***${NC}\n"
   printf "${RED}  *** • ${MISSING} • ***${NC}\n"
-  printf "${RED}  *** • Attempting to install the missing package[s] • ***${NC}\n\n"
   if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-    sudo $pkgmgr $instoption ${MISSING} >/dev/null 2>&1
+    execute "sudo $pkgmgr $instoption ${MISSING}" "  *** • Attempting to install the missing package[s] • ***"
   else
     printf "${RED}  *** • I can't get root access You will have to manually install the missing programs • ***${NC}\n"
     printf "${RED}  *** • ${MISSING} • ***${NC}\n\n\n"
     exit
   fi
 fi
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Set version from git
@@ -247,7 +247,7 @@ CURDOTFVERSION="$(echo $(curl -LSsq https://$GITREPO/raw/master/version.txt | gr
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Print info
 
-printf "${GREEN}  *** • git, curl, wget, vim, tmux, zsh, fish, sudo are present • ***${NC}\n\n"
+printf "\n${GREEN}  *** • git, curl, wget, vim, tmux, zsh, fish, sudo are present • ***${NC}\n\n"
 printf "${GREEN}  *** • Installing version $CURDOTFVERSION • ***${NC}\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
