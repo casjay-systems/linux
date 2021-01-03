@@ -69,7 +69,7 @@ backup_symlinks() {
 
     if [ -f "$targetFile" ] && [ ! -L "$targetFile" ] && [ -e "$sourceFile" ]; then
       execute \
-        "mv -f $targetFile $backups/home/$nameFile" \
+        "mv -f "$targetFile" $backups/home/$nameFile" \
         "Backing up $targetFile  →  $backups/home/$nameFile"
     fi
   done
@@ -90,9 +90,9 @@ backup_confsymlinks() {
     targetFile="$HOME/.config/$i"
     nameFile="$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
 
-    if [ -f $targetFile ] || [ -d $targetFile ] && [ ! -L $targetFile ] && [ ! -f $srcdir/config/$i/install.sh ] && [ -e "$sourceFile" ]; then
+    if [ -f "$targetFile" ] || [ -d "$targetFile" ] && [ ! -L "$targetFile" ] && [ ! -f $srcdir/config/$i/install.sh ] && [ -e "$sourceFile" ]; then
       execute \
-        "mv -f $targetFile $backups/configs/$nameFile" \
+        "mv -f "$targetFile" $backups/configs/$nameFile" \
         "Backing up $targetFile → $backups/configs/$nameFile"
     fi
   done
@@ -101,6 +101,11 @@ backup_confsymlinks() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 create_symlinks() {
+  setup() {
+    unlink "$targetFile" 2>/dev/null || rm -Rf "$targetFile" 2>/dev/null
+    ln -sf "$sourceFile" "$targetFile"
+  }
+
   print_in_purple "\n • Create file symlinks\n"
   local i=""
   local sourceFile=""
@@ -112,10 +117,8 @@ create_symlinks() {
     sourceFile="$srcdir/$i"
     targetFile="$HOME/.$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
     if [ -e "$sourceFile" ]; then
-      unlink $targetFile 2>/dev/null
-      rm -Rf $targetFile 2>/dev/null
       execute \
-        "ln -fs $sourceFile $targetFile" \
+        "setup" \
         "$targetFile → $sourceFile"
     fi
   done
@@ -125,10 +128,8 @@ create_symlinks() {
 
 create_confsymlinks() {
   setup() {
-    ln -fs $sourceFile $targetFile
-    if [ -f "$targetFile/install.sh" ]; then
-      "$targetFile/install.sh"
-    fi
+    unlink "$targetFile" 2>/dev/null || rm -Rf "$targetFile" 2>/dev/null
+    ln -sf "$sourceFile" "$targetFile"
   }
 
   print_in_purple "\n • Create config symlinks\n"
@@ -141,8 +142,6 @@ create_confsymlinks() {
   for i in "${CONFFILES_TO_SYMLINK[@]}"; do
     sourceFile="$srcdir/config/$i"
     targetFile="$HOME/.config/$i"
-    unlink $targetFile 2>/dev/null
-    rm -Rf $targetFile 2>/dev/null
     if [ -e "$sourceFile" ]; then
       execute \
         "setup" \
