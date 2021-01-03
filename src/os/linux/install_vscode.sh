@@ -109,7 +109,7 @@ install_plugins() {
   setup() {
     local i=""
     for i in "${PLUGINS_TO_INSTALL[@]}"; do
-      code --install-extension $i
+      code --install-extension --force "$i"
     done
   }
   execute "setup" "Installing plugins"
