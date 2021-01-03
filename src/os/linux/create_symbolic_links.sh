@@ -41,7 +41,6 @@ declare -a CONFFILES_TO_SYMLINK=(
   "plank"
   "polybar"
   "terminology"
-  "termite"
   "variety"
   "vifm"
   "mimeapps.list"
