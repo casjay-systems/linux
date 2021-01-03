@@ -45,7 +45,7 @@ fi
 # Arch linux and derivatives setup
 if [[ "$DISTRO" = Arch ]]; then
   printf "\n${PURPLE} • Setting up for $DISTRO${NC}\n\n"
-  if [[ ! -f /etc/pacman.d/.srcinstall ]]; then
+  if [[ ! -f /etc/pacman.d/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo pacman-key --init 2> /dev/null && \
       sudo pacman-key --populate 2> /dev/null && \
@@ -75,7 +75,7 @@ if [[ "$DISTRO" = Arch ]]; then
 elif [[ "$DISTRO" = Debian ]]; then
   if [[ "$CODENAME" == "na" ]]; then CODENAME=buster; fi
   printf "\n${PURPLE} • Setting up for $CODENAME${NC}\n\n"
-  if [[ ! -f /etc/apt/.srcinstall ]]; then
+  if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null" \
       "Adding secondary keys"
@@ -145,7 +145,7 @@ elif [[ "$DISTRO" = Debian ]]; then
   # Ubuntu and derivatives setup - repogen.simplylinux.ch
 elif [[ "$DISTRO" = Ubuntu ]]; then
   printf "${PURPLE}\n • Setting up for $CODENAME${NC}\n\n"
-  if [[ ! -f /etc/apt/.srcinstall ]]; then
+  if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo bash -c $linuxosdir/pkgs/repos/debian_keys.sh 2> /dev/null && \
       sudo bash -c $linuxosdir/pkgs/repos/ubuntu_keys.sh 2> /dev/null" \
@@ -171,7 +171,7 @@ elif [[ "$DISTRO" = Ubuntu ]]; then
 
 elif [[ "$DISTRO" = Raspbian ]]; then
   printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n\n"
-  if [[ ! -f /etc/apt/.srcinstall ]]; then
+  if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
       "sudo cp -Rf $linuxosdir/pkgs/repos/raspbian/* /etc/apt/ && \
       sudo touch /etc/apt/.srcinstall" \

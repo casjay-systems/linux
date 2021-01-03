@@ -290,14 +290,24 @@ find $dotfilesDirectory/ -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if [ -z "$UPDATE" ]; then
-  if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-    print_in_purple "\n • Installing system packages\n"
+# Check for then get root permissions
+if [ -z "$UPDATE" ] || [ "$1" = "--force" ]; then
+  if (sudo true && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
+    printf "\n${RED} • Getting root privileges${NC}\n"
+    ask_for_sudo
+    printf "${GREEN} • Received root privileges${NC}\n\n"
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Install Packages
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # MacOS setup
+    printf "\n${PURPLE} • Setting up for ${DISTRO} $(get_os_version) ${NC}\n"
+    printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
+    printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
     source "$linuxosdir/install_packages.sh"
-    print_in_purple " • Installing system packages completed\n\n"
+    printf "\n${PURPLE} • Done Setting up for the Mac${NC}\n\n"
   fi
 fi
-
 ###################################################################
 
 # grab the modules
