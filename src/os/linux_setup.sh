@@ -20,7 +20,7 @@ DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Set primary dir - not used
 DOTFILES="$HOME/.local/dotfiles/desktop"
 
-SUDO_PROMPT="$(printf "\033[1;36m")           • [sudo]$(printf "\033[0m") password for %p: "
+SUDO_PROMPT="$(printf "\033[1;36m")   • [sudo]$(printf "\033[0m") password for %p: "
 
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
@@ -39,7 +39,7 @@ NC='\033[0m'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if [[ ! "$OSTYPE" =~ ^linux ]]; then
-  printf "\n\t\t${RED} This script is for Linux ${NC}\n\n"
+  printf "\n\t\t${RED}   This script is for Linux ${NC}\n\n"
   exit 1
 fi
 
@@ -57,7 +57,7 @@ else
     rm -Rf /tmp/utils.sh /tmp/osdetect.sh
   else
     clear
-    printf "\n\n\n\n${BLUE}Could not source the files needed${NC}\n\n\n\n"
+    printf "\n\n\n\n${BLUE}   Could not source the files needed${NC}\n\n\n\n"
     exit 1
   fi
 fi
@@ -84,20 +84,20 @@ fi
 # Automatic linux install
 
 ###############################################################################################
-clear                                                                              #
-printf "\n\n\n\n\n${BLUE}  *** Initializing the installer please wait *** ${NC}\n" #
+clear                                                                               #
+printf "\n\n\n\n\n${BLUE}   *** Initializing the installer please wait *** ${NC}\n" #
 ###############################################################################################
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  printf "\n${RED}  • Getting root privileges •${NC}\n" &&
+  printf "\n${RED}   • Getting root privileges •${NC}\n" &&
     ask_for_sudo
   if [ "$?" -eq 0 ]; then
-    printf "${GREEN}  • Received root privileges •${NC}\n\n"
+    printf "${GREEN}   • Received root privileges •${NC}\n\n"
   else
-    printf "${GREEN}  • Can not get access to sudo •${NC}\n\n"
+    printf "${GREEN}   • Can not get access to sudo •${NC}\n\n"
     exit 1
   fi
 else
-  printf "${GREEN}  • Can not get access to sudo •${NC}\n\n"
+  printf "${GREEN}   • Can not get access to sudo •${NC}\n\n"
   exit 1
 fi
 
@@ -143,8 +143,8 @@ if [ -z $UPDATE ]; then
     fi
 
     if [[ "$instchkupdatecmd" != 0 ]]; then
-      printf "\n${RED}  *** Please update your system before runng this installer ***${NC}\n"
-      printf "\n${RED}  *** You have $instchkupdatecmd update available ***${NC}\n\n\n\n"
+      printf "\n${RED}   *** Please update your system before runng this installer ***${NC}\n"
+      printf "\n${RED}   *** You have $instchkupdatecmd update available ***${NC}\n\n\n\n"
       exit 1
     fi
   fi
@@ -156,11 +156,11 @@ fi
 
 wait_time=10 # seconds
 temp_cnt=${wait_time}
-printf "\n\n\n${GREEN}  *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
-printf "${YELLOW}  *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n\n"
+printf "\n\n\n${GREEN}   *** ${RED}•${GREEN} Welcome to my dotfiles Installer for linux ${RED}•${GREEN} ***${NC}\n"
+printf "${YELLOW}   *** • Your Distro is $distroname and is based on $DISTRO • ***${NC}\n\n\n"
 
 while [[ ${temp_cnt} -gt 0 ]]; do
-  printf "\r  ${GREEN}*** ${RED}•${GREEN} You have %2d second(s) remaining to hit Ctrl+C to cancel ${RED}•${GREEN} ***" ${temp_cnt}
+  printf "\r${GREEN}   *** ${RED}•${GREEN} You have %2d second(s) remaining to hit Ctrl+C to cancel ${RED}•${GREEN} ***" ${temp_cnt}
   sleep 1
   ((temp_cnt--))
 done
@@ -169,9 +169,9 @@ printf "${NC}\n\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ##### for when I'm forgetful
-if [ -z $dotfilesDirectory ]; then printf "\n${RED}  *** dotfiles directory not specified ***${NC}\n"; fi
-if [ -z $srcdir ]; then printf "\n${RED}  *** dotfiles src directory not specified ***${NC}\n"; fi
-if [ -z $linuxosdir ]; then printf "\n${RED}  *** dotfiles linuxos directory not specified ***${NC}\n"; fi
+if [ -z $dotfilesDirectory ]; then printf "\n${RED}   *** dotfiles directory not specified ***${NC}\n"; fi
+if [ -z $srcdir ]; then printf "\n${RED}   *** dotfiles src directory not specified ***${NC}\n"; fi
+if [ -z $linuxosdir ]; then printf "\n${RED}   *** dotfiles linuxos directory not specified ***${NC}\n"; fi
 #####
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -192,9 +192,9 @@ JGMENU=$(command -v jgmenu 2>/dev/null)
 # no sudo can't continue
 if ! (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   if [[ -z "$SUDU" ]] && [[ -z "$UPDATE" ]]; then
-    printf "\n${GREEN} *** ${RED}•${GREEN} UPDATE=yes bash -c "$(curl -LsS https://$GITREPO/raw/master/src/os/setup.sh)" ${RED}•${GREEN} ***${NC}\n"
-    printf "\n${GREEN}  *** ${RED}•${GREEN} to install just the dotfiles ${RED}•${GREEN} ***${NC}\n"
-    printf "\n${RED}  *** ${RED}•${GREEN} No sudo or root privileges ${RED}•${GREEN} ***${NC}\n\n"
+    printf "\n${GREEN}   *** ${RED}•${GREEN} UPDATE=yes bash -c "$(curl -LsS https://$GITREPO/raw/master/src/os/setup.sh)" ${RED}•${GREEN} ***${NC}\n"
+    printf "\n${GREEN}   *** ${RED}•${GREEN} to install just the dotfiles ${RED}•${GREEN} ***${NC}\n"
+    printf "\n${RED}   *** ${RED}•${GREEN} No sudo or root privileges ${RED}•${GREEN} ***${NC}\n\n"
     exit
   fi
 fi
@@ -202,7 +202,7 @@ fi
 if [ -z "$UPDATE" ]; then
   if ! (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null && [ -z "$POLYBAR" ]; then
     printf "
-  ${RED}\n • Please run one of the following commands as root:${NC}
+  ${RED}\n   • Please run one of the following commands as root:${NC}
   ${GREEN}if running Arch you can just do${RED} su -c $srcdir/os/linux/pkgs/lists/arch.sh${NC}
   ${GREEN}if running Centos you can just do${RED} su -c $srcdir/os/linux/pkgs/lists/rhel.sh${NC}
   ${GREEN}if running Debian you can just do${RED} su -c $srcdir/os/linux/pkgs/lists/debian-sys.sh${NC}
@@ -227,13 +227,13 @@ if [[ ! "$SUDO" ]]; then MISSING="$MISSING sudo"; fi
 if [[ ! "$LSBR" ]]; then MISSING="$MISSING $LSBPAC"; fi
 
 if [ -z "$LSBR" ] || [ -z "$GIT" ] || [ -z "$CURL" ] || [ -z "$WGET" ] || [ -z "$VIM" ] || [ -z "$TMUX" ] || [ -z "$ZSH" ] || [ -z "$FISH" ] || [ -z "$SUDO" ]; then
-  printf "${RED}  *** • The following are needed: • ***${NC}\n"
-  printf "${RED}  *** • ${MISSING} • ***${NC}\n"
+  printf "${RED}   *** • The following are needed: • ***${NC}\n"
+  printf "${RED}   *** • ${MISSING} • ***${NC}\n"
   if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
     execute "sudo $pkgmgr $instoption ${MISSING}" "  *** • Attempting to install the missing package[s] • ***"
   else
-    printf "${RED}  *** • I can't get root access You will have to manually install the missing programs • ***${NC}\n"
-    printf "${RED}  *** • ${MISSING} • ***${NC}\n\n\n"
+    printf "${RED}   *** • I can't get root access You will have to manually install the missing programs • ***${NC}\n"
+    printf "${RED}   *** • ${MISSING} • ***${NC}\n\n\n"
     exit
   fi
 fi
@@ -247,14 +247,14 @@ CURDOTFVERSION="$(echo $(curl -LSsq https://$GITREPO/raw/master/version.txt | gr
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Print info
 
-printf "\n${GREEN}  *** • git, curl, wget, vim, tmux, zsh, fish, sudo are present • ***${NC}\n\n"
-printf "${GREEN}  *** • Installing version $CURDOTFVERSION • ***${NC}\n\n"
+printf "\n${GREEN}   *** • git, curl, wget, vim, tmux, zsh, fish, sudo are present • ***${NC}\n\n"
+printf "${GREEN}   *** • Installing version $CURDOTFVERSION • ***${NC}\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Setup the dotfiles Directory
 
 if [ -d $dotfilesDirectory/.git ]; then
-  printf "\n${PURPLE} • Updating the git repo - $dotfilesDirectory${NC}\n"
+  printf "\n${PURPLE}   • Updating the git repo - $dotfilesDirectory${NC}\n"
   cd "$srcdir/os" && source "utils.sh"
 
   execute \
@@ -265,10 +265,10 @@ if [ -d $dotfilesDirectory/.git ]; then
   NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
   printf "${GREEN}   [✔] Updated to $NEWVERSION - revision: $REVER${NC}\n"
-  printf "${PURPLE} • Updating the git repo completed${NC}\n\n"
+  printf "${PURPLE}   • Updating the git repo completed${NC}\n\n"
 else
 
-  printf "\n${PURPLE} • Cloning the git repo - $dotfilesDirectory${NC}\n"
+  printf "\n${PURPLE}   • Cloning the git repo - $dotfilesDirectory${NC}\n"
   rm -Rf $dotfilesDirectory
   git clone --recursive -q $GITURL $dotfilesDirectory >/dev/null 2>&1
   printf "${GREEN}   [✔] cloned $GITURL  → $dotfilesDirectory \n"
@@ -276,7 +276,7 @@ else
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
   printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n"
   cd "$srcdir/os" && source "utils.sh"
-  printf "${PURPLE} • Cloning the git repo completed${NC}\n\n"
+  printf "${PURPLE}   • Cloning the git repo completed${NC}\n\n"
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -293,23 +293,23 @@ find $dotfilesDirectory/ -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
 # Check for then get root permissions
 if [ -z "$UPDATE" ] || [ "$1" = "--force" ]; then
   if (sudo true && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-    printf "\n${RED} • Getting root privileges${NC}\n"
+    printf "\n${RED}   • Getting root privileges${NC}\n"
     ask_for_sudo
-    printf "${GREEN} • Received root privileges${NC}\n\n"
+    printf "${GREEN}   • Received root privileges${NC}\n\n"
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Install Packages
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # MacOS setup
-    printf "\n${PURPLE} • Setting up for ${DISTRO} $(get_os_version) ${NC}\n"
+    printf "\n${PURPLE}   • Setting up for ${DISTRO} $(get_os_version) ${NC}\n"
     source "$linuxosdir/install_packages.sh"
-    printf "\n${PURPLE} • Done Setting up for the ${DISTRO}${NC}\n\n"
+    printf "\n${PURPLE}   • Done Setting up for the ${DISTRO}${NC}\n\n"
   fi
 fi
 ###################################################################
 
 # grab the modules
-printf "\n${PURPLE}  *** • Downloading additional configuration files • ***${NC}\n"
+printf "\n${PURPLE}   *** • Downloading additional configuration files • ***${NC}\n"
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   systemmgr_inst() {
     sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/master/install.sh)" >/dev/null 2>&1 &&
@@ -335,93 +335,93 @@ for config in bash geany git htop neofetch fish tmux terminology termite Thunar 
       "Installing $config module"
   fi
 done
-printf "${PURPLE}  *** • Downloading additional configuration files completed • ***${NC}\n\n"
+printf "${PURPLE}   *** • Downloading additional configuration files completed • ***${NC}\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Install additional system files if root
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
-  print_in_purple "\n • Installing system files\n"
+  print_in_purple "\n   • Installing system files\n"
   sudo bash -c "$linuxosdir/install_system_files.sh"
-  print_in_purple " • Installing system files completed\n\n"
+  print_in_purple "   • Installing system files completed\n\n"
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user directories
-print_in_purple "\n • Creating directories\n"
+print_in_purple "\n   • Creating directories\n"
 bash -c $linuxosdir/create_directories.sh
-print_in_purple " • Creating directories completed\n"
+print_in_purple "   • Creating directories completed\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user .local files
-print_in_purple "\n • Create local config files\n"
+print_in_purple "\n   • Create local config files\n"
 bash -c $linuxosdir/create_local_config_files.sh
-print_in_purple " • Create local config files completed\n\n"
+print_in_purple "   • Create local config files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user dotfile symlinks
-print_in_purple "\n • Backing up and creating user files\n"
+print_in_purple "\n   • Backing up and creating user files\n"
 bash -c $linuxosdir/create_symbolic_links.sh
-print_in_purple " • Create user files completed\n\n"
+print_in_purple "   • Create user files completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create user themes/fonts/icons or install to system if root
-print_in_purple "\n • Installing Customizations\n"
+print_in_purple "\n   • Installing Customizations\n"
 bash -c $linuxosdir/install_customizations.sh
-print_in_purple " • Installing Customizations completed\n\n"
+print_in_purple "   • Installing Customizations completed\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup git
 GIT=$(which git 2>/dev/null)
-if [ -z "$GIT" ]; then print_in_red "\n • The git package is not installed\n\n"; else
-  print_in_purple "\n • Installing GIT\n"
+if [ -z "$GIT" ]; then print_in_red "\n   • The git package is not installed\n\n"; else
+  print_in_purple "\n   • Installing GIT\n"
   bash -c $linuxosdir/install_git.sh
-  print_in_purple " • Installing GIT completed\n\n"
+  print_in_purple "   • Installing GIT completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup vim
 VIM=$(which vim 2>/dev/null)
-if [ -z "$VIM" ]; then print_in_red "\n • The vim package is not installed\n\n"; else
-  print_in_purple "\n • Installing vim with plugins\n"
+if [ -z "$VIM" ]; then print_in_red "\n   • The vim package is not installed\n\n"; else
+  print_in_purple "\n   • Installing vim with plugins\n"
   bash -c $linuxosdir/install_vim.sh
-  print_in_purple " • Installing vim with plugins completed\n\n"
+  print_in_purple "   • Installing vim with plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup tmux
 TMUX=$(which tmux 2>/dev/null)
-if [ -z "$TMUX" ]; then print_in_red "\n • The tmux package is not installed\n\n"; else
-  print_in_purple "\n • Installing tmux plugins\n"
+if [ -z "$TMUX" ]; then print_in_red "\n   • The tmux package is not installed\n\n"; else
+  print_in_purple "\n   • Installing tmux plugins\n"
   bash -c $linuxosdir/install_tmux.sh
-  print_in_purple " • Installing tmux plugins completed\n\n"
+  print_in_purple "   • Installing tmux plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup zsh
 ZSH=$(which zsh 2>/dev/null)
-if [ -z "$ZSH" ]; then print_in_red "\n • The zsh package is not installed\n\n"; else
-  print_in_purple "\n • Installing zsh with plugins\n"
+if [ -z "$ZSH" ]; then print_in_red "\n   • The zsh package is not installed\n\n"; else
+  print_in_purple "\n   • Installing zsh with plugins\n"
   bash -c $linuxosdir/install_ohmyzsh.sh
-  print_in_purple " • Installing zsh with plugins completed\n\n"
+  print_in_purple "   • Installing zsh with plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Create and Setup fish
 FISH=$(which fish 2>/dev/null)
-if [ -z "$FISH" ]; then print_in_red "\n • The fish package is not installed\n\n"; else
-  print_in_purple "\n • Installing fish shell and plugins\n"
+if [ -z "$FISH" ]; then print_in_red "\n   • The fish package is not installed\n\n"; else
+  print_in_purple "\n   • Installing fish shell and plugins\n"
   bash -c $linuxosdir/install_ohmyfish.sh
   print_in_purple " • Installing fish shell and plugins completed\n\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Create and Setup Visual Studio code
 CODE=$(command -v code 2>/dev/null)
-if [ -z "$CODE" ]; then print_in_red "\n • The Visual Studio code package is not installed\n\n"; else
-  print_in_purple "\n • Installing Visual Studio code and plugins\n"
+if [ -z "$CODE" ]; then print_in_red "\n   • The Visual Studio code package is not installed\n\n"; else
+  print_in_purple "\n   • Installing Visual Studio code and plugins\n"
   $linuxosdir/install_vscode.sh
-  print_in_purple " • Installing Visual Studio code shell and plugins completed\n"
+  print_in_purple "   • Installing Visual Studio code shell and plugins completed\n"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -430,22 +430,22 @@ if [ -n "$DESKTOP_SESSION" ]; then
   # Compile and Install polybar
   POLYBAR=$(which polybar 2>/dev/null)
   if [ -z $UPDATE ]; then
-    print_in_purple "\n • polybar install\n\n"
-    if [ -n "$POLYBAR" ]; then print_in_green "    •  polybar already installed\n"; else
+    print_in_purple "\n   • polybar install\n\n"
+    if [ -n "$POLYBAR" ]; then print_in_green "   •  polybar already installed\n"; else
       sudo bash -c $linuxosdir/make_polybar.sh
     fi
-    print_in_purple " • polybar install complete\n\n"
+    print_in_purple "   • polybar install complete\n\n"
   fi
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   # Compile and Install jgmenu
   JGMENU=$(which jgmenu 2>/dev/null)
   if [ -z $UPDATE ]; then
-    print_in_purple " • jgmenu install\n\n"
-    if [ ! -z "$JGMENU" ]; then print_in_green "    •  jgmenu already installed\n"; else
+    print_in_purple "   • jgmenu install\n\n"
+    if [ ! -z "$JGMENU" ]; then print_in_green "   •  jgmenu already installed\n"; else
       sudo bash -c $linuxosdir/make_jgmenu.sh
     fi
-    print_in_purple " • jgmenu install complete\n\n"
+    print_in_purple "   • jgmenu install complete\n\n"
   fi
 fi
 
@@ -453,7 +453,7 @@ fi
 
 if [ -z "$(command -v shodan 2>/dev/null)" ] || [ -z "$(command -v ytmdl 2>/dev/null)" ] || [ -z "$(command -v toot 2>/dev/null)" ] ||
   [ -z "$(command -v castero 2>/dev/null)" ] || [ -z "$(command -v rainbowstream 2>/dev/null)" ]; then
-  print_in_purple "\n • Installing terminal tools\n"
+  print_in_purple "\n   • Installing terminal tools\n"
   for PIPTOOLS in git+https://github.com/sixohsix/python-irclib shodan ytmdl toot castero rainbowstream; do
     if "(sudo -vn && sudo -ln)" 2>&1 | grep -v 'may not' >/dev/null; then
       execute \
@@ -465,15 +465,15 @@ if [ -z "$(command -v shodan 2>/dev/null)" ] || [ -z "$(command -v ytmdl 2>/dev/
         "Installing pip package: $PIPTOOLS"
     fi
   done
-  print_in_purple " • Installing terminal tools completed\n\n"
+  print_in_purple "   • Installing terminal tools completed\n\n"
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Install additional
-print_in_purple "\n • Installing additional tools\n"
+print_in_purple "\n   • Installing additional tools\n"
 [ -f "$(command -v dfmgr 2>/dev/null)" ] && execute "dfmgr install misc"
-print_in_purple " • Installing additional tools completed\n\n"
+print_in_purple "   • Installing additional tools completed\n\n"
 
 if [ -n "$DESKTOP_SESSION" ]; then
   case "$DESKTOP_SESSION" in
@@ -536,7 +536,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # run clean up
-print_in_purple "\n • Running cleanup\n"
+print_in_purple "\n   • Running cleanup\n"
 
 # remove unwanted system files
 if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
@@ -558,7 +558,7 @@ for homecleanfile in ~/.cache/yay; do
   fi
 done
 
-print_in_purple " • Running cleanup complete\n\n"
+print_in_purple "   • Running cleanup complete\n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -567,10 +567,10 @@ NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
 cp -Rf "$DOTFILES/version.txt" "$srcdir/os/version.txt"
 # End Install
 #RESULT=$?
-printf "\n${GREEN} *** 😃 installation of dotfiles completed 😃 *** ${NC}\n"
-printf "${GREEN} *** 😃 You now have version number: "$NEWVERSION" 😃 *** ${NC}\n\n"
-printf "${RED} *** For the configurations to take effect *** ${NC} \n "
-printf "${RED} *** you should logoff or reboot your system *** ${NC} \n\n\n\n "
+printf "\n${GREEN}   *** 😃 installation of dotfiles completed 😃 *** ${NC}\n"
+printf "${GREEN}   *** 😃 You now have version number: "$NEWVERSION" 😃 *** ${NC}\n\n"
+printf "${RED}   *** For the configurations to take effect *** ${NC} \n "
+printf "${RED}   *** you should logoff or reboot your system *** ${NC} \n\n\n\n "
 ##################################################################################################
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
