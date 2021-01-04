@@ -22,7 +22,7 @@ choice=""
 if [ -z "$DOTFILESDIR" ]; then
   dotfilesdir="$DOTFILESDIR"
 else
-  dotfilesdir="$HOME/.local/dotfiles/desktops"
+  dotfilesdir="$HOME/.local/dotfiles/linux"
 fi
 if [ -f $dotfilesdir/version.txt ]; then
   printf "\t$magenta" "Checking for updates"
