@@ -44,8 +44,9 @@ fi
 
 # Arch linux and derivatives setup
 if [[ "$DISTRO" = Arch ]]; then
-  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
-  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+  printf "${GREEN}   *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}   *** • Possibly 20+ Minutes.. ${NC}\n"
+  printf "${GREEN}   *** • So go have a nice cup of coffee!${NC}\n"
 
   if [[ ! -f /etc/pacman.d/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
@@ -76,9 +77,10 @@ if [[ "$DISTRO" = Arch ]]; then
   # Debian and derivatives setup - debgen.simplylinux.ch
 elif [[ "$DISTRO" = Debian ]]; then
   if [[ "$CODENAME" == "na" ]]; then CODENAME=buster; fi
-  printf "\n${PURPLE} • Setting up for $CODENAME${NC}\n\n"
-  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
-  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+  printf "\n${PURPLE}   • Setting up for $CODENAME${NC}\n\n"
+  printf "${GREEN}   *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}   *** • Possibly 20+ Minutes.. ${NC}\n"
+  printf "${GREEN}   *** • So go have a nice cup of coffee!${NC}\n"
 
   if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
@@ -149,9 +151,10 @@ elif [[ "$DISTRO" = Debian ]]; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Ubuntu and derivatives setup - repogen.simplylinux.ch
 elif [[ "$DISTRO" = Ubuntu ]]; then
-  printf "${PURPLE}\n • Setting up for $CODENAME${NC}\n"
-  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
-  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+  printf "${PURPLE}\n   • Setting up for $CODENAME${NC}\n"
+  printf "${GREEN}   *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}   *** • Possibly 20+ Minutes.. ${NC}\n"
+  printf "${GREEN}   *** • So go have a nice cup of coffee!${NC}\n"
 
   if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
@@ -178,9 +181,10 @@ elif [[ "$DISTRO" = Ubuntu ]]; then
   # Raspbian
 
 elif [[ "$DISTRO" = Raspbian ]]; then
-  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n"
-  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
-  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+  printf "${PURPLE}\n   • Setting up for $DISTRO${NC}\n"
+  printf "${GREEN}   *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}   *** • Possibly 20+ Minutes.. ${NC}\n"
+  printf "${GREEN}   *** • So go have a nice cup of coffee!${NC}\n"
 
   if [[ ! -f /etc/apt/.srcinstall ]] || [ "$1" = "--force" ]; then
     execute \
@@ -202,9 +206,9 @@ elif [[ "$DISTRO" = Raspbian ]]; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   #Redhat and derivatives setup
 elif [[ "$DISTRO" = RHEL ]]; then
-  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n"
-  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
-  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+  printf "${PURPLE}\n   • Setting up for $DISTRO${NC}\n"
+  printf "${GREEN}   *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}   *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
 
   ELRELEASE="$(rpm -q --whatprovides redhat-release --queryformat "%{VERSION}\n" | sed 's/\/.*//' | sed 's/\..*//' | sed 's/Server*//')"
 
@@ -220,9 +224,10 @@ elif [[ "$DISTRO" = RHEL ]]; then
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Fedora and derivatives
 elif [[ "$DISTRO" = Fedora ]]; then
-  printf "${PURPLE}\n • Setting up for $DISTRO${NC}\n"
-  printf "${GREEN}  *** • This May take awhile please be patient...${NC}\n"
-  printf "${GREEN}  *** • Possibly 20+ Minutes.. So go have a nice cup of coffee!${NC}\n"
+  printf "${PURPLE}\n   • Setting up for $DISTRO${NC}\n"
+  printf "${GREEN}   *** • This May take awhile please be patient...${NC}\n"
+  printf "${GREEN}   *** • Possibly 20+ Minutes.. ${NC}\n"
+  printf "${GREEN}   *** • So go have a nice cup of coffee!${NC}\n"
 
   execute \
     "sudo sudo cp -Rf $linuxosdir/pkgs/repos/fedora/* /etc/yum.repos.d/ && \
