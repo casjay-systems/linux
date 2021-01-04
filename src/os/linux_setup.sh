@@ -473,8 +473,8 @@ fi
 # Update configs
 print_in_purple "\n   • Update configs\n"
 if [ -f "$(command -v dfmgr 2>/dev/null)" ]; then
-  for confsetup in $(ls $srcdir/config/*); do
-    if [ -f "$confsetup/install.sh" ]; then
+  for confsetup in "$(ls -d $srcdir/config/*)"; do
+    if [ -f "$confsetup/install.sh" ] && [ ! -f "$confsetup/.installed" ]; then
       execute "$confsetup/install.sh"
     fi
   done
