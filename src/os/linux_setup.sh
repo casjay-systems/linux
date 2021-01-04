@@ -253,7 +253,7 @@ printf "${GREEN}   *** • Installing version $CURDOTFVERSION • ***${NC}\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Setup the dotfiles Directory
 
-if [ -d $dotfilesDirectory/.git ]; then
+if [ -d "$dotfilesDirectory/.git" ]; then
   printf "\n${PURPLE}   • Updating the git repo - $dotfilesDirectory${NC}\n"
   cd "$srcdir/os" && source "utils.sh"
 
