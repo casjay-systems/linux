@@ -326,12 +326,13 @@ fi
 for config in bash geany git htop neofetch fish tmux terminology termite Thunar transmission variety vifm vim zsh; do
   if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
     execute \
-      "git -C $dotfilesDirectory/src/config/$config pull -q" \
+      "git -C $dotfilesDirectory/src/config/$config reset --hard -q && \
+      git -C $dotfilesDirectory/src/config/$config pull -q" \
       "Updating $config module"
   else
     rm -Rf "$dotfilesDirectory/src/config/$config"
     execute \
-      "git clone -q https://github.com/casjay-dotfiles/$config $dotfilesDirectory/src/config/$config" \
+      "git clone -q https://github.com/dfmgr/$config $dotfilesDirectory/src/config/$config" \
       "Installing $config module"
   fi
 done
