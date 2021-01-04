@@ -18,7 +18,7 @@ NTPSERVER="0.casjay.pool.ntp.org"
 DOTTEMP="/tmp/dotfiles-desktop-$USER"
 # Default dotfiles dir
 # Set primary dir - not used
-DOTFILES="$HOME/.local/dotfiles/desktop"
+DOTFILES="$HOME/.local/dotfiles/linux"
 
 SUDO_PROMPT="$(printf "\033[1;36m")   • [sudo]$(printf "\033[0m") password for %p: "
 
