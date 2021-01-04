@@ -470,10 +470,18 @@ if [ -z "$(command -v shodan 2>/dev/null)" ] || [ -z "$(command -v ytmdl 2>/dev/
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Update configs
+print_in_purple "\n   • Update configs\n"
+if [ -f "$(command -v dfmgr 2>/dev/null)" ]; then
+  execute "dfmgr update"
+fi
+print_in_purple "   • Update configs completed\n\n"
 
 # Install additional
 print_in_purple "\n   • Installing additional tools\n"
-[ -f "$(command -v dfmgr 2>/dev/null)" ] && execute "dfmgr install misc"
+if [ -f "$(command -v dfmgr 2>/dev/null)" ]; then
+  execute "dfmgr install misc"
+fi
 print_in_purple "   • Installing additional tools completed\n\n"
 
 if [ -n "$DESKTOP_SESSION" ]; then
