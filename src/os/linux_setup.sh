@@ -472,13 +472,12 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Update configs
 print_in_purple "\n   • Update configs\n"
-if [ -f "$(command -v dfmgr 2>/dev/null)" ]; then
-  for confsetup in "$(ls -d $srcdir/config/*)"; do
-    if [ -f "$confsetup/install.sh" ] && [ ! -f "$confsetup/.installed" ]; then
-      execute "$confsetup/install.sh"
-    fi
-  done
-fi
+for confsetup in $(ls -d $srcdir/config/*); do
+  if [ -f "$confsetup/install.sh" ] && [ ! -f "$confsetup/.installed" ]; then
+    execute "$confsetup/install.sh" "Finalizing $confsetup setup"
+  fi
+done
+
 print_in_purple "   • Update configs completed\n\n"
 
 # Install additional
