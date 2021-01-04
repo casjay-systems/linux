@@ -97,10 +97,11 @@ declare -a PLUGINS_TO_INSTALL=(
   "yzhang.markdown-all-in-one"
   "ZainChen.json"
 )
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_code() {
-  execute "pkmgr install visual-studio-code" "Install Visual Studio code"
+  execute "brew install --cask -f visual-studio-code" "Install Visual Studio code"
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -117,9 +118,9 @@ install_plugins() {
 
 install_settings() {
   mkdir -p "$HOME/.config/Code/User"
-  declare -r FILE_PATH="$HOME/.config/Code/User/settings.json"
-  declare -r CONFIGS='
-{
+  declare FILE_PATH="$HOME/.config/Code/User"
+  cat <<EOF >"$FILE_PATH"
+  {
   "sync.gist": "",
   "bracketPairColorizer.colorMode": "Independent",
   "editor.cursorSmoothCaretAnimation": true,
@@ -302,7 +303,7 @@ install_settings() {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
-'
+EOF
   #
   if [ -f "$FILE_PATH" ]; then
     isInFile=$(cat "$FILE_PATH" | grep -c "shellcheck.exclude")
@@ -322,6 +323,7 @@ main() {
 
   install_code
   install_plugins
+  install_settings
 
 }
 
