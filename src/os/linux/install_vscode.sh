@@ -118,7 +118,7 @@ install_plugins() {
 }
 
 install_settings() {
-  mkdir -p "$HOME/.config/Code/User/settings.json"
+  mkdir -p "$HOME/.config/Code/User/settings"
   declare FILE_PATH="$HOME/.config/Code/User/settings.json"
   cat <<EOF >"$FILE_PATH"
   {
