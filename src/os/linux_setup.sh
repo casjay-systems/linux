@@ -323,7 +323,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
   fi
 fi
 
-for config in bash geany git htop neofetch fish tmux terminology termite Thunar transmission variety vifm vim zsh; do
+for config in bash geany git htop neofetch fish tmux terminology Thunar transmission variety vifm vim zsh; do
   if [ -d "$dotfilesDirectory/src/config/$config/.git" ]; then
     execute \
       "git -C $dotfilesDirectory/src/config/$config reset --hard -q && \
