@@ -101,7 +101,7 @@ declare -a PLUGINS_TO_INSTALL=(
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_code() {
-  execute "brew install --cask -f visual-studio-code" "Install Visual Studio code"
+  execute "pkmgr silent-install visual-studio-code" "Install Visual Studio code"
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
