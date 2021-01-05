@@ -116,7 +116,7 @@ install_plugins() {
   }
 
   if [ -n "$PLUGINS_TO_INSTALL" ]; then
-    execute "installcmd ${PLUGINS_TO_INSTALL[@]}" "Setting up plugins"
+    execute "installcmd ${PLUGINS_TO_INSTALL[*]}" "Setting up plugins"
     unset PLUGINS_TO_INSTALL
   fi
 }
