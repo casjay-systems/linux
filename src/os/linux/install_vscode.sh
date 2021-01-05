@@ -127,7 +127,9 @@ install_settings() {
   cat <<EOF >"$FILE_PATH"
   {
   "sync.gist": "",
-  "bracketPairColorizer.colorMode": "Independent",
+  "bracket-pair-colorizer-2.colorMode": "Independent",
+  "bracket-pair-colorizer-2.forceUniqueOpeningColor": true,
+  "bracket-pair-colorizer-2.showBracketsInGutter": true,
   "editor.cursorSmoothCaretAnimation": true,
   "editor.fontFamily": "Hack Nerd Font, Fira Code, Consolas, 'Courier New', monospace",
   "editor.fontLigatures": true,
@@ -258,8 +260,6 @@ install_settings() {
     "MD041": false
   },
   "better-comments.highlightPlainText": true,
-  "bracketPairColorizer.forceUniqueOpeningColor": true,
-  "bracketPairColorizer.showBracketsInGutter": true,
   "cSpell.customUserDictionaries": [],
   "enableTelemetry": true,
   "terminal.integrated.shell.linux": "/bin/bash",
@@ -308,6 +308,7 @@ install_settings() {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
+
 EOF
   #
   if [ -f "$FILE_PATH" ]; then
