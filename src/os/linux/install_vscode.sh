@@ -107,11 +107,18 @@ install_code() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_plugins() {
-  local i=""
-  for i in "${PLUGINS_TO_INSTALL[@]}"; do
+  installcmd() {
+    local i=""
     local name="$(echo $i | sed 's/^[^.]*.//g')"
-    execute "code --install-extension $i --force" "Installing $name"
-  done
+    for i in "${@}"; do
+      execute "code --install-extension $i --force" "Setting up ${name}"
+    done
+  }
+
+  if [ -n "$PLUGINS_TO_INSTALL" ]; then
+    execute "installcmd ${PLUGINS_TO_INSTALL[@]}" "Setting up plugins"
+    unset PLUGINS_TO_INSTALL
+  fi
 }
 
 install_settings() {
