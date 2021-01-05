@@ -107,14 +107,10 @@ install_code() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 install_plugins() {
-  setup() {
-    local ARRAY="$@"
-    local i=""
-    for i in "${ARRAY[@]}"; do
-      code --install-extension "$i" --force
-    done
-  }
-  execute "setup $PLUGINS_TO_INSTALL" "Installing plugins"
+  local i=""
+  for i in ${PLUGINS_TO_INSTALL}; do
+    code --install-extension "$i" --force
+  done
 }
 
 install_settings() {
