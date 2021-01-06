@@ -4,7 +4,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")" &&
   . "../utils.sh"
 
 srcdir="$(cd .. && pwd)"
-backups="$HOME/.config/dotfiles/backups"
+backups="${backupsdir:-$HOME/.local/backups/dotfiles/desktop}"
 mkdir -p "$backups/configs"
 mkdir -p "$backups/home"
 
