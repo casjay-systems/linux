@@ -25,7 +25,9 @@ SUDO_PROMPT="$(printf "\033[1;36m")   • [sudo]$(printf "\033[0m") password for
 dotfilesDirectory="$DOTFILES"
 srcdir="$dotfilesDirectory/src"
 linuxosdir="$srcdir/os/linux"
-export DOTFILES DOTTEMP dotfilesDirectory srcdir linuxosdir SUDO_PROMPT
+backupsdir="$HOME/.local/backups/dotfiles/linux"
+
+export DOTFILES DOTTEMP dotfilesDirectory srcdir linuxosdir backupsdir SUDO_PROMPT
 
 ##################################################################################################
 
