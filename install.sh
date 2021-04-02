@@ -7,7 +7,7 @@ OS="$(uname)"
 case $OS in
 'Linux')
   OS='Linux'
-  if [ -z $UPDATE ]; then
+  if [ -z "$UPDATE" ]; then
     echo "Detected os is $OS"
     echo "Running the installer" && sleep 3 && bash -c "$(curl -LsS https://github.com/casjay-systems/linux/raw/master/src/os/linux_setup.sh)"
   else
@@ -17,7 +17,7 @@ case $OS in
   ;;
 'Darwin')
   OS='Mac'
-  if [ -z $UPDATE ]; then
+  if [ -z "$UPDATE" ]; then
     echo "Detected os is $OS"
     echo "Running the installer" && sleep 3 && bash -c "$(curl -LsS https://github.com/casjay-systems/macos/raw/master/src/os/mac_setup.sh)"
   else

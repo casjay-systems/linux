@@ -1,5 +1,27 @@
 #!/usr/bin/env bash
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+APPNAME="$(basename "$0")"
+VERSION="031220211542-git"
+USER="${SUDO_USER:-${USER}}"
+HOME="${USER_HOME:-${HOME}}"
+SRC_DIR="${BASH_SOURCE%/*}"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#set opts
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version       : 031220211542-git
+# @Author        : Jason Hempstead
+# @Contact       : jason@casjaysdev.com
+# @License       : LICENSE.md
+# @ReadME        : template --help
+# @Copyright     : Copyright: (c) 2021 Jason Hempstead, CasjaysDev
+# @Created       : Friday, Apr 02, 2021 13:11 EDT
+# @File          : template
+# @Description   : Linux setup script
+# @TODO          : Refactor the code
+# @Other         :
+# @Resource      :
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/sbin:/usr/sbin:/sbin
 
 #Modify and set if using the auth token
@@ -244,7 +266,7 @@ fi
 
 # Set version from git
 
-CURDOTFVERSION="$(echo $(curl -LSsq https://$GITREPO/raw/master/version.txt | grep -v "#" | head))"
+CURDOTFVERSION="$(curl -LSsq "https://$GITREPO/raw/master/version.txt" | grep -v "#" | head)"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Print info
@@ -264,7 +286,7 @@ if [ -d "$dotfilesDirectory/.git" ]; then
     git -C $dotfilesDirectory pull --recurse-submodules -q" \
     "Updating dotfiles"
 
-  NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
+  NEWVERSION="$(cat "$DOTFILES/version.txt" | tail -n 1)"
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
   printf "${GREEN}   [✔] Updated to $NEWVERSION - revision: $REVER${NC}\n"
   printf "${PURPLE}   • Updating the git repo completed${NC}\n\n"
@@ -274,7 +296,7 @@ else
   rm -Rf $dotfilesDirectory
   git clone --recursive -q $GITURL $dotfilesDirectory >/dev/null 2>&1
   printf "${GREEN}   [✔] cloned $GITURL  → $dotfilesDirectory \n"
-  NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
+  NEWVERSION="$(cat "$DOTFILES/version.txt" | tail -n 1)"
   REVER="$(cd $dotfilesDirectory && git rev-parse --short HEAD)"
   printf "${GREEN}   [✔] downloaded version $NEWVERSION - revision: $REVER${NC}\n"
   cd "$srcdir/os" && source "utils.sh"
@@ -288,7 +310,7 @@ mkdir -p ~/.gnupg ~/.ssh 2>/dev/null
 find "$HOME" -xtype l -delete 2>/dev/null
 find ~/.gnupg ~/.ssh -type f -exec chmod 600 {} \; 2>/dev/null
 find ~/.gnupg ~/.ssh -type d -exec chmod 700 {} \; 2>/dev/null
-find $dotfilesDirectory/ -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
+find "$dotfilesDirectory/" -iname "*.sh" -exec chmod 755 {} \; 2>/dev/null
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -507,7 +529,7 @@ fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Go home
-cd $HOME
+cd "$HOME" || false
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -564,7 +586,7 @@ if (sudo -vn && sudo -ln) 2>&1 | grep -v 'may not' >/dev/null; then
 fi
 
 # remove unwanted user temp files
-for homecleanfile in ~/.cache/yay; do
+for homecleanfile in "$HOME/.cache/yay"/*; do
   if [ -e "$homecleanfile" ]; then
     execute \
       "rm -Rf $homecleanfile 2>/dev/null" \
@@ -577,7 +599,7 @@ print_in_purple "   • Running cleanup complete\n\n"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # Print installed version
-NEWVERSION="$(echo $(cat $DOTFILES/version.txt | tail -n 1))"
+NEWVERSION="$(cat "$DOTFILES/version.txt" | tail -n 1)"
 cp -Rf "$DOTFILES/version.txt" "$srcdir/os/version.txt"
 # End Install
 #RESULT=$?
