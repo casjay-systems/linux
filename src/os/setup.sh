@@ -9,25 +9,25 @@ case $OS in
     OS='Linux'
     if [ -z $UPDATE ]; then
     echo "Detected os is $OS"
-    echo "Running the installer" && sleep 3 && bash -c "$(curl -LsS https://github.com/casjay-systems/linux/raw/master/src/os/linux_setup.sh)"
+    echo "Running the installer" && sleep 3 && bash -c "$(curl -LsS https://github.com/casjay-systems/linux/raw/main/src/os/linux_setup.sh)"
     else
     echo "Detected os is $OS"
-    echo "Running the Updater" && sleep 3 && UPDATE=yes bash -c "$(curl -LsS https://github.com/casjay-systems/linux/raw/master/src/os/linux_setup.sh)"
+    echo "Running the Updater" && sleep 3 && UPDATE=yes bash -c "$(curl -LsS https://github.com/casjay-systems/linux/raw/main/src/os/linux_setup.sh)"
     fi
     ;;
   'Darwin')
     OS='Mac'
     if [ -z $UPDATE ]; then
     echo "Detected os is $OS"
-    echo "Running the installer" && sleep 3 && bash -c "$(curl -LsS https://github.com/casjay-systems/macos/raw/master/src/os/mac_setup.sh)"
+    echo "Running the installer" && sleep 3 && bash -c "$(curl -LsS https://github.com/casjay-systems/macos/raw/main/src/os/mac_setup.sh)"
     else
     echo "Detected os is $OS"
-    echo "Running the Updater" && sleep 3 && UPDATE=yes bash -c "$(curl -LsS https://github.com/casjay-systems/macos/raw/master/src/os/mac_setup.sh)"
+    echo "Running the Updater" && sleep 3 && UPDATE=yes bash -c "$(curl -LsS https://github.com/casjay-systems/macos/raw/main/src/os/mac_setup.sh)"
     fi
     ;;
   'WindowsNT')
     OS='Windows'
-    powershell.exe -Command Invoke-WebRequest https://github.com/casjay-systems/windows/raw/master/install.cmd -o  %USERPROFILE%\Downloads\install.cmd
+    powershell.exe -Command Invoke-WebRequest https://github.com/casjay-systems/windows/raw/main/install.cmd -o  %USERPROFILE%\Downloads\install.cmd
     %USERPROFILE%\Downloads\install.cmd
     ;;
   'FreeBSD')

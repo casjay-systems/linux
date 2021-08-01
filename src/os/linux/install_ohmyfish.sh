@@ -31,7 +31,7 @@ setup_ohmyfish() {
         "Updating oh-my-fish"
     else
       if [ ! -d "$HOME/.local/share/omf" ]; then
-        curl -LSs https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install >"$srcdir/config/fish/omf-install"
+        curl -LSs https://github.com/oh-my-fish/oh-my-fish/raw/main/bin/install >"$srcdir/config/fish/omf-install"
         execute \
           "fish $srcdir/config/fish/omf-install --noninteractive --yes" \
           "Installing oh-my-fish"
