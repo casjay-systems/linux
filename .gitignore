@@ -3,3 +3,5 @@ ignoredirmessage
 
 src/vim/vim/bundle/*
 src/tmux/tmux/*/*
+# ignore commit message
+.gitcommit
