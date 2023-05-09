@@ -17,7 +17,6 @@ mkdir -p "$HOME/.local/tmp"
 mkdir -p "$HOME/.config/todo"
 mkdir -p "$HOME/.config/cheatsh"
 mkdir -p "$HOME/.local/share/rvm"
-mkdir -p "$HOME/.local/share/gem/bin"
 mkdir -p "$HOME/.local/share/nodejs/fnm"
 mkdir -p "$HOME/.local/share/nodejs/nvm"
 mkdir -p "$HOME/.local/share/wallpapers"
@@ -249,12 +248,6 @@ elif [ -n "$(command -v banner 2>/dev/null)" ]; then
 else
   export BANNER="echo -e"
 fi
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Setup ruby
-export GEM_HOME="$HOME/.local/share/gem"
-export GEM_PATH="$HOME/.local/share/gem"
-export PATH="$GEM_HOME/bin:$PATH"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Ruby Version Manager
