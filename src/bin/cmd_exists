@@ -5,7 +5,7 @@ USER="${SUDO_USER:-${USER}}"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # @Author      : Jason
-# @Contact     : casjaysdev@casjay.net
+# @Contact     : casjaysdev@casjay.pro
 # @File        : cmd_exists
 # @Created     : Mon, Dec 31, 2019, 00:00 EST
 # @License     : WTFPL
